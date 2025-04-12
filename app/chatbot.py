@@ -1,29 +1,27 @@
 # app/chatbot.py
 
-from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
+from config import MODEL_NAME  # Use config to define MODEL_NAME
 
-# Load model and tokenizer once during startup
-model_name = "OpenAssistant/oasst-sft-1-pythia-12b"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
-generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
+# Load model and tokenizer (FLAN-T5 Small is very lightweight)
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
+generator = pipeline("text2text-generation", model=model, tokenizer=tokenizer)
 
 def generate_response(user_input, user_context, retrieved_docs):
     """
-    Construct a custom prompt with empathy + retrieved info + context.
+    Generate an empathetic response using FLAN-T5.
     """
     context_str = f"Name: {user_context.get('name')}, Age: {user_context.get('age')}, Mood: {user_context.get('mood')}, Goal: {user_context.get('goal')}"
     docs_str = "\n".join(retrieved_docs)
 
     prompt = (
-        f"You are a friendly and empathetic chatbot.\n"
-        f"User Context: {context_str}\n"
-        f"Relevant Information:\n{docs_str}\n\n"
-        f"User: {user_input}\n"
-        f"Zoe:"
+        f"Act as a friendly, empathetic chatbot named Zoe.\n"
+        f"User Info: {context_str}\n"
+        f"Helpful Info: {docs_str}\n"
+        f"User said: {user_input}\n"
+        f"How would Zoe respond?"
     )
 
-    result = generator(prompt, max_length=256, do_sample=True, top_k=50, top_p=0.95)
-    response = result[0]["generated_text"].split("Zoe:")[-1].strip()
-
-    return response
+    result = generator(prompt, max_length=128)[0]['generated_text']
+    return result.strip()

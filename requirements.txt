@@ -1,6 +1,7 @@
 transformers
 torch
-langchain
-langchain-community
-openai
-grandalf
+flask
+flask-cors
+sentence-transformers
+faiss-cpu
+numpy
