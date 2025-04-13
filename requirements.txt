@@ -1,7 +1,0 @@
-transformers
-torch
-flask
-flask-cors
-sentence-transformers
-faiss-cpu
-numpy
