@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: empathetic-chatbot-api
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    envVars:
+      - key: HF_MODEL
+        value: facebook/blenderbot-400M-distill
