@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv   
+openai
+langchain-community
+langchain-core
+pandas
+numpy
+langchain-openai
+langchain-chroma
