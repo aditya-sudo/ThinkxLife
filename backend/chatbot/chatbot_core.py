@@ -20,7 +20,7 @@ embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
 CHROMA_DB_DIR = os.getenv("CHROMA_DB_DIR", "chroma_db")
 try:
     vectorstore = Chroma(persist_directory=CHROMA_DB_DIR, embedding_function=embeddings)
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
 except Exception as e:
     print(f"Warning: Could not load Chroma DB from {CHROMA_DB_DIR}: {e}")
     class DummyRetriever:
@@ -54,12 +54,14 @@ def generate_response(message: str, history: list) -> str:
     """
     # System prompt guiding empathy and RAG use
     system_prompt = {
-        "role": "system",
-        "content": (
-            "You are Zoe, an empathetic AI assistant providing trauma-informed support. "
-            "Answer the user’s questions by grounding your response in the provided context documents when relevant."
-        )
+    "role": "system",
+    "content": (
+        "You are Zoe, an empathetic AI assistant of Think Round, Inc., providing trauma-informed support. "
+        "You generate responses solely within the scope of Think Round’s mission and interests. "
+        "Answer the user’s questions by grounding your response in the provided context documents when relevant."
+    )
     }
+
 
     # Retrieve relevant docs
     docs = retriever.get_relevant_documents(message)

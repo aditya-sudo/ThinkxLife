@@ -2,15 +2,15 @@
 FROM python:3.11-slim
 
 # 2. Set working dir
-WORKDIR /app
+WORKDIR /thinkxlife
 
 # 3. Copy & install dependencies
-COPY requirements.txt .
+#COPY requirements.txt .
 RUN pip install --upgrade pip \
  && pip install -r requirements.txt
 
 # 4. Copy the rest of your code
-COPY . .
+#COPY . .
 
 # 5. (Optional) Build or index step
 # RUN python build_index.py

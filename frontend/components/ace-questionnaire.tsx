@@ -8,16 +8,16 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 
 const ACE_QUESTIONS = [
-  "Did a parent or other adult in the household often swear at you, insult you, put you down, or humiliate you?",
-  "Did a parent or other adult in the household often push, grab, slap, or throw something at you?",
-  "Did an adult or person at least 5 years older ever touch, fondle, or have you touch them in a sexual way?",
-  "Did you often feel that no one in your family loved you or thought you were important or special?",
-  "Did you often feel that you didn't have enough to eat, had to wear dirty clothes, or had no one to protect you?",
-  "Were your parents ever separated, divorced, or did a biological parent leave you for another reason?",
-  "Was your mother or stepmother often pushed, grabbed, slapped, or had something thrown at her?",
-  "Did you live with anyone who was a problem drinker, alcoholic, or who used street drugs?",
-  "Was a household member depressed, mentally ill, or did they ever attempt suicide?",
-  "Did a household member go to jail or prison?",
+  "Before 18 years old, Did a parent or other adult in the household often swear at you, insult you, put you down, or humiliate you?",
+  "Before 18 years old, Did a parent or other adult in the household often push, grab, slap, or throw something at you?",
+  "Before 18 years old, Did an adult or person at least 5 years older ever touch, fondle, or have you touch them in a sexual way?",
+  "Before 18 years old, Did you often feel that no one in your family loved you or thought you were important or special?",
+  "Before 18 years old, Did you often feel that you didn't have enough to eat, had to wear dirty clothes, or had no one to protect you?",
+  "Before 18 years old, Were your parents ever separated, divorced, or did a biological parent leave you for another reason?",
+  "Before 18 years old, Was your mother or stepmother often pushed, grabbed, slapped, or had something thrown at her?",
+  "Before 18 years old, Did you live with anyone who was a problem drinker, alcoholic, or who used street drugs?",
+  "Before 18 years old, Was a household member depressed, mentally ill, or did they ever attempt suicide?",
+  "Before 18 years old, Did a household member go to jail or prison?",
 ]
 
 type Answer = "yes" | "no" | "skip" | null

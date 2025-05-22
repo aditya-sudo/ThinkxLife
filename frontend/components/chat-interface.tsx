@@ -18,36 +18,34 @@ type ChatInterfaceProps = {
 
 export default function ChatInterface({ initialMessage }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "welcome",
-      content: initialMessage,
-      sender: "bot",
-      timestamp: new Date(),
-    },
+    { id: "welcome", content: initialMessage, sender: "bot", timestamp: new Date() },
   ])
-  const [input, setInput] = useState("")
+  const [input, setInput] = useState<string>("")
   const [history, setHistory] = useState<{ role: "user" | "assistant"; content: string }[]>([])
-  const [loading, setLoading] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  // Auto-scroll to bottom of messages
+  // Auto-scroll messages container to bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    const container = containerRef.current
+    if (container) {
+      container.scrollTop = container.scrollHeight
+    }
   }, [messages])
 
   const handleSendMessage = async () => {
     if (!input.trim() || loading) return
 
-    // Display the user's message immediately
+    // Display user's message immediately
     const userMsg: Message = {
       id: Date.now().toString(),
       content: input,
       sender: "user",
       timestamp: new Date(),
     }
-    setMessages((prev) => [...prev, userMsg])
+    setMessages(prev => [...prev, userMsg])
 
-    // Clear the input immediately to reduce perceived latency
+    // Clear input and set loading
     setInput("")
     setLoading(true)
 
@@ -63,23 +61,23 @@ export default function ChatInterface({ initialMessage }: ChatInterfaceProps) {
         return
       }
 
-      const data = (await res.json()) as { response: string }
+      const { response } = (await res.json()) as { response: string }
 
       // Update history
-      setHistory((h) => [
+      setHistory(h => [
         ...h,
         { role: "user", content: userMsg.content },
-        { role: "assistant", content: data.response },
+        { role: "assistant", content: response },
       ])
 
-      // Display Zoe's reply
+      // Display bot reply
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
-        content: data.response,
+        content: response,
         sender: "bot",
         timestamp: new Date(),
       }
-      setMessages((prev) => [...prev, botMsg])
+      setMessages(prev => [...prev, botMsg])
     } catch (err) {
       console.error("Chat API error:", err)
     } finally {
@@ -88,52 +86,63 @@ export default function ChatInterface({ initialMessage }: ChatInterfaceProps) {
   }
 
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-xl flex flex-col h-[70vh]">
+    <div className="flex flex-col bg-white rounded-xl shadow-xl h-[70vh] overflow-hidden">
+      {/* Header */}
       <div className="bg-purple-700 p-4 border-b border-purple-600 text-white">
         <h2 className="text-xl font-semibold">Chat with Zoe</h2>
-        <p className="text-purple-100 text-sm">Your AI companion for emotional support</p>
+        <p className="text-sm text-purple-100">Your AI companion for emotional support</p>
       </div>
 
-      <div className="flex-grow overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
-          <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
-            <div
-              className={`max-w-[80%] rounded-lg p-3 ${
-                message.sender === "user" ? "bg-purple-100 text-gray-800" : "bg-gray-100 text-gray-800"
-              }`}>
+      {/* Messages container */}
+      <div
+        ref={containerRef}
+        className="flex-grow overflow-y-auto p-4 space-y-4"
+      >
+        {messages.map(msg => (
+          <div key={msg.id} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+            <div className={`max-w-[80%] p-3 rounded-lg ${msg.sender === "user" ? "bg-purple-100 text-gray-800" : "bg-gray-100 text-gray-800"}`}>
               <div className="flex items-center mb-1">
-                {message.sender === "user" ? (
-                  <> <span className="font-medium mr-2">You</span><User size={14} className="text-purple-700" /> </>
+                {msg.sender === "user" ? (
+                  <><span className="font-medium mr-2">You</span><User size={14} className="text-purple-700" /></>
                 ) : (
-                  <> <span className="font-medium mr-2">Zoe</span><Bot size={14} className="text-purple-700" /> </>
+                  <><span className="font-medium mr-2">Zoe</span><Bot size={14} className="text-purple-700" /></>
                 )}
               </div>
-              <p className="whitespace-pre-wrap">{message.content}</p>
-              <p className="text-xs opacity-70 mt-1">
-                {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+              <p className="whitespace-pre-wrap">{msg.content}</p>
+              <p className="mt-1 text-xs text-gray-500">
+                {msg.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
               </p>
             </div>
           </div>
         ))}
-        <div ref={messagesEndRef} />
+        {/* Typing indicator replaced with text */}
+        {loading && (
+          <div className="flex justify-start">
+            <div className="max-w-[60%] p-3 rounded-lg bg-gray-100 text-gray-800 italic">
+              Thinking...
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="p-4 border-t border-gray-200 bg-gray-50">
+      {/* Sticky Input Bar */}
+      <div className="sticky bottom-0 z-10 bg-gray-50 border-t border-gray-200 p-4">
         <form
-          onSubmit={(e) => {
+          onSubmit={e => {
             e.preventDefault()
             handleSendMessage()
           }}
-          className="flex items-center space-x-2">
+          className="flex items-center space-x-2"
+        >
           <Input
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={e => setInput(e.target.value)}
             placeholder="Type your message..."
             disabled={loading}
             className="flex-grow border-gray-300 focus:border-purple-500 focus:ring-purple-500"
           />
           <Button type="submit" disabled={loading} className="bg-purple-700 hover:bg-purple-800 text-white">
-            {loading ? '...' : <Send size={18} />}
+            {loading ? '...' : <Send size={18} />}  
           </Button>
         </form>
       </div>

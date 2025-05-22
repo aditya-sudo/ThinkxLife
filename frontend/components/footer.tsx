@@ -10,12 +10,12 @@ export default function Footer() {
           <div>
             <Link href="/" className="flex items-center mb-4">
               <div className="flex items-center">
-                <Image src="/logo.png" alt="Think Round, Inc Logo" width={40} height={40} className="mr-2" />
-                <span className="text-xl font-bold tracking-wider">Think Round, Inc</span>
+                <Image src="/tr_logo.png" alt="Think Round, Inc Logo" width={40} height={40} className="mr-2" />
+                <span className="text-xl font-bold tracking-wider">Think Round</span>
               </div>
             </Link>
             <p className="text-gray-600 mb-4">
-              Earth is home, Humans are family. Think Round, Inc is dedicated to creating connections through art,
+              Think Round, Inc is dedicated to creating connections through art,
               education, and community engagement.
             </p>
             <div className="flex space-x-4">
@@ -48,11 +48,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-purple-700 transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
                 <Link href="/chatbot" className="text-gray-600 hover:text-purple-700 transition-colors">
                   Meet Zoe
                 </Link>
@@ -80,7 +75,7 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPin size={20} className="mr-2 text-purple-700 flex-shrink-0 mt-1" />
                 <span>
-                  2140 Bush Street, Suite 1<br />
+                  2140 Bush Street, 1<br />
                   San Francisco, CA 94115
                   <br />
                   United States
