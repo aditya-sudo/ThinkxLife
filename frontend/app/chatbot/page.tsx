@@ -26,7 +26,7 @@ export default function ChatbotPage() {
   >("disclaimer");
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [aceScore, setAceScore] = useState<number>(0);
-  const [aceAnswers, setAceAnswers] = useState<Answer[]>([]);
+  const [_aceAnswers, setAceAnswers] = useState<Answer[]>([]);
 
   const handleAcceptDisclaimer = () => {
     setStep("userInfo");
@@ -102,18 +102,11 @@ export default function ChatbotPage() {
         )}
 
         {step === "results" && userInfo && (
-          <AceResults
-            score={aceScore}
-            userName={userInfo.name}
-            onStartChat={handleStartChat}
-          />
+          <AceResults score={aceScore} userName={userInfo.name} />
         )}
 
         {step === "chat" && userInfo && (
-          <ChatInterface
-            userName={userInfo.name}
-            initialMessage={getInitialMessage()}
-          />
+          <ChatInterface initialMessage={getInitialMessage()} />
         )}
       </div>
     </div>
