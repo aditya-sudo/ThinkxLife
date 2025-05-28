@@ -52,9 +52,13 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Configure npm to ignore peer deps
+        run: npm config set legacy-peer-deps true
+
       - name: Install frontend deps
         working-directory: frontend
         run: npm ci
+
 
       - name: Check formatting (Prettier)
         working-directory: frontend
