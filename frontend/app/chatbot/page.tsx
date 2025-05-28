@@ -47,7 +47,7 @@ export default function ChatbotPage() {
     setStep("results");
   };
 
-  const handleStartChat = () => {
+  const _handleStartChat = () => {
     setStep("chat");
   };
 
