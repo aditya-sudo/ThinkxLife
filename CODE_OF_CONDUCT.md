@@ -8,19 +8,19 @@ In the interest of fostering an open and welcoming environment, we as contributo
 
 Examples of behavior that contributes to a positive environment for our community include:
 
-- Demonstrating empathy and kindness toward other people  
-- Being respectful of differing opinions, viewpoints, and experiences  
-- Giving and gracefully accepting constructive feedback  
-- Accepting responsibility and apologizing to those affected by our mistakes  
-- Focusing on what is best for the community  
+- Demonstrating empathy and kindness toward other people
+- Being respectful of differing opinions, viewpoints, and experiences
+- Giving and gracefully accepting constructive feedback
+- Accepting responsibility and apologizing to those affected by our mistakes
+- Focusing on what is best for the community
 
 Examples of unacceptable behavior by participants include:
 
-- The use of sexualized language or imagery and unwelcome sexual attention or advances  
-- Trolling, insulting or derogatory comments, and personal or political attacks  
-- Public or private harassment, intimidation, or stalking  
-- Publishing others’ private information, such as a physical or electronic address, without explicit permission  
-- Other conduct which could reasonably be considered inappropriate in a professional setting  
+- The use of sexualized language or imagery and unwelcome sexual attention or advances
+- Trolling, insulting or derogatory comments, and personal or political attacks
+- Public or private harassment, intimidation, or stalking
+- Publishing others’ private information, such as a physical or electronic address, without explicit permission
+- Other conduct which could reasonably be considered inappropriate in a professional setting
 
 ## Enforcement Responsibilities
 
@@ -28,7 +28,7 @@ Project maintainers are responsible for clarifying and enforcing our standards o
 
 Maintainers include:
 
-- **Jagadesh Varma Nadimpalli** (Founding AI Engineer Intern)  
+- **Jagadesh Varma Nadimpalli** (Founding AI Engineer Intern)
 - **Heidi Hardin** (Founder, Think Round, Inc)
 
 ## Reporting Guidelines
@@ -44,12 +44,10 @@ This Code of Conduct applies both within project spaces and in public spaces whe
 
 ## Enforcement Process
 
-1. **Investigation**: Maintainers will review all reports and determine whether a violation has occurred.  
-2. **Resolution**: Depending on the severity, actions may include a warning, temporary or permanent removal of project privileges, or referral to appropriate authorities.  
-3. **Appeal**: Affected parties may appeal decisions by contacting any other project maintainer not involved in the original decision.  
+1. **Investigation**: Maintainers will review all reports and determine whether a violation has occurred.
+2. **Resolution**: Depending on the severity, actions may include a warning, temporary or permanent removal of project privileges, or referral to appropriate authorities.
+3. **Appeal**: Affected parties may appeal decisions by contacting any other project maintainer not involved in the original decision.
 
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant version 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html), available under the Creative Commons Zero v1.0 Universal license.
-
-

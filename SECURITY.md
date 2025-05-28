@@ -20,8 +20,8 @@ We aim to provide security fixes for all supported branches.  Please report any 
 If you discover a security issue, please use **one** of the methods below:
 
 ### 1. GitHub Security Advisory (recommended)
-1. Go to the **Security → Advisories** tab of the Think-Round-Inc/ThinkxLife repository.  
-2. Click **“New draft”** to open a private advisory.  
+1. Go to the **Security → Advisories** tab of the Think-Round-Inc/ThinkxLife repository.
+2. Click **“New draft”** to open a private advisory.
 3. Provide as much detail as possible (steps to reproduce, impact, suggested fix).
 
 GitHub will keep your report private until a fix is ready for public disclosure.
@@ -33,10 +33,10 @@ Send an encrypted or plain-text email to: jagadeshvarma07@gmail.com
 Subject line: `Security vulnerability in ThinkxLife`
 
 Include:
-- **Summary** of the issue  
-- **Affected versions** / branches  
-- **Steps to reproduce** and/or a proof-of-concept  
-- **Impact** assessment  
+- **Summary** of the issue
+- **Affected versions** / branches
+- **Steps to reproduce** and/or a proof-of-concept
+- **Impact** assessment
 - **Suggested remediation** (if you have one)
 
 ---
@@ -56,9 +56,9 @@ We will keep you updated at each stage.  Thank you for helping us keep ThinkxLif
 
 ## Maintainers & Contacts
 
-- **Heidi Hardin** (Founder, Think Round, Inc) 
-- **Jagadesh Varma Nadimpalli** (Founding AI Engineer Intern)  
- 
+- **Heidi Hardin** (Founder, Think Round, Inc)
+- **Jagadesh Varma Nadimpalli** (Founding AI Engineer Intern)
+
 
 For general support or non-security issues, please open a regular issue in the repo.
 
@@ -66,9 +66,9 @@ For general support or non-security issues, please open a regular issue in the r
 
 ## Secure Development
 
-- All pull requests are scanned with automated security linters (e.g., Snyk, Dependabot)  
-- Dependencies are kept up-to-date and reviewed before merging  
-- Secrets and keys must never be committed—use GitHub Secrets for CI workflows  
+- All pull requests are scanned with automated security linters (e.g., Snyk, Dependabot)
+- Dependencies are kept up-to-date and reviewed before merging
+- Secrets and keys must never be committed—use GitHub Secrets for CI workflows
 
 ---
 
@@ -80,6 +80,5 @@ We appreciate responsible disclosure.  Reporters of confirmed vulnerabilities ma
 
 ## References
 
-- GitHub Security Advisories: https://docs.github.com/en/code-security/security-advisories  
-- OWASP Responsible Disclosure: https://owasp.org/www-project-responsible-disclosure/  
-
+- GitHub Security Advisories: https://docs.github.com/en/code-security/security-advisories
+- OWASP Responsible Disclosure: https://owasp.org/www-project-responsible-disclosure/

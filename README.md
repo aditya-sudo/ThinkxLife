@@ -34,4 +34,4 @@
 
 Zoe isn’t just any chatbot—she’s a digital extension of Think Round’s decades-long mission to nurture creativity, healing, and social connection. By combining empathetic conversation with organizational knowledge, ThinkxLife aims to bridge the gap between art, education, and mental wellness in a single, approachable interface.
 
-Together, let’s explore our stories, honor our experiences, and imagine a world where everyone feels heard.
+Together, let’s explore our stories, honor our experiences, and imagine a world where everyone feels heard and supported.
