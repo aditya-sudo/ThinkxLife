@@ -37,9 +37,13 @@ jobs:
       - name: Lint (Flake8)
         run: flake8 backend
 
+      - name: Provide dummy OpenAI key for tests
+        run: echo "OPENAI_API_KEY=test" >> $GITHUB_ENV
+        
       - name: Run backend tests
         working-directory: backend
-        run: pytest tests --maxfail=1 --disable-warnings -q
+        run: pytest --maxfail=1 --disable-warnings -q
+
 
 
       # ─── Frontend ───────────────────────────────────────────────────────
