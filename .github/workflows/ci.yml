@@ -37,9 +37,14 @@ jobs:
       - name: Lint (Flake8)
         run: flake8 backend
 
+      - name: Provide dummy OpenAI key for tests
+        run: echo "OPENAI_API_KEY=test" >> $GITHUB_ENV
+        
       - name: Run backend tests
         working-directory: backend
         run: pytest --maxfail=1 --disable-warnings -q
+
+
 
       # ─── Frontend ───────────────────────────────────────────────────────
       - name: Setup Node.js
@@ -47,9 +52,13 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Configure npm to ignore peer deps
+        run: npm config set legacy-peer-deps true
+
       - name: Install frontend deps
         working-directory: frontend
         run: npm ci
+
 
       - name: Check formatting (Prettier)
         working-directory: frontend
