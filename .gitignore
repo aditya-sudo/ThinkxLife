@@ -1,1 +1,14 @@
-node_modules
+# dependencies
+/frontend/node_modules/
+
+# pre-commit cache
+/.cache/
+
+# Next.js & Jest artifacts
+/.next/
+/coverage/
+
+# OS & editor cruft
+.DS_Store
+Thumbs.db
+*.log
