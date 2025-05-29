@@ -1,5 +1,6 @@
 # .prettierignore
 node_modules
+frontend/node_modules
 .next
 .env*
 frontend/public/**/*.svg

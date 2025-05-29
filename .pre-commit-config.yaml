@@ -45,3 +45,4 @@ repos:
         entry: prettier --ignore-path .prettierignore --write
         language: node
         files: ^frontend/.*\.(js|jsx|ts|tsx|css|json|mjs|md)$
+        exclude: node_modules/
