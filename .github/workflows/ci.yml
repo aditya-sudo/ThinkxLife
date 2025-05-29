@@ -69,4 +69,6 @@ jobs:
 
       - name: Run frontend tests
         working-directory: frontend
-        run: npx jest --config=jest.config.ts --watchAll=false --bail
+        run: |
+          cd frontend
+          npm test -- --watchAll=false --bail
