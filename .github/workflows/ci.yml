@@ -69,6 +69,4 @@ jobs:
 
       - name: Run frontend tests
         working-directory: frontend
-        run: |
-          cd frontend
-          npm test -- --watchAll=false --bail
+        run: npm test -- --watchAll=false --bail
