@@ -49,10 +49,10 @@ repos:
 
       - id: typescript-check
         name: typescript-check
-        entry: bash -c 'cd frontend && npx tsc --noEmit --skipLibCheck'
+        entry: bash -c 'cd frontend && npx tsc --noEmit --skipLibCheck --project .'
         language: system
-        files: ^frontend/.*\.(ts|tsx)$
-        exclude: ^frontend/(node_modules|\.next)/
+        files: ^frontend/(app|components|hooks|lib)/.*\.(ts|tsx)$
+        exclude: ^frontend/(node_modules|\.next)/.*$
         pass_filenames: false
 
 # Configuration
