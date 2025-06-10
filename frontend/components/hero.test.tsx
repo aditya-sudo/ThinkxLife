@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
 import { screen } from "@testing-library/dom";
+import "@testing-library/jest-dom";
 import Hero from "./hero";
 
 test("renders the hero heading", () => {

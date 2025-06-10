@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   motion,
@@ -12,40 +12,11 @@ import {
   Shield,
   BookOpen,
   Brain,
-  Menu,
-  X,
   Users,
   Target,
   MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// Custom hook for scroll animations
-const useScrollAnimation = () => {
-  const ref = useRef(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.1 },
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
-
-  return { ref, isInView };
-};
 
 // Animation variants
 const staggerContainer = {
@@ -206,7 +177,7 @@ const Sidebar = ({
 };
 
 export default function AIAwarenessPage() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
   const progressBarWidth = useTransform(scrollY, [0, 2000], ["0%", "100%"]);
