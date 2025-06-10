@@ -43,11 +43,18 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <Link href="/chatbot" className="hidden md:block">
-            <Button className="bg-purple-700 hover:bg-purple-800 text-white rounded-md">
-              Meet Zoe
-            </Button>
-          </Link>
+          <div className="hidden md:flex items-center space-x-4">
+            <Link href="/ai-awareness">
+              <Button className="bg-green-600 hover:bg-green-700 text-white rounded-md">
+                AI Awareness
+              </Button>
+            </Link>
+            <Link href="/chatbot">
+              <Button className="bg-purple-700 hover:bg-purple-800 text-white rounded-md">
+                Zoe
+              </Button>
+            </Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -83,9 +90,14 @@ export default function Navbar() {
               >
                 Shop Art
               </Link>
+              <Link href="/ai-awareness" onClick={() => setIsMenuOpen(false)}>
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white rounded-md mt-2">
+                  AI Awareness
+                </Button>
+              </Link>
               <Link href="/chatbot" onClick={() => setIsMenuOpen(false)}>
                 <Button className="w-full bg-purple-700 hover:bg-purple-800 text-white rounded-md mt-2">
-                  Meet Zoe
+                  Zoe
                 </Button>
               </Link>
             </div>
