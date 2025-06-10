@@ -6,9 +6,11 @@ repos:
     rev: v4.6.0
     hooks:
       - id: end-of-file-fixer
-        exclude: ^frontend/\.next/|package-lock\.json
+        files: ^(backend/.*\.py|frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)|\.pre-commit-config\.yaml|README\.md)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*package-lock\.json|.*\.tsbuildinfo)$
       - id: trailing-whitespace
-        exclude: ^frontend/\.next/
+        files: ^(backend/.*\.py|frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)|\.pre-commit-config\.yaml|README\.md)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.tsbuildinfo)$
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ['--maxkb=1000']
