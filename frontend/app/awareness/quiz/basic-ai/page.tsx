@@ -27,7 +27,8 @@ const questions: Question[] = [
     correctAnswer:
       "Unfair treatment of individuals or groups based on protected characteristics",
     explanation:
-      "Algorithmic bias occurs when AI systems systematically discriminate against certain groups, often reflecting biases present in training data or design decisions.",
+      "Algorithmic bias occurs when AI systems systematically discriminate against " +
+      "certain groups, often reflecting biases present in training data or design decisions.",
     category: "ethics",
   },
   {
@@ -40,7 +41,8 @@ const questions: Question[] = [
     ],
     correctAnswer: "Profit maximization",
     explanation:
-      "While profitability may be a business goal, ethical AI frameworks focus on principles like transparency, fairness, privacy, and accountability rather than profit maximization.",
+      "While profitability may be a business goal, ethical AI frameworks focus on " +
+      "principles like transparency, fairness, privacy, and accountability rather than profit maximization.",
     category: "ethics",
   },
   {
@@ -54,7 +56,8 @@ const questions: Question[] = [
     correctAnswer:
       "The ability to understand and interpret AI decision-making processes",
     explanation:
-      "AI explainability refers to making AI systems transparent so humans can understand how and why specific decisions or predictions are made.",
+      "AI explainability refers to making AI systems transparent so humans can " +
+      "understand how and why specific decisions or predictions are made.",
     category: "ethics",
   },
 
@@ -70,7 +73,8 @@ const questions: Question[] = [
     correctAnswer:
       "Synthetic media that can convincingly replace a person's likeness with someone else's",
     explanation:
-      "Deepfakes use AI to create realistic but fake audio, video, or images of people, posing threats to privacy, security, and information integrity.",
+      "Deepfakes use AI to create realistic but fake audio, video, or images of people, " +
+      "posing threats to privacy, security, and information integrity.",
     category: "threats",
   },
   {
@@ -84,7 +88,8 @@ const questions: Question[] = [
     correctAnswer:
       "Deliberately crafted inputs designed to fool AI systems into making wrong decisions",
     explanation:
-      "Adversarial attacks involve subtly modifying inputs to trick AI systems into misclassification or incorrect outputs, often imperceptible to humans.",
+      "Adversarial attacks involve subtly modifying inputs to trick AI systems into " +
+      "misclassification or incorrect outputs, often imperceptible to humans.",
     category: "threats",
   },
   {
@@ -98,7 +103,8 @@ const questions: Question[] = [
     correctAnswer:
       "Inference attacks that can reveal sensitive information about training data",
     explanation:
-      "AI systems can inadvertently leak information about their training data through inference attacks, potentially exposing sensitive personal information.",
+      "AI systems can inadvertently leak information about their training data through " +
+      "inference attacks, potentially exposing sensitive personal information.",
     category: "threats",
   },
 
@@ -114,7 +120,8 @@ const questions: Question[] = [
     correctAnswer:
       "The right not to be subject to decisions based solely on automated processing",
     explanation:
-      "GDPR Article 22 gives individuals the right not to be subject to decisions based solely on automated processing, including profiling, that produces legal or significant effects.",
+      "GDPR Article 22 gives individuals the right not to be subject to decisions based " +
+      "solely on automated processing, including profiling, that produces legal or significant effects.",
     category: "compliance",
   },
   {
@@ -128,7 +135,8 @@ const questions: Question[] = [
     correctAnswer:
       "Risk-based regulation with different requirements for different risk levels",
     explanation:
-      "The EU AI Act uses a risk-based approach, categorizing AI systems into different risk levels (minimal, limited, high, unacceptable) with corresponding regulatory requirements.",
+      "The EU AI Act uses a risk-based approach, categorizing AI systems into different " +
+      "risk levels (minimal, limited, high, unacceptable) with corresponding regulatory requirements.",
     category: "compliance",
   },
   {
@@ -142,7 +150,8 @@ const questions: Question[] = [
     correctAnswer:
       "Comprehensive documentation, risk management, and human oversight",
     explanation:
-      "High-risk AI systems must meet strict requirements including risk management systems, data governance, documentation, human oversight, and accuracy standards.",
+      "High-risk AI systems must meet strict requirements including risk management systems, " +
+      "data governance, documentation, human oversight, and accuracy standards.",
     category: "compliance",
   },
   {
@@ -156,7 +165,8 @@ const questions: Question[] = [
     correctAnswer:
       "The right to know, delete, and opt-out of the sale of their personal information",
     explanation:
-      "CCPA grants consumers rights to know what personal information is collected, delete their information, and opt-out of the sale of their personal information, which applies to AI systems processing this data.",
+      "CCPA grants consumers rights to know what personal information is collected, delete " +
+      "their information, and opt-out of the sale of their personal information, which applies to AI systems processing this data.",
     category: "compliance",
   },
 
@@ -172,7 +182,8 @@ const questions: Question[] = [
     correctAnswer:
       "Deliberately introducing malicious data during training to compromise the model",
     explanation:
-      "Model poisoning involves injecting malicious data into training datasets to compromise the AI model's behavior, potentially causing it to make incorrect or harmful decisions.",
+      "Model poisoning involves injecting malicious data into training datasets to compromise " +
+      "the AI model's behavior, potentially causing it to make incorrect or harmful decisions.",
     category: "threats",
   },
   {
@@ -186,7 +197,8 @@ const questions: Question[] = [
     correctAnswer:
       "Collecting and processing only the personal data necessary for the specified purpose",
     explanation:
-      "Data minimization is a key privacy principle requiring that personal data collection and processing be limited to what is necessary, relevant, and proportionate to the purposes for which it is processed.",
+      "Data minimization is a key privacy principle requiring that personal data collection " +
+      "and processing be limited to what is necessary, relevant, and proportionate to the purposes for which it is processed.",
     category: "compliance",
   },
 ];

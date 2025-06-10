@@ -1,6 +1,6 @@
 {
-  "/ai-awareness/page": "app/ai-awareness/page.js",
   "/chatbot/page": "app/chatbot/page.js",
+  "/ai-awareness/page": "app/ai-awareness/page.js",
   "/awareness/ethics/page": "app/awareness/ethics/page.js",
   "/awareness/compliance/page": "app/awareness/compliance/page.js",
   "/awareness/quiz/basic-ai/page": "app/awareness/quiz/basic-ai/page.js"
