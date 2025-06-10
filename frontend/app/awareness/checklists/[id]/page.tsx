@@ -33,7 +33,13 @@ const gdprChecklist: ChecklistItem[] = [
   // Add more items...
 ];
 
-export default function ChecklistPage({ params: _params }: { params: { id: string } }) {
+export default async function ChecklistPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+
+  return <ChecklistPageClient checklistId={id} />;
+}
+
+function ChecklistPageClient({ checklistId: _checklistId }: { checklistId: string }) {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
   const handleCheck = (itemId: string) => {

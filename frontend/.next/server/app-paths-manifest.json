@@ -1,4 +1,10 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/ai-awareness/page": "app/ai-awareness/page.js",
   "/page": "app/page.js",
-  "/ai-awareness/page": "app/ai-awareness/page.js"
+  "/chatbot/page": "app/chatbot/page.js",
+  "/awareness/compliance/page": "app/awareness/compliance/page.js",
+  "/awareness/checklists/[id]/page": "app/awareness/checklists/[id]/page.js",
+  "/awareness/ethics/page": "app/awareness/ethics/page.js",
+  "/awareness/quiz/basic-ai/page": "app/awareness/quiz/basic-ai/page.js"
 }

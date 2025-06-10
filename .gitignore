@@ -16,6 +16,10 @@
 /frontend/build/
 /frontend/out/
 
+# TypeScript build info
+*.tsbuildinfo
+/frontend/*.tsbuildinfo
+
 # OS & editor cruft
 .DS_Store
 Thumbs.db
@@ -42,11 +46,3 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-# Next.js build output
-frontend/.next/
-# Next.js build output
-frontend/.next/
-# Next.js build output
-frontend/.next/
-# Next.js build output
-frontend/.next/
