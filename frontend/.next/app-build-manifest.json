@@ -29,15 +29,6 @@
       "static/chunks/405-4ed0686577546a69.js",
       "static/chunks/app/ai-awareness/page-c7044f790445e1e6.js"
     ],
-    "/page": [
-      "static/chunks/webpack-5417328a50983c10.js",
-      "static/chunks/4bd1b696-7717b178d90b3915.js",
-      "static/chunks/684-255ed1f2bfe8cd33.js",
-      "static/chunks/main-app-2339c075e1b97c97.js",
-      "static/chunks/874-e170f147506022a4.js",
-      "static/chunks/63-d0e343ae48fda85b.js",
-      "static/chunks/app/page-672510b1ce2e21e5.js"
-    ],
     "/chatbot/page": [
       "static/chunks/webpack-5417328a50983c10.js",
       "static/chunks/4bd1b696-7717b178d90b3915.js",
@@ -49,12 +40,42 @@
       "static/chunks/698-e9ee019390ca6f2b.js",
       "static/chunks/app/chatbot/page-c22d19bc5f515ee6.js"
     ],
+    "/page": [
+      "static/chunks/webpack-5417328a50983c10.js",
+      "static/chunks/4bd1b696-7717b178d90b3915.js",
+      "static/chunks/684-255ed1f2bfe8cd33.js",
+      "static/chunks/main-app-2339c075e1b97c97.js",
+      "static/chunks/874-e170f147506022a4.js",
+      "static/chunks/63-d0e343ae48fda85b.js",
+      "static/chunks/app/page-672510b1ce2e21e5.js"
+    ],
     "/awareness/layout": [
       "static/chunks/webpack-5417328a50983c10.js",
       "static/chunks/4bd1b696-7717b178d90b3915.js",
       "static/chunks/684-255ed1f2bfe8cd33.js",
       "static/chunks/main-app-2339c075e1b97c97.js",
       "static/chunks/app/awareness/layout-f919eb284812fe01.js"
+    ],
+    "/awareness/quiz/basic-ai/page": [
+      "static/chunks/webpack-5417328a50983c10.js",
+      "static/chunks/4bd1b696-7717b178d90b3915.js",
+      "static/chunks/684-255ed1f2bfe8cd33.js",
+      "static/chunks/main-app-2339c075e1b97c97.js",
+      "static/chunks/874-e170f147506022a4.js",
+      "static/chunks/277-d808ae71ad34d376.js",
+      "static/chunks/848-2e0971ae0e0f7297.js",
+      "static/chunks/app/awareness/quiz/basic-ai/page-9bf7189a3e274760.js"
+    ],
+    "/awareness/checklists/[id]/page": [
+      "static/chunks/webpack-5417328a50983c10.js",
+      "static/chunks/4bd1b696-7717b178d90b3915.js",
+      "static/chunks/684-255ed1f2bfe8cd33.js",
+      "static/chunks/main-app-2339c075e1b97c97.js",
+      "static/chunks/874-e170f147506022a4.js",
+      "static/chunks/277-d808ae71ad34d376.js",
+      "static/chunks/848-2e0971ae0e0f7297.js",
+      "static/chunks/409-7dafd85131f2b6f8.js",
+      "static/chunks/app/awareness/checklists/[id]/page-dc5e2dd4a376fbf5.js"
     ],
     "/awareness/compliance/page": [
       "static/chunks/webpack-5417328a50983c10.js",
@@ -66,17 +87,6 @@
       "static/chunks/523-040024b190323ed9.js",
       "static/chunks/app/awareness/compliance/page-27db5281226415ac.js"
     ],
-    "/awareness/checklists/[id]/page": [
-      "static/chunks/webpack-5417328a50983c10.js",
-      "static/chunks/4bd1b696-7717b178d90b3915.js",
-      "static/chunks/684-255ed1f2bfe8cd33.js",
-      "static/chunks/main-app-2339c075e1b97c97.js",
-      "static/chunks/874-e170f147506022a4.js",
-      "static/chunks/277-d808ae71ad34d376.js",
-      "static/chunks/848-2e0971ae0e0f7297.js",
-      "static/chunks/409-7dafd85131f2b6f8.js",
-      "static/chunks/app/awareness/checklists/[id]/page-389def76d243f731.js"
-    ],
     "/awareness/ethics/page": [
       "static/chunks/webpack-5417328a50983c10.js",
       "static/chunks/4bd1b696-7717b178d90b3915.js",
@@ -84,16 +94,6 @@
       "static/chunks/main-app-2339c075e1b97c97.js",
       "static/chunks/874-e170f147506022a4.js",
       "static/chunks/app/awareness/ethics/page-8e1283419d8025de.js"
-    ],
-    "/awareness/quiz/basic-ai/page": [
-      "static/chunks/webpack-5417328a50983c10.js",
-      "static/chunks/4bd1b696-7717b178d90b3915.js",
-      "static/chunks/684-255ed1f2bfe8cd33.js",
-      "static/chunks/main-app-2339c075e1b97c97.js",
-      "static/chunks/874-e170f147506022a4.js",
-      "static/chunks/277-d808ae71ad34d376.js",
-      "static/chunks/848-2e0971ae0e0f7297.js",
-      "static/chunks/app/awareness/quiz/basic-ai/page-9bf7189a3e274760.js"
     ]
   }
 }
