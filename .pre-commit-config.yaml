@@ -38,11 +38,14 @@ repos:
 
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.0
+    rev: v3.5.3
     hooks:
       - id: prettier
         name: prettier-frontend
         entry: prettier --ignore-path .prettierignore --write
         language: node
-        files: ^frontend/.*\.(js|jsx|ts|tsx|css|json|mjs|md)$
-        exclude: node_modules/
+        # only match real source under frontend/{components,app}
+        files: ^frontend/(components|app)/.*\.(js|jsx|ts|tsx|css|json|mjs|md)$
+        # skip any node_modules, build dirs, or generated code
+        exclude: ^(frontend/)?node_modules/|^frontend/\.next/|^backend/chroma_db/
+
