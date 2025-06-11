@@ -1,15 +1,9 @@
-import Hero from "@/components/hero";
-import About from "@/components/about";
-import Programs from "@/components/programs";
-import CTA from "@/components/cta";
+import ModernHero from "../components/modern-hero";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <About />
-      <Programs />
-      <CTA />
+      <ModernHero />
     </>
   );
 }

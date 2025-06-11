@@ -49,7 +49,7 @@ export default function EthicsModule() {
               <Link href={article.link}>
                 <Button
                   variant="link"
-                  className="text-purple-600 hover:text-purple-700 p-0"
+                  className="text-green-600 hover:text-green-700 p-0"
                 >
                   Read more →
                 </Button>
@@ -62,7 +62,7 @@ export default function EthicsModule() {
       {/* Back to Home CTA */}
       <div className="text-center">
         <Link href="/ai-awareness">
-          <Button variant="outline" className="hover:bg-purple-50">
+          <Button variant="outline" className="hover:bg-green-50">
             ← Back to Home
           </Button>
         </Link>

@@ -70,7 +70,7 @@ export default function ComplianceHub() {
           </SelectContent>
         </Select>
 
-        <Button className="w-full md:w-auto bg-purple-600 hover:bg-purple-700">
+        <Button className="w-full md:w-auto bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-green-500/25 transition-all duration-300">
           <Download className="w-4 h-4 mr-2" />
           Download All PDFs
         </Button>
@@ -86,8 +86,8 @@ export default function ComplianceHub() {
           >
             <Card className="p-6 hover:shadow-lg transition-all duration-300">
               <div className="flex items-start space-x-4">
-                <div className="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-                  <checklist.icon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <div className="p-2 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                  <checklist.icon className="w-6 h-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold mb-2">
@@ -97,7 +97,7 @@ export default function ComplianceHub() {
                     {checklist.description}
                   </p>
                   <Link href={checklist.link}>
-                    <Button variant="outline" className="hover:bg-purple-50">
+                    <Button variant="outline" className="hover:bg-green-50 border-green-200 text-green-700 hover:text-green-800">
                       View Checklist →
                     </Button>
                   </Link>
@@ -111,7 +111,7 @@ export default function ComplianceHub() {
       {/* Back to Home CTA */}
       <div className="text-center">
         <Link href="/ai-awareness">
-          <Button variant="outline" className="hover:bg-purple-50">
+          <Button variant="outline" className="hover:bg-green-50 border-green-200 text-green-700 hover:text-green-800">
             ← Back to Home
           </Button>
         </Link>

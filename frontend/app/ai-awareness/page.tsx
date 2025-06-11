@@ -75,7 +75,7 @@ const Sidebar = ({
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          <Brain className="w-6 h-6 text-purple-600" />
+          <Brain className="w-6 h-6 text-green-600" />
         </motion.div>
       </motion.button>
 
@@ -103,7 +103,7 @@ const Sidebar = ({
       >
         <div className="p-6 h-full flex flex-col">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-purple-600 dark:text-purple-400 text-center">
+            <h1 className="text-2xl font-bold text-green-600 dark:text-green-400 text-center">
               AI Awareness
             </h1>
             <p className="text-gray-600 dark:text-gray-300 text-center mt-2">
@@ -119,7 +119,7 @@ const Sidebar = ({
               <div className="space-y-1">
                 <Link
                   href="#how-it-works"
-                  className="flex items-center justify-center text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
                   <BookOpen className="w-5 h-5 mr-2" />
@@ -127,7 +127,7 @@ const Sidebar = ({
                 </Link>
                 <Link
                   href="#resources"
-                  className="flex items-center justify-center text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
                   <Target className="w-5 h-5 mr-2" />
@@ -143,7 +143,7 @@ const Sidebar = ({
               <div className="space-y-1">
                 <Link
                   href="#features"
-                  className="flex items-center justify-center text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
                   <Shield className="w-5 h-5 mr-2" />
@@ -151,7 +151,7 @@ const Sidebar = ({
                 </Link>
                 <Link
                   href="/chatbot"
-                  className="flex items-center justify-center text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
                   <MessageCircle className="w-5 h-5 mr-2" />
@@ -165,7 +165,7 @@ const Sidebar = ({
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+              className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
             >
               Start Learning
             </motion.button>
@@ -352,7 +352,7 @@ export default function AIAwarenessPage() {
       >
         {/* Progress Bar */}
         <motion.div
-          className="fixed top-0 right-0 h-1 bg-purple-600 z-50"
+          className="fixed top-0 right-0 h-1 bg-gradient-to-r from-green-500 to-emerald-600 z-50"
           style={{ width: progressBarWidth }}
         />
 
@@ -363,7 +363,7 @@ export default function AIAwarenessPage() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="absolute inset-0 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-900"
+            className="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900"
           />
 
           {/* Content */}
@@ -379,7 +379,7 @@ export default function AIAwarenessPage() {
                 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6"
               >
                 Understand AI{" "}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                   Safely and Ethically
                 </span>
               </motion.h1>
@@ -397,17 +397,17 @@ export default function AIAwarenessPage() {
                 <motion.button
                   whileHover={{
                     scale: 1.05,
-                    boxShadow: "0 10px 25px rgba(147, 51, 234, 0.3)",
+                    boxShadow: "0 10px 25px rgba(34, 197, 94, 0.3)",
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300"
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
                 >
                   Start Your Journey
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300"
+                  className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300"
                 >
                   Watch Demo
                 </motion.button>
@@ -460,11 +460,11 @@ export default function AIAwarenessPage() {
                 >
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="text-purple-600 dark:text-purple-400 mb-6 inline-block p-3 bg-purple-100 dark:bg-purple-900/20 rounded-xl"
+                    className="text-green-600 dark:text-green-400 mb-6 inline-block p-3 bg-green-100 dark:bg-green-900/20 rounded-xl"
                   >
                     {feature.icon}
                   </motion.div>
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 group-hover:text-purple-600 transition-colors">
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 group-hover:text-green-600 transition-colors">
                     {feature.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
@@ -476,7 +476,7 @@ export default function AIAwarenessPage() {
                         key={bulletIndex}
                         className="flex items-start space-x-3"
                       >
-                        <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0" />
                         <div>
                           <span className="font-medium text-gray-900 dark:text-white">
                             {bullet.title}
@@ -493,7 +493,7 @@ export default function AIAwarenessPage() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 group-hover:shadow-lg"
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 group-hover:shadow-lg shadow-lg hover:shadow-green-500/25"
                     >
                       {feature.cta.label}
                     </motion.button>
@@ -551,7 +551,7 @@ export default function AIAwarenessPage() {
                     >
                       <motion.div
                         whileHover={{ scale: 1.1 }}
-                        className="text-6xl font-bold text-purple-200 dark:text-purple-800 mb-2"
+                        className="text-6xl font-bold text-green-200 dark:text-green-800 mb-2"
                       >
                         {step.number}
                       </motion.div>
@@ -565,7 +565,7 @@ export default function AIAwarenessPage() {
                   </div>
                   <motion.div
                     whileHover={{ scale: 1.2, rotate: 10 }}
-                    className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-8 flex-shrink-0"
+                    className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-8 flex-shrink-0 shadow-lg"
                   >
                     {index + 1}
                   </motion.div>
@@ -610,7 +610,7 @@ export default function AIAwarenessPage() {
               <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                    <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
                       AI
                     </div>
                     <div className="bg-white dark:bg-gray-700 rounded-lg p-3 flex-1">
@@ -621,7 +621,7 @@ export default function AIAwarenessPage() {
                     </div>
                   </div>
                   <div className="flex items-start space-x-3 justify-end">
-                    <div className="bg-purple-600 rounded-lg p-3 max-w-xs">
+                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg p-3 max-w-xs">
                       <p className="text-white">
                         How can I detect bias in my AI model?
                       </p>
@@ -634,7 +634,7 @@ export default function AIAwarenessPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                  className="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
                 >
                   Start Conversation
                 </motion.button>
@@ -686,7 +686,7 @@ export default function AIAwarenessPage() {
                 >
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="text-purple-600 dark:text-purple-400 mb-4 inline-block"
+                    className="text-green-600 dark:text-green-400 mb-4 inline-block"
                   >
                     {resource.icon}
                   </motion.div>
@@ -699,7 +699,7 @@ export default function AIAwarenessPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="text-purple-600 hover:text-purple-700 font-semibold"
+                    className="text-green-600 hover:text-green-700 font-semibold"
                   >
                     Download →
                   </motion.button>
@@ -744,7 +744,7 @@ export default function AIAwarenessPage() {
                   <p className="text-gray-900 dark:text-white text-lg mb-4 italic">
                     "{testimonial.quote}"
                   </p>
-                  <p className="text-purple-600 dark:text-purple-400 font-semibold">
+                  <p className="text-green-600 dark:text-green-400 font-semibold">
                     — {testimonial.author}
                   </p>
                 </motion.div>

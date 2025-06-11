@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, User, Bot } from "lucide-react";
+import { Send, User, Bot, Brain, Sparkles } from "lucide-react";
 
 type Message = {
   id: string;
@@ -14,9 +14,10 @@ type Message = {
 
 type ChatInterfaceProps = {
   initialMessage: string;
+  userName: string;
 };
 
-export default function ChatInterface({ initialMessage }: ChatInterfaceProps) {
+export default function ChatInterface({ initialMessage, userName }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
@@ -93,19 +94,29 @@ export default function ChatInterface({ initialMessage }: ChatInterfaceProps) {
   };
 
   return (
-    <div className="flex flex-col bg-white rounded-xl shadow-xl h-[70vh] overflow-hidden">
+    <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-blue-200/50 h-[80vh] flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-purple-700 p-4 border-b border-purple-600 text-white">
-        <h2 className="text-xl font-semibold">Chat with Zoe</h2>
-        <p className="text-sm text-purple-100">
-          Your AI companion for emotional support
-        </p>
+      <div className="bg-gradient-to-r from-blue-500 to-cyan-600 p-6 border-b border-blue-400/30">
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <div className="p-3 bg-white/20 rounded-full">
+              <Brain className="h-8 w-8 text-white" />
+            </div>
+            <Sparkles className="w-4 h-4 text-yellow-300 absolute -top-1 -right-1 animate-pulse" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-white">Chat with Zoe</h2>
+            <p className="text-blue-100">
+              Your empathetic AI companion • Chatting with {userName}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Messages container */}
       <div
         ref={containerRef}
-        className="flex-grow overflow-y-auto p-4 space-y-4"
+        className="flex-grow overflow-y-auto p-6 space-y-6 bg-gradient-to-b from-slate-50 to-white"
       >
         {messages.map((msg) => (
           <div
@@ -115,27 +126,33 @@ export default function ChatInterface({ initialMessage }: ChatInterfaceProps) {
             }`}
           >
             <div
-              className={`max-w-[80%] p-3 rounded-lg ${
+              className={`max-w-[75%] ${
                 msg.sender === "user"
-                  ? "bg-purple-100 text-gray-800"
-                  : "bg-gray-100 text-gray-800"
-              }`}
+                  ? "bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-2xl rounded-br-md"
+                  : "bg-white border border-slate-200 text-slate-800 rounded-2xl rounded-bl-md shadow-lg"
+              } p-4 relative`}
             >
-              <div className="flex items-center mb-1">
+              <div className="flex items-center mb-2">
                 {msg.sender === "user" ? (
                   <>
-                    <span className="font-medium mr-2">You</span>
-                    <User size={14} className="text-purple-700" />
+                    <User size={16} className="mr-2 opacity-80" />
+                    <span className="font-medium text-sm opacity-90">{userName}</span>
                   </>
                 ) : (
                   <>
-                    <span className="font-medium mr-2">Zoe</span>
-                    <Bot size={14} className="text-purple-700" />
+                    <div className="flex items-center gap-2">
+                      <div className="p-1 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full">
+                        <Bot size={14} className="text-white" />
+                      </div>
+                      <span className="font-medium text-sm text-slate-600">Zoe</span>
+                    </div>
                   </>
                 )}
               </div>
-              <p className="whitespace-pre-wrap">{msg.content}</p>
-              <p className="mt-1 text-xs text-gray-500">
+              <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+              <p className={`mt-2 text-xs ${
+                msg.sender === "user" ? "text-blue-100" : "text-slate-400"
+              }`}>
                 {msg.timestamp.toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
@@ -144,40 +161,63 @@ export default function ChatInterface({ initialMessage }: ChatInterfaceProps) {
             </div>
           </div>
         ))}
-        {/* Typing indicator replaced with text */}
+
+        {/* Typing indicator */}
         {loading && (
           <div className="flex justify-start">
-            <div className="max-w-[60%] p-3 rounded-lg bg-gray-100 text-gray-800 italic">
-              Thinking...
+            <div className="max-w-[60%] bg-white border border-slate-200 text-slate-800 rounded-2xl rounded-bl-md shadow-lg p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="p-1 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full">
+                  <Bot size={14} className="text-white" />
+                </div>
+                <span className="font-medium text-sm text-slate-600">Zoe</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                </div>
+                <span className="text-slate-500 text-sm italic">Zoe is thinking...</span>
+              </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Sticky Input Bar */}
-      <div className="sticky bottom-0 z-10 bg-gray-50 border-t border-gray-200 p-4">
+      {/* Input Bar */}
+      <div className="bg-white/90 backdrop-blur-sm border-t border-slate-200 p-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSendMessage();
           }}
-          className="flex items-center space-x-2"
+          className="flex items-center space-x-4"
         >
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
+            placeholder="Share what's on your mind..."
             disabled={loading}
-            className="flex-grow border-gray-300 focus:border-purple-500 focus:ring-purple-500"
+            className="flex-grow border-slate-300 focus:border-blue-400 focus:ring-blue-400 rounded-xl py-3 px-4 text-lg bg-white/80 backdrop-blur-sm"
           />
           <Button
             type="submit"
-            disabled={loading}
-            className="bg-purple-700 hover:bg-purple-800 text-white"
+            disabled={loading || !input.trim()}
+            className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-xl px-6 py-3 shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            {loading ? "..." : <Send size={18} />}
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <Send size={20} />
+            )}
           </Button>
         </form>
+
+        {/* Helper text */}
+        <p className="text-xs text-slate-500 mt-3 text-center">
+          Zoe is here to listen and support you. Feel free to share whatever is on your mind.
+        </p>
       </div>
     </div>
   );

@@ -264,6 +264,8 @@ export default function BasicAIQuiz() {
     }
   };
 
+  const progress = ((currentQuestion + 1) / questions.length) * 100;
+
   return (
     <div className="container mx-auto px-6 py-12">
       {/* Chapter Header */}
@@ -314,14 +316,19 @@ export default function BasicAIQuiz() {
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-2 mb-8">
-              <motion.div
-                className="bg-purple-600 h-2 rounded-full transition-all duration-300"
-                initial={{ width: 0 }}
-                animate={{
-                  width: `${((currentQuestion + 1) / questions.length) * 100}%`,
-                }}
-              />
+            <div className="mb-6">
+              <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
+                <span>
+                  Question {currentQuestion + 1} of {questions.length}
+                </span>
+                <span>{Math.round(progress)}% Complete</span>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
             </div>
 
             {/* Question */}
@@ -335,27 +342,24 @@ export default function BasicAIQuiz() {
             </motion.h2>
 
             {/* Options */}
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 mb-6">
               {questions[currentQuestion].options.map((option, index) => (
                 <motion.button
                   key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`w-full text-left p-4 rounded-lg border-2 transition-all duration-200 ${
-                    answers[currentQuestion] === option
-                      ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20"
-                      : "border-gray-200 hover:border-purple-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => handleAnswer(option)}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                  className={`w-full p-4 text-left rounded-lg border-2 transition-all duration-200 ${
+                    answers[currentQuestion] === option
+                      ? "border-green-500 bg-green-50 dark:bg-green-900/20"
+                      : "border-gray-200 hover:border-green-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                  }`}
                 >
                   <div className="flex items-center">
                     <div
                       className={`w-4 h-4 rounded-full border-2 mr-3 ${
                         answers[currentQuestion] === option
-                          ? "border-purple-500 bg-purple-500"
+                          ? "border-green-500 bg-green-500"
                           : "border-gray-300"
                       }`}
                     >
@@ -383,7 +387,7 @@ export default function BasicAIQuiz() {
               <Button
                 onClick={handleNext}
                 disabled={!answers[currentQuestion]}
-                className="bg-purple-600 hover:bg-purple-700"
+                className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-green-500/25 transition-all duration-300"
               >
                 {currentQuestion === questions.length - 1
                   ? "Submit Quiz"
@@ -409,7 +413,7 @@ export default function BasicAIQuiz() {
               </motion.h2>
               <div className="text-2xl mb-4">
                 You scored{" "}
-                <span className="text-purple-600 font-bold">
+                <span className="text-green-600 font-bold">
                   {calculateScore()}
                 </span>{" "}
                 out of {questions.length}
@@ -537,7 +541,7 @@ export default function BasicAIQuiz() {
                   Retake Quiz
                 </Button>
                 <Link href="/awareness/compliance">
-                  <Button className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700">
+                  <Button className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-green-500/25 transition-all duration-300">
                     Explore Compliance →
                   </Button>
                 </Link>
