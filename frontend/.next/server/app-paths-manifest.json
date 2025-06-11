@@ -1,3 +1,6 @@
 {
-  "/api/auth/forgot-password/route": "app/api/auth/forgot-password/route.js"
+  "/page": "app/page.js",
+  "/auth/signin/page": "app/auth/signin/page.js",
+  "/ai-awareness/page": "app/ai-awareness/page.js",
+  "/chatbot/page": "app/chatbot/page.js"
 }
