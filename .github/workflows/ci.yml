@@ -39,6 +39,13 @@ jobs:
         working-directory: frontend
         run: npm ci --legacy-peer-deps
 
+      # Generate Prisma client
+      - name: Generate Prisma client
+        working-directory: frontend
+        env:
+          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
+        run: npx prisma generate
+
       # Run pre-commit (handles all linting, formatting, type checking)
       - uses: pre-commit/action@v3.0.1
 
