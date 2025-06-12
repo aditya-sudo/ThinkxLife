@@ -24,12 +24,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": [
-    "node_modules",
-    "app/profile/**/*",
-    "app/api/profile/**/*",
-    "app/api/auth/**/*",
-    "lib/auth.ts",
-    "lib/prisma.ts"
-  ]
+  "exclude": ["node_modules"]
 }

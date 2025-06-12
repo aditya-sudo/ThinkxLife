@@ -1,16 +1,27 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
+  # Custom hook to show changed files only
+  - repo: local
+    hooks:
+      - id: show-changed-files
+        name: Show changed files
+        entry: bash -c 'echo "📋 Files being committed:" && git diff --cached --name-only'
+        language: system
+        stages: [pre-commit]
+        pass_filenames: false
+        always_run: true
+
   # Essential file checks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
       - id: end-of-file-fixer
         files: ^(backend/.*\.py|frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)|\.pre-commit-config\.yaml|README\.md)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|.*package-lock\.json|.*\.tsbuildinfo|frontend/app/api/auth/|frontend/app/api/profile/|frontend/app/profile/|frontend/lib/auth\.ts|frontend/lib/prisma\.ts)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*package-lock\.json|.*\.tsbuildinfo|frontend/app/api/auth/|frontend/app/api/profile/|frontend/app/profile/|frontend/lib/auth\.ts|frontend/lib/prisma\.ts|\.github/workflows/.*\.ya?ml)$
       - id: trailing-whitespace
         files: ^(backend/.*\.py|frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)|\.pre-commit-config\.yaml|README\.md)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.tsbuildinfo|frontend/app/api/auth/|frontend/app/api/profile/|frontend/app/profile/|frontend/lib/auth\.ts|frontend/lib/prisma\.ts)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.tsbuildinfo|frontend/app/api/auth/|frontend/app/api/profile/|frontend/app/profile/|frontend/lib/auth\.ts|frontend/lib/prisma\.ts|\.github/workflows/.*\.ya?ml)$
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ['--maxkb=1000']
