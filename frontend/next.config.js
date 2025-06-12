@@ -2,21 +2,27 @@
 const path = require('path')
 
 const nextConfig = {
+  images: {
+    unoptimized: true,
+  },
   eslint: {
     // Disable ESLint during builds
     ignoreDuringBuilds: true,
   },
-  typescript: {
-    // Disable TypeScript errors during builds
-    ignoreBuildErrors: true,
-  },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    // Ensure proper path resolution
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, '.'),
     }
+
+    // Handle Prisma client properly
+    if (isServer) {
+      config.externals.push('@prisma/client')
+    }
+
     return config
   },
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig

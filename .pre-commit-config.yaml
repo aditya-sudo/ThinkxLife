@@ -12,21 +12,21 @@ repos:
         pass_filenames: false
         always_run: true
 
-  # Essential file checks
+  # Essential file checks (only on specific file types)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
       - id: end-of-file-fixer
-        files: ^(backend/.*\.py|frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)|\.pre-commit-config\.yaml|README\.md)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|.*package-lock\.json|.*\.tsbuildinfo|frontend/app/api/auth/|frontend/app/api/profile/|frontend/app/profile/|frontend/lib/auth\.ts|frontend/lib/prisma\.ts|\.github/workflows/.*\.ya?ml)$
+        files: \.(py|js|jsx|ts|tsx|yaml|yml|md)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*package-lock\.json|.*\.tsbuildinfo)$
       - id: trailing-whitespace
-        files: ^(backend/.*\.py|frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)|\.pre-commit-config\.yaml|README\.md)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.tsbuildinfo|frontend/app/api/auth/|frontend/app/api/profile/|frontend/app/profile/|frontend/lib/auth\.ts|frontend/lib/prisma\.ts|\.github/workflows/.*\.ya?ml)$
+        files: \.(py|js|jsx|ts|tsx|yaml|yml|md)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.tsbuildinfo)$
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ['--maxkb=1000']
 
-  # Python Backend
+  # Python Backend (only run on Python files)
   - repo: https://github.com/psf/black
     rev: 24.10.0
     hooks:
@@ -47,15 +47,15 @@ repos:
         files: ^backend/.*\.py$
         args: ['--max-line-length=88', '--extend-ignore=E203']
 
-  # Frontend - Use npm scripts if available (excluding problematic auth/profile files)
+  # Frontend - Simplified linting (only on changed files)
   - repo: local
     hooks:
-      - id: frontend-lint-fix
-        name: frontend-lint-fix
-        entry: bash -c 'cd frontend && npm run lint -- --fix'
+      - id: frontend-lint-check
+        name: frontend-lint-check
+        entry: bash -c 'cd frontend && npm run lint'
         language: system
         files: ^frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)$
-        exclude: ^(frontend/app/api/auth/|frontend/app/api/profile/|frontend/app/profile/|frontend/lib/auth\.ts|frontend/lib/prisma\.ts)
+        exclude: ^(frontend/node_modules/|frontend/\.next/)$
         pass_filenames: false
 
 # Configuration

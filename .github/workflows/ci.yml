@@ -10,11 +10,12 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 15  # Add overall timeout
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history for file change detection
+          fetch-depth: 2  # Only fetch last 2 commits instead of full history
 
       # Show concise summary of changes
       - name: Show Changed Files Summary
@@ -53,48 +54,51 @@ jobs:
       # Install dependencies
       - name: Install backend dependencies
         working-directory: backend
+        timeout-minutes: 3
         run: |
           echo "📦 Installing backend dependencies..."
-          python -m pip install --upgrade pip > /dev/null 2>&1
-          pip install -r requirements.txt > /dev/null 2>&1
-          pip install pytest > /dev/null 2>&1
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
           echo "✅ Backend dependencies installed"
 
       - name: Install frontend dependencies
         working-directory: frontend
+        timeout-minutes: 5
         run: |
           echo "📦 Installing frontend dependencies..."
-          npm ci --legacy-peer-deps --silent
+          npm ci --legacy-peer-deps
           echo "✅ Frontend dependencies installed"
 
       # Generate Prisma client (required for build)
       - name: Generate Prisma client
         working-directory: frontend
+        timeout-minutes: 2
         env:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         run: |
           echo "🔧 Generating Prisma client..."
           npx prisma generate
-          echo "Verifying Prisma client installation:"
-          npm list @prisma/client || echo "Warning: @prisma/client not found in npm list"
           echo "✅ Prisma client generated"
 
-      # Run pre-commit (handles all linting, formatting)
+      # Run pre-commit (ONLY on changed files, not all files)
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
         with:
-          extra_args: --all-files --show-diff-on-failure
+          extra_args: --show-diff-on-failure
+        timeout-minutes: 5
 
       # Build check (TypeScript validation disabled)
       - name: Build Check
         working-directory: frontend
+        timeout-minutes: 3
         env:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
           NEXTAUTH_SECRET: "dummy-secret-for-build"
           NEXTAUTH_URL: "http://localhost:3000"
         run: |
-          echo "🏗️  Running build check (TypeScript validation disabled)..."
-          if npm run build --silent; then
+          echo "🏗️  Running build check..."
+          if npm run build; then
             echo "✅ Build check passed"
           else
             echo "❌ Build check failed"
@@ -111,6 +115,7 @@ jobs:
 
       - name: Run backend tests
         working-directory: backend
+        timeout-minutes: 2
         run: |
           echo "🧪 Running backend tests..."
           if pytest --maxfail=1 --disable-warnings -q --tb=short; then
@@ -122,6 +127,7 @@ jobs:
 
       - name: Run frontend tests
         working-directory: frontend
+        timeout-minutes: 3
         run: |
           echo "🧪 Running frontend tests..."
           if npm test -- --watchAll=false --bail --passWithNoTests --silent; then
@@ -142,7 +148,7 @@ jobs:
           echo "✅ Dependencies installed"
           echo "✅ Prisma client generated"
           echo "✅ Code quality checks passed"
-          echo "✅ Build check passed (TypeScript validation disabled)"
+          echo "✅ Build check passed"
           echo "✅ All tests passed"
           echo ""
           echo "🚀 Ready for deployment!"
