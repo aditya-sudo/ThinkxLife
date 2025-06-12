@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path')
+
 const nextConfig = {
   eslint: {
     // Disable ESLint during builds
@@ -7,6 +9,13 @@ const nextConfig = {
   typescript: {
     // Disable TypeScript errors during builds if needed
     ignoreBuildErrors: false,
+  },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, '.'),
+    }
+    return config
   },
 }
 
