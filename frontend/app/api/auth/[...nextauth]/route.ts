@@ -1,3 +1,4 @@
+// Stub NextAuth route - simplified to avoid module resolution issues
 import NextAuth from "next-auth"
 import { authOptions } from "@/lib/auth"
 

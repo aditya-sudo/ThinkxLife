@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs"
 export async function POST(request: NextRequest) {
   try {
     const { token, password } = await request.json()
-
+    
     if (!token || !password) {
       return NextResponse.json(
         { error: "Token and password are required" },
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       where: {
         resetToken: token,
         resetTokenExpiry: {
-          gt: new Date() // Token must not be expired
+          gt: new Date()
         }
       }
     })
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     })
 
     return NextResponse.json(
-      { message: "Password reset successfully" },
+      { message: "Password has been reset successfully" },
       { status: 200 }
     )
 

@@ -18,28 +18,23 @@ const profileUpdateSchema = z.object({
 })
 
 // GET /api/profile - Get current user's profile
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    console.log("Profile API: Starting GET request")
     const session = await getServerSession(authOptions)
-    console.log("Profile API: Session:", session ? "exists" : "null", session?.user?.id)
-
-    if (!session?.user?.id) {
-      console.log("Profile API: No session or user ID")
+    
+    if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
       )
     }
 
-    console.log("Profile API: Querying user with ID:", session.user.id)
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
+      where: { email: session.user.email },
       select: {
         id: true,
         name: true,
         email: true,
-        image: true,
         firstName: true,
         lastName: true,
         bio: true,
@@ -55,17 +50,13 @@ export async function GET() {
       }
     })
 
-    console.log("Profile API: User query result:", user ? "found" : "not found")
-
     if (!user) {
-      console.log("Profile API: User not found in database")
       return NextResponse.json(
         { error: "User not found" },
         { status: 404 }
       )
     }
 
-    console.log("Profile API: Returning user data")
     return NextResponse.json({ user })
   } catch (error) {
     console.error("Profile fetch error:", error)
@@ -80,8 +71,8 @@ export async function GET() {
 export async function PUT(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-
-    if (!session?.user?.id) {
+    
+    if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -91,20 +82,16 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()
     const validatedData = profileUpdateSchema.parse(body)
 
-    // Convert dateOfBirth string to Date if provided
-    const updateData: any = { ...validatedData }
-    if (validatedData.dateOfBirth) {
-      updateData.dateOfBirth = new Date(validatedData.dateOfBirth)
-    }
-
     const updatedUser = await prisma.user.update({
-      where: { id: session.user.id },
-      data: updateData,
+      where: { email: session.user.email },
+      data: {
+        ...validatedData,
+        updatedAt: new Date(),
+      },
       select: {
         id: true,
         name: true,
         email: true,
-        image: true,
         firstName: true,
         lastName: true,
         bio: true,
@@ -120,14 +107,14 @@ export async function PUT(request: NextRequest) {
       }
     })
 
-    return NextResponse.json({
+    return NextResponse.json({ 
       message: "Profile updated successfully",
-      user: updatedUser
+      user: updatedUser 
     })
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Invalid input", details: error.errors },
+        { error: "Invalid data", details: error.errors },
         { status: 400 }
       )
     }
