@@ -9,11 +9,10 @@ const nextConfig = {
     // Disable ESLint during builds
     ignoreDuringBuilds: true,
   },
-  webpack: (config, { isServer }) => {
-    // Ensure proper path resolution
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': path.resolve(__dirname, '.'),
+      '@': __dirname,
     }
 
     // Handle Prisma client properly
