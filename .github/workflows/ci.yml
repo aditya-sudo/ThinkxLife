@@ -85,33 +85,19 @@ jobs:
         with:
           extra_args: --all-files --show-diff-on-failure
 
-      # TypeScript check with concise output
-      - name: TypeScript Check
-        working-directory: frontend
-        env:
-          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
-        run: |
-          echo "🔍 Running TypeScript check..."
-          if npm run type-check; then
-            echo "✅ TypeScript check passed"
-          else
-            echo "❌ TypeScript check failed"
-            exit 1
-          fi
-
-      # Build check with concise output
-      - name: Build Check
+      # Build check includes TypeScript validation
+      - name: Build Check (includes TypeScript validation)
         working-directory: frontend
         env:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
           NEXTAUTH_SECRET: "dummy-secret-for-build"
           NEXTAUTH_URL: "http://localhost:3000"
         run: |
-          echo "🏗️  Running build check..."
+          echo "🏗️  Running build check with TypeScript validation..."
           if npm run build --silent; then
-            echo "✅ Build check passed"
+            echo "✅ Build and TypeScript check passed"
           else
-            echo "❌ Build check failed"
+            echo "❌ Build or TypeScript check failed"
             exit 1
           fi
 
@@ -156,8 +142,7 @@ jobs:
           echo "✅ Dependencies installed"
           echo "✅ Prisma client generated"
           echo "✅ Code quality checks passed"
-          echo "✅ TypeScript validation passed"
-          echo "✅ Build verification passed"
+          echo "✅ Build with TypeScript validation passed"
           echo "✅ All tests passed"
           echo ""
           echo "🚀 Ready for deployment!"
