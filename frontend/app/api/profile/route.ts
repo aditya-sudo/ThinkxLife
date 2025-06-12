@@ -21,7 +21,7 @@ const profileUpdateSchema = z.object({
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Unauthorized" },
@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Unauthorized" },
@@ -107,9 +107,9 @@ export async function PUT(request: NextRequest) {
       }
     })
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       message: "Profile updated successfully",
-      user: updatedUser 
+      user: updatedUser
     })
   } catch (error) {
     if (error instanceof z.ZodError) {

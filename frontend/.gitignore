@@ -2,4 +2,23 @@ node_modules
 # Keep environment variables out of version control
 .env
 
-/lib/generated/prisma
+# Next.js build output
+.next/
+out/
+build/
+dist/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Prisma generated files
+/lib/generated/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

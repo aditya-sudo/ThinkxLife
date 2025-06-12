@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs"
 export async function POST(request: NextRequest) {
   try {
     const { token, password } = await request.json()
-    
+
     if (!token || !password) {
       return NextResponse.json(
         { error: "Token and password are required" },

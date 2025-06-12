@@ -105,4 +105,4 @@ echo $RESEND_API_KEY
 
 ---
 
-**Need help?** Check the [Resend documentation](https://resend.com/docs) or contact support. 
+**Need help?** Check the [Resend documentation](https://resend.com/docs) or contact support.

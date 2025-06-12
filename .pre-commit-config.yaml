@@ -12,16 +12,16 @@ repos:
         pass_filenames: false
         always_run: true
 
-  # Essential file checks (only on specific file types)
+  # Essential file checks (only on source files, not generated/build files)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
       - id: end-of-file-fixer
         files: \.(py|js|jsx|ts|tsx|yaml|yml|md)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|.*package-lock\.json|.*\.tsbuildinfo)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*package-lock\.json|.*\.tsbuildinfo|.*\.d\.ts|frontend/lib/generated/|.*build/|.*dist/)$
       - id: trailing-whitespace
         files: \.(py|js|jsx|ts|tsx|yaml|yml|md)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.tsbuildinfo)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.tsbuildinfo|.*\.d\.ts|frontend/lib/generated/|.*build/|.*dist/)$
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ['--maxkb=1000']
@@ -47,7 +47,7 @@ repos:
         files: ^backend/.*\.py$
         args: ['--max-line-length=88', '--extend-ignore=E203']
 
-  # Frontend - Simplified linting (only on changed files)
+  # Frontend - Simplified linting (only on source files)
   - repo: local
     hooks:
       - id: frontend-lint-check
@@ -55,7 +55,7 @@ repos:
         entry: bash -c 'cd frontend && npm run lint'
         language: system
         files: ^frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|frontend/lib/generated/)$
         pass_filenames: false
 
 # Configuration

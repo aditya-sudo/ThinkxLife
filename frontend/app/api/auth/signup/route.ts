@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs"
 export async function POST(request: NextRequest) {
   try {
     const { name, email, password } = await request.json()
-    
+
     if (!name || !email || !password) {
       return NextResponse.json(
         { error: "Name, email, and password are required" },
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     const { password: _, ...userWithoutPassword } = user
 
     return NextResponse.json(
-      { 
+      {
         message: "User created successfully",
         user: userWithoutPassword
       },

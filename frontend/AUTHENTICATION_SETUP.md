@@ -205,4 +205,4 @@ npx prisma db pull
 - Add social profile linking
 - Implement role-based access control
 - Add audit logging
-- Set up monitoring and analytics 
+- Set up monitoring and analytics

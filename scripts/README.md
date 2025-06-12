@@ -54,4 +54,4 @@ Your code is ready to be pushed! 🚀
 - Run `./scripts/test-ci.sh` before committing to catch issues early
 - The script will exit on the first failure to help you identify problems quickly
 - All output is colored for easy reading (green = success, red = error, yellow = info)
-- The script sets the same environment variables as the GitHub Actions workflow 
+- The script sets the same environment variables as the GitHub Actions workflow

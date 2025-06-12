@@ -119,4 +119,4 @@ The email includes:
 - Tokens have short expiration times (1 hour)
 - Rate limiting should be implemented for production
 - HTTPS is required for production use
-- Email provider should support TLS/SSL 
+- Email provider should support TLS/SSL

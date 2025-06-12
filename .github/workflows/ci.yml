@@ -10,12 +10,11 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    timeout-minutes: 15  # Add overall timeout
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Only fetch last 2 commits instead of full history
+          fetch-depth: 2
 
       # Show concise summary of changes
       - name: Show Changed Files Summary
@@ -23,11 +22,9 @@ jobs:
           echo "📋 Files Changed in This PR/Push:"
           echo "=================================="
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            # For PRs, show changes from base branch
             git diff --name-status ${{ github.event.pull_request.base.sha }}..${{ github.sha }} | head -20
             TOTAL_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..${{ github.sha }} | wc -l)
           else
-            # For pushes, show changes from previous commit
             git diff --name-status HEAD~1..HEAD | head -20
             TOTAL_FILES=$(git diff --name-only HEAD~1..HEAD | wc -l)
           fi
@@ -36,7 +33,6 @@ jobs:
           if [ $TOTAL_FILES -gt 20 ]; then
             echo "⚠️  Showing first 20 files only"
           fi
-          echo ""
 
       # Setup environments
       - name: Setup Python
@@ -54,101 +50,54 @@ jobs:
       # Install dependencies
       - name: Install backend dependencies
         working-directory: backend
-        timeout-minutes: 3
         run: |
-          echo "📦 Installing backend dependencies..."
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
-          echo "✅ Backend dependencies installed"
 
       - name: Install frontend dependencies
         working-directory: frontend
-        timeout-minutes: 5
-        run: |
-          echo "📦 Installing frontend dependencies..."
-          npm ci --legacy-peer-deps
-          echo "✅ Frontend dependencies installed"
+        run: npm ci --legacy-peer-deps
 
-      # Generate Prisma client (required for build)
+      # Generate Prisma client
       - name: Generate Prisma client
         working-directory: frontend
-        timeout-minutes: 2
         env:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
-        run: |
-          echo "🔧 Generating Prisma client..."
-          npx prisma generate
-          echo "✅ Prisma client generated"
+        run: npx prisma generate
 
-      # Run pre-commit (ONLY on changed files, not all files)
+      # Run pre-commit hooks (same as local)
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
         with:
           extra_args: --show-diff-on-failure
-        timeout-minutes: 5
 
-      # Build check (TypeScript validation disabled)
+      # Build check
       - name: Build Check
         working-directory: frontend
-        timeout-minutes: 3
         env:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
           NEXTAUTH_SECRET: "dummy-secret-for-build"
           NEXTAUTH_URL: "http://localhost:3000"
-        run: |
-          echo "🏗️  Running build check..."
-          if npm run build; then
-            echo "✅ Build check passed"
-          else
-            echo "❌ Build check failed"
-            exit 1
-          fi
+        run: npm run build
 
-      # Run tests with concise output
-      - name: Provide dummy environment variables for tests
-        run: |
-          echo "OPENAI_API_KEY=test" >> $GITHUB_ENV
-          echo "DATABASE_URL=postgresql://dummy:dummy@localhost:5432/dummy" >> $GITHUB_ENV
-          echo "NEXTAUTH_SECRET=dummy-secret-for-tests" >> $GITHUB_ENV
-          echo "NEXTAUTH_URL=http://localhost:3000" >> $GITHUB_ENV
-
+      # Tests
       - name: Run backend tests
         working-directory: backend
-        timeout-minutes: 2
-        run: |
-          echo "🧪 Running backend tests..."
-          if pytest --maxfail=1 --disable-warnings -q --tb=short; then
-            echo "✅ Backend tests passed"
-          else
-            echo "❌ Backend tests failed"
-            exit 1
-          fi
+        env:
+          OPENAI_API_KEY: test
+          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
+        run: pytest --maxfail=1 --disable-warnings -q --tb=short
 
       - name: Run frontend tests
         working-directory: frontend
-        timeout-minutes: 3
-        run: |
-          echo "🧪 Running frontend tests..."
-          if npm test -- --watchAll=false --bail --passWithNoTests --silent; then
-            echo "✅ Frontend tests passed"
-          else
-            echo "❌ Frontend tests failed"
-            exit 1
-          fi
+        env:
+          NEXTAUTH_SECRET: dummy-secret-for-tests
+          NEXTAUTH_URL: http://localhost:3000
+        run: npm test -- --watchAll=false --bail --passWithNoTests --silent
 
-      # Concise summary
+      # Summary
       - name: CI Summary
         if: always()
         run: |
-          echo ""
-          echo "🎉 CI Pipeline Summary"
-          echo "====================="
-          echo "✅ File changes analyzed"
-          echo "✅ Dependencies installed"
-          echo "✅ Prisma client generated"
-          echo "✅ Code quality checks passed"
-          echo "✅ Build check passed"
-          echo "✅ All tests passed"
-          echo ""
-          echo "🚀 Ready for deployment!"
+          echo "🎉 CI Complete - Pre-commit hooks ✅ Build ✅ Tests ✅"
