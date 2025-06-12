@@ -16,7 +16,7 @@ export default function AIEthicsSocialPage() {
             AI Ethics in Social Impact
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Examining how artificial intelligence affects employment, inequality, 
+            Examining how artificial intelligence affects employment, inequality,
             social justice, and community well-being across diverse populations
           </p>
         </div>
@@ -24,8 +24,8 @@ export default function AIEthicsSocialPage() {
         {/* Quote */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <blockquote className="text-xl italic text-gray-700 text-center">
-            "AI has the potential to drive innovation and productivity, but the uneven investment in and 
-            adoption of AI technologies mean that high-income nations are likely to benefit far more than 
+            "AI has the potential to drive innovation and productivity, but the uneven investment in and
+            adoption of AI technologies mean that high-income nations are likely to benefit far more than
             low- and medium-income countries."
           </blockquote>
           <p className="text-center text-gray-500 mt-4">
@@ -43,7 +43,7 @@ export default function AIEthicsSocialPage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                AI's impact on employment is complex, with potential for both job displacement 
+                AI's impact on employment is complex, with potential for both job displacement
                 and creation, requiring careful policy intervention to ensure equitable outcomes.
               </p>
               <div className="bg-red-50 p-4 rounded-lg">
@@ -75,7 +75,7 @@ export default function AIEthicsSocialPage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                AI systems can perpetuate and amplify existing social biases, affecting 
+                AI systems can perpetuate and amplify existing social biases, affecting
                 hiring, lending, criminal justice, and other critical social systems.
               </p>
               <div className="bg-yellow-50 p-4 rounded-lg">
@@ -90,9 +90,9 @@ export default function AIEthicsSocialPage() {
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-blue-800 mb-2">MIT Research Findings:</h3>
                 <p className="text-blue-700 text-sm">
-                  Stanford researchers found that AI's impact on racial disparities in education 
-                  varies significantly, with predictive analytics rating racial minorities as 
-                  less likely to succeed academically, creating false alarms for Black and Latino 
+                  Stanford researchers found that AI's impact on racial disparities in education
+                  varies significantly, with predictive analytics rating racial minorities as
+                  less likely to succeed academically, creating false alarms for Black and Latino
                   students at significantly higher rates (Stanford Law, June 2024).
                 </p>
               </div>
@@ -110,8 +110,8 @@ export default function AIEthicsSocialPage() {
             <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-3">The Problem</h3>
               <p className="text-gray-600 mb-4">
-                Recent MIT research reveals that ChatGPT, when used for resume screening, 
-                shows a strong bias toward selecting the first candidate presented, 
+                Recent MIT research reveals that ChatGPT, when used for resume screening,
+                shows a strong bias toward selecting the first candidate presented,
                 regardless of qualifications.
               </p>
               <div className="bg-red-50 p-4 rounded-lg">
@@ -127,7 +127,7 @@ export default function AIEthicsSocialPage() {
             <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-3">The Cost of Bias</h3>
               <p className="text-gray-600 mb-4">
-                Candidates must invest in costly signals to overcome AI bias, 
+                Candidates must invest in costly signals to overcome AI bias,
                 perpetuating socioeconomic disparities in hiring.
               </p>
               <div className="space-y-3">
@@ -148,7 +148,7 @@ export default function AIEthicsSocialPage() {
           </div>
           <div className="mt-6 bg-gray-50 p-4 rounded-lg">
             <p className="text-gray-700 text-sm">
-              <strong>Source:</strong> MIT Computational Law Report (February 2025): "First Come, First Hired? 
+              <strong>Source:</strong> MIT Computational Law Report (February 2025): "First Come, First Hired?
               ChatGPT's Bias for The First Resume It Sees and the Cost for Candidates to Overcome Bias in AI Hiring Tools"
             </p>
           </div>
@@ -198,8 +198,8 @@ export default function AIEthicsSocialPage() {
           </div>
           <div className="mt-6 bg-white bg-opacity-20 p-4 rounded-lg">
             <p className="text-sm">
-              <strong>Source:</strong> MIT Shaping the Future of Work (September 2023): 
-              "Can We Have Pro-Worker AI? Choosing a path of machines in service of minds" 
+              <strong>Source:</strong> MIT Shaping the Future of Work (September 2023):
+              "Can We Have Pro-Worker AI? Choosing a path of machines in service of minds"
               by Daron Acemoglu, David Autor, and Simon Johnson
             </p>
           </div>
@@ -273,7 +273,7 @@ export default function AIEthicsSocialPage() {
             <div>
               <h3 className="text-xl font-semibold mb-3">The Challenge</h3>
               <p className="mb-4">
-                AI tools in education risk exacerbating existing racial and socioeconomic 
+                AI tools in education risk exacerbating existing racial and socioeconomic
                 disparities, particularly in predictive analytics and personalized learning systems.
               </p>
               <h3 className="text-xl font-semibold mb-3">Research Findings</h3>
@@ -380,8 +380,8 @@ export default function AIEthicsSocialPage() {
           </div>
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <p className="text-blue-800 text-sm">
-              <strong>Note:</strong> This content synthesizes current research from leading institutions including MIT, Stanford, 
-              and UN organizations. The field of AI social impact is rapidly evolving, and findings are updated regularly 
+              <strong>Note:</strong> This content synthesizes current research from leading institutions including MIT, Stanford,
+              and UN organizations. The field of AI social impact is rapidly evolving, and findings are updated regularly
               as new research emerges and policy frameworks develop.
             </p>
           </div>
@@ -389,14 +389,14 @@ export default function AIEthicsSocialPage() {
 
         {/* Navigation */}
         <div className="flex justify-between mt-8">
-          <a 
-            href="/articles/ai-ethics-healthcare" 
+          <a
+            href="/articles/ai-ethics-healthcare"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             ← Previous: Healthcare Ethics
           </a>
-          <a 
-            href="/articles/ai-ethics-global" 
+          <a
+            href="/articles/ai-ethics-global"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             Next: Global Impact →
@@ -405,4 +405,4 @@ export default function AIEthicsSocialPage() {
       </div>
     </div>
   );
-} 
+}

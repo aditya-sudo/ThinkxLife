@@ -16,7 +16,7 @@ export default function AIEthicsHealthcarePage() {
             AI Ethics in Healthcare & Humanity
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Exploring the profound ethical implications of artificial intelligence in healthcare, 
+            Exploring the profound ethical implications of artificial intelligence in healthcare,
             medical diagnosis, and human-centered care delivery
           </p>
         </div>
@@ -24,8 +24,8 @@ export default function AIEthicsHealthcarePage() {
         {/* Quote */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <blockquote className="text-xl italic text-gray-700 text-center">
-            "Humanity must never be left to the 'black box' of an algorithm, emphasising the importance 
-            of human control over decisions to use force, in order to promote the development and protection 
+            "Humanity must never be left to the 'black box' of an algorithm, emphasising the importance
+            of human control over decisions to use force, in order to promote the development and protection
             of all human rights."
           </blockquote>
           <p className="text-center text-gray-500 mt-4">
@@ -43,7 +43,7 @@ export default function AIEthicsHealthcarePage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                AI healthcare systems can perpetuate and amplify existing medical biases, 
+                AI healthcare systems can perpetuate and amplify existing medical biases,
                 particularly affecting marginalized communities and underrepresented groups.
               </p>
               <div className="bg-red-50 p-4 rounded-lg">
@@ -58,8 +58,8 @@ export default function AIEthicsHealthcarePage() {
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-blue-800 mb-2">Research Evidence:</h3>
                 <p className="text-blue-700 text-sm">
-                  MIT researchers found that AI models can reduce bias while preserving accuracy 
-                  by identifying and removing specific training examples that contribute most to 
+                  MIT researchers found that AI models can reduce bias while preserving accuracy
+                  by identifying and removing specific training examples that contribute most to
                   model failures on minority subgroups (MIT News, December 2024).
                 </p>
               </div>
@@ -74,7 +74,7 @@ export default function AIEthicsHealthcarePage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                Maintaining the human element in healthcare while leveraging AI's diagnostic 
+                Maintaining the human element in healthcare while leveraging AI's diagnostic
                 and treatment capabilities requires careful ethical consideration.
               </p>
               <div className="bg-green-50 p-4 rounded-lg">
@@ -89,8 +89,8 @@ export default function AIEthicsHealthcarePage() {
               <div className="bg-purple-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-purple-800 mb-2">WHO Guidelines:</h3>
                 <p className="text-purple-700 text-sm">
-                  The World Health Organization has published comprehensive guidelines for the 
-                  ethical use of AI in healthcare, emphasizing principles that prioritize human 
+                  The World Health Organization has published comprehensive guidelines for the
+                  ethical use of AI in healthcare, emphasizing principles that prioritize human
                   well-being and uphold human rights (UN Global Issues, 2024).
                 </p>
               </div>
@@ -151,9 +151,9 @@ export default function AIEthicsHealthcarePage() {
           <div className="mt-6 bg-yellow-50 p-4 rounded-lg">
             <h3 className="font-semibold text-yellow-800 mb-2">Recent Research Findings:</h3>
             <p className="text-yellow-700 text-sm">
-              MIT researchers found that GPT-4 responses were more empathetic overall than human responses, 
-              but showed reduced empathy levels for Black (2-15% lower) and Asian posters (5-17% lower) 
-              compared to white posters, highlighting the need for bias mitigation in mental health AI 
+              MIT researchers found that GPT-4 responses were more empathetic overall than human responses,
+              but showed reduced empathy levels for Black (2-15% lower) and Asian posters (5-17% lower)
+              compared to white posters, highlighting the need for bias mitigation in mental health AI
               (MIT News, December 2024).
             </p>
           </div>
@@ -166,14 +166,14 @@ export default function AIEthicsHealthcarePage() {
             <div>
               <h3 className="text-xl font-semibold mb-3">The Problem</h3>
               <p className="mb-4">
-                A widely-used AI diagnostic tool was found to systematically underestimate 
-                the severity of illness in Black patients compared to white patients with 
+                A widely-used AI diagnostic tool was found to systematically underestimate
+                the severity of illness in Black patients compared to white patients with
                 identical symptoms and test results.
               </p>
               <h3 className="text-xl font-semibold mb-3">Root Cause</h3>
               <p>
-                The algorithm was trained on historical healthcare data that reflected 
-                existing disparities in care, where Black patients historically received 
+                The algorithm was trained on historical healthcare data that reflected
+                existing disparities in care, where Black patients historically received
                 less aggressive treatment regardless of their actual health status.
               </p>
             </div>
@@ -280,8 +280,8 @@ export default function AIEthicsHealthcarePage() {
           </div>
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <p className="text-blue-800 text-sm">
-              <strong>Note:</strong> This content synthesizes current research from leading medical journals, 
-              healthcare organizations, and regulatory bodies. The field of AI healthcare ethics is rapidly evolving, 
+              <strong>Note:</strong> This content synthesizes current research from leading medical journals,
+              healthcare organizations, and regulatory bodies. The field of AI healthcare ethics is rapidly evolving,
               with new clinical studies and policy guidelines emerging regularly to address emerging challenges.
             </p>
           </div>
@@ -289,14 +289,14 @@ export default function AIEthicsHealthcarePage() {
 
         {/* Navigation */}
         <div className="flex justify-between mt-8">
-          <a 
-            href="/articles/ai-ethics-education" 
+          <a
+            href="/articles/ai-ethics-education"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             ← Previous: Education Ethics
           </a>
-          <a 
-            href="/articles/ai-ethics-social" 
+          <a
+            href="/articles/ai-ethics-social"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             Next: Social Impact →
@@ -305,4 +305,4 @@ export default function AIEthicsHealthcarePage() {
       </div>
     </div>
   );
-} 
+}

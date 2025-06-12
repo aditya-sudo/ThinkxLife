@@ -16,7 +16,7 @@ export default function AIEthicsGlobalPage() {
             AI Ethics in Global Impact
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Understanding how artificial intelligence affects climate change, international development, 
+            Understanding how artificial intelligence affects climate change, international development,
             digital divides, and global governance across nations and cultures
           </p>
         </div>
@@ -24,7 +24,7 @@ export default function AIEthicsGlobalPage() {
         {/* Quote */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <blockquote className="text-xl italic text-gray-700 text-center">
-            "AI could contribute up to $4.8 trillion to the global economy by 2030, but this growth 
+            "AI could contribute up to $4.8 trillion to the global economy by 2030, but this growth
             will be unevenly distributed, potentially widening the gap between developed and developing nations."
           </blockquote>
           <p className="text-center text-gray-500 mt-4">
@@ -42,7 +42,7 @@ export default function AIEthicsGlobalPage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                AI presents both opportunities and challenges for addressing climate change, 
+                AI presents both opportunities and challenges for addressing climate change,
                 with potential for optimization and monitoring, but also significant energy consumption.
               </p>
               <div className="bg-green-50 p-4 rounded-lg">
@@ -74,7 +74,7 @@ export default function AIEthicsGlobalPage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                The global digital divide risks creating an "AI divide" where developing nations 
+                The global digital divide risks creating an "AI divide" where developing nations
                 are left behind in the AI revolution, exacerbating existing inequalities.
               </p>
               <div className="bg-yellow-50 p-4 rounded-lg">
@@ -89,8 +89,8 @@ export default function AIEthicsGlobalPage() {
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-blue-800 mb-2">UN Findings:</h3>
                 <p className="text-blue-700 text-sm">
-                  The UN's "Mind the AI Divide" report (2024) warns that without intervention, 
-                  AI could widen global inequalities, with high-income countries capturing 
+                  The UN's "Mind the AI Divide" report (2024) warns that without intervention,
+                  AI could widen global inequalities, with high-income countries capturing
                   most benefits while low-income nations face displacement without compensation.
                 </p>
               </div>
@@ -153,7 +153,7 @@ export default function AIEthicsGlobalPage() {
           </div>
           <div className="mt-6 bg-gray-50 p-4 rounded-lg">
             <p className="text-gray-700 text-sm">
-              <strong>Sources:</strong> MIT Technology Review (2024), Nature Climate Change (2024), 
+              <strong>Sources:</strong> MIT Technology Review (2024), Nature Climate Change (2024),
               International Energy Agency AI and Energy Report (2024)
             </p>
           </div>
@@ -213,28 +213,28 @@ export default function AIEthicsGlobalPage() {
                 <div className="border-l-4 border-red-500 pl-4">
                   <h4 className="font-semibold text-red-800">Economic Displacement</h4>
                   <p className="text-gray-600 text-sm">
-                    Manufacturing jobs at risk from automation, affecting countries 
+                    Manufacturing jobs at risk from automation, affecting countries
                     dependent on labor-intensive industries
                   </p>
                 </div>
                 <div className="border-l-4 border-orange-500 pl-4">
                   <h4 className="font-semibold text-orange-800">Brain Drain</h4>
                   <p className="text-gray-600 text-sm">
-                    AI talent migration to developed countries, leaving developing 
+                    AI talent migration to developed countries, leaving developing
                     nations with limited expertise
                   </p>
                 </div>
                 <div className="border-l-4 border-yellow-500 pl-4">
                   <h4 className="font-semibold text-yellow-800">Infrastructure Gap</h4>
                   <p className="text-gray-600 text-sm">
-                    Limited internet connectivity, electricity, and computational 
+                    Limited internet connectivity, electricity, and computational
                     resources needed for AI adoption
                   </p>
                 </div>
                 <div className="border-l-4 border-purple-500 pl-4">
                   <h4 className="font-semibold text-purple-800">Data Colonialism</h4>
                   <p className="text-gray-600 text-sm">
-                    Extraction of data from developing countries to train AI systems 
+                    Extraction of data from developing countries to train AI systems
                     that primarily benefit developed nations
                   </p>
                 </div>
@@ -246,28 +246,28 @@ export default function AIEthicsGlobalPage() {
                 <div className="border-l-4 border-green-500 pl-4">
                   <h4 className="font-semibold text-green-800">Leapfrogging</h4>
                   <p className="text-gray-600 text-sm">
-                    Skip traditional infrastructure development stages using 
+                    Skip traditional infrastructure development stages using
                     AI-powered mobile and cloud solutions
                   </p>
                 </div>
                 <div className="border-l-4 border-blue-500 pl-4">
                   <h4 className="font-semibold text-blue-800">Healthcare Access</h4>
                   <p className="text-gray-600 text-sm">
-                    AI diagnostics and telemedicine bringing healthcare to 
+                    AI diagnostics and telemedicine bringing healthcare to
                     remote and underserved populations
                   </p>
                 </div>
                 <div className="border-l-4 border-teal-500 pl-4">
                   <h4 className="font-semibold text-teal-800">Agricultural Innovation</h4>
                   <p className="text-gray-600 text-sm">
-                    Precision farming and crop monitoring improving food security 
+                    Precision farming and crop monitoring improving food security
                     and farmer incomes
                   </p>
                 </div>
                 <div className="border-l-4 border-indigo-500 pl-4">
                   <h4 className="font-semibold text-indigo-800">Financial Inclusion</h4>
                   <p className="text-gray-600 text-sm">
-                    AI-powered fintech solutions providing banking and credit 
+                    AI-powered fintech solutions providing banking and credit
                     access to unbanked populations
                   </p>
                 </div>
@@ -283,8 +283,8 @@ export default function AIEthicsGlobalPage() {
             <div>
               <h3 className="text-xl font-semibold mb-3">The Innovation</h3>
               <p className="mb-4">
-                iCow, a Kenyan startup, uses AI and SMS technology to provide 
-                farmers with personalized agricultural advice, weather forecasts, 
+                iCow, a Kenyan startup, uses AI and SMS technology to provide
+                farmers with personalized agricultural advice, weather forecasts,
                 and market prices via basic mobile phones.
               </p>
               <h3 className="text-xl font-semibold mb-3">Impact Metrics</h3>
@@ -315,7 +315,7 @@ export default function AIEthicsGlobalPage() {
           </div>
           <div className="mt-6 bg-white bg-opacity-20 p-4 rounded-lg">
             <p className="text-sm">
-              <strong>Source:</strong> GSMA Mobile for Development (2024), 
+              <strong>Source:</strong> GSMA Mobile for Development (2024),
               UN Sustainable Development Goals AI Impact Report (2024)
             </p>
           </div>
@@ -449,8 +449,8 @@ export default function AIEthicsGlobalPage() {
           </div>
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <p className="text-blue-800 text-sm">
-              <strong>Note:</strong> This content synthesizes current research from international organizations, 
-              academic institutions, and policy think tanks. The global AI landscape is rapidly evolving, 
+              <strong>Note:</strong> This content synthesizes current research from international organizations,
+              academic institutions, and policy think tanks. The global AI landscape is rapidly evolving,
               with new developments in governance, technology, and international cooperation emerging regularly.
             </p>
           </div>
@@ -458,14 +458,14 @@ export default function AIEthicsGlobalPage() {
 
         {/* Navigation */}
         <div className="flex justify-between mt-8">
-          <a 
-            href="/articles/ai-ethics-social" 
+          <a
+            href="/articles/ai-ethics-social"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             ← Previous: Social Impact
           </a>
-          <a 
-            href="/awareness/ethics" 
+          <a
+            href="/awareness/ethics"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             Back to Ethics Hub →
@@ -474,4 +474,4 @@ export default function AIEthicsGlobalPage() {
       </div>
     </div>
   );
-} 
+}

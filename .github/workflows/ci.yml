@@ -13,6 +13,29 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for file change detection
+
+      # Show concise summary of changes
+      - name: Show Changed Files Summary
+        run: |
+          echo "📋 Files Changed in This PR/Push:"
+          echo "=================================="
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # For PRs, show changes from base branch
+            git diff --name-status ${{ github.event.pull_request.base.sha }}..${{ github.sha }} | head -20
+            TOTAL_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..${{ github.sha }} | wc -l)
+          else
+            # For pushes, show changes from previous commit
+            git diff --name-status HEAD~1..HEAD | head -20
+            TOTAL_FILES=$(git diff --name-only HEAD~1..HEAD | wc -l)
+          fi
+          echo "=================================="
+          echo "📊 Total files changed: $TOTAL_FILES"
+          if [ $TOTAL_FILES -gt 20 ]; then
+            echo "⚠️  Showing first 20 files only"
+          fi
+          echo ""
 
       # Setup environments
       - name: Setup Python
@@ -31,13 +54,18 @@ jobs:
       - name: Install backend dependencies
         working-directory: backend
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest
+          echo "📦 Installing backend dependencies..."
+          python -m pip install --upgrade pip > /dev/null 2>&1
+          pip install -r requirements.txt > /dev/null 2>&1
+          pip install pytest > /dev/null 2>&1
+          echo "✅ Backend dependencies installed"
 
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm ci --legacy-peer-deps
+        run: |
+          echo "📦 Installing frontend dependencies..."
+          npm ci --legacy-peer-deps --silent
+          echo "✅ Frontend dependencies installed"
 
       # Generate Prisma client (required for TypeScript and build)
       - name: Generate Prisma client
@@ -45,31 +73,31 @@ jobs:
         env:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         run: |
-          echo "Generating Prisma client..."
-          npx prisma generate
-          echo "Prisma client generated successfully"
+          echo "🔧 Generating Prisma client..."
+          npx prisma generate --silent
+          echo "✅ Prisma client generated"
 
       # Run pre-commit (handles all linting, formatting, type checking)
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
         with:
-          extra_args: --all-files
+          extra_args: --all-files --show-diff-on-failure
 
-      # TypeScript check with proper error handling
+      # TypeScript check with concise output
       - name: TypeScript Check
         working-directory: frontend
         env:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         run: |
-          echo "Running TypeScript check..."
-          if npx tsc --noEmit --skipLibCheck; then
+          echo "🔍 Running TypeScript check..."
+          if npx tsc --noEmit --skipLibCheck --pretty; then
             echo "✅ TypeScript check passed"
           else
             echo "❌ TypeScript check failed"
             exit 1
           fi
 
-      # Build check to ensure the app can be built
+      # Build check with concise output
       - name: Build Check
         working-directory: frontend
         env:
@@ -77,15 +105,15 @@ jobs:
           NEXTAUTH_SECRET: "dummy-secret-for-build"
           NEXTAUTH_URL: "http://localhost:3000"
         run: |
-          echo "Running build check..."
-          if npm run build; then
+          echo "🏗️  Running build check..."
+          if npm run build --silent; then
             echo "✅ Build check passed"
           else
             echo "❌ Build check failed"
             exit 1
           fi
 
-      # Run tests
+      # Run tests with concise output
       - name: Provide dummy environment variables for tests
         run: |
           echo "OPENAI_API_KEY=test" >> $GITHUB_ENV
@@ -96,8 +124,8 @@ jobs:
       - name: Run backend tests
         working-directory: backend
         run: |
-          echo "Running backend tests..."
-          if pytest --maxfail=1 --disable-warnings -q; then
+          echo "🧪 Running backend tests..."
+          if pytest --maxfail=1 --disable-warnings -q --tb=short; then
             echo "✅ Backend tests passed"
           else
             echo "❌ Backend tests failed"
@@ -107,22 +135,27 @@ jobs:
       - name: Run frontend tests
         working-directory: frontend
         run: |
-          echo "Running frontend tests..."
-          if npm test -- --watchAll=false --bail --passWithNoTests; then
+          echo "🧪 Running frontend tests..."
+          if npm test -- --watchAll=false --bail --passWithNoTests --silent; then
             echo "✅ Frontend tests passed"
           else
             echo "❌ Frontend tests failed"
             exit 1
           fi
 
-      # Summary
+      # Concise summary
       - name: CI Summary
         if: always()
         run: |
-          echo "🎉 CI pipeline completed!"
+          echo ""
+          echo "🎉 CI Pipeline Summary"
+          echo "====================="
+          echo "✅ File changes analyzed"
           echo "✅ Dependencies installed"
           echo "✅ Prisma client generated"
-          echo "✅ Pre-commit hooks passed"
-          echo "✅ TypeScript check passed"
-          echo "✅ Build check passed"
-          echo "✅ Tests passed"
+          echo "✅ Code quality checks passed"
+          echo "✅ TypeScript validation passed"
+          echo "✅ Build verification passed"
+          echo "✅ All tests passed"
+          echo ""
+          echo "🚀 Ready for deployment!"

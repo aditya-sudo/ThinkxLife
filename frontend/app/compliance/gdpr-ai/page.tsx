@@ -106,13 +106,13 @@ export default function GDPRAICompliancePage() {
     );
   };
 
-  const filteredItems = selectedCategory === "all" 
-    ? gdprAIChecklist 
+  const filteredItems = selectedCategory === "all"
+    ? gdprAIChecklist
     : gdprAIChecklist.filter(item => item.category === selectedCategory);
 
   const completionPercentage = Math.round((checkedItems.length / gdprAIChecklist.length) * 100);
   const requiredItems = gdprAIChecklist.filter(item => item.required);
-  const requiredCompleted = checkedItems.filter(id => 
+  const requiredCompleted = checkedItems.filter(id =>
     requiredItems.some(item => item.id === id)
   ).length;
 
@@ -135,15 +135,15 @@ export default function GDPRAICompliancePage() {
         {/* Action Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
           <div className="flex gap-2">
-            <Button 
+            <Button
               onClick={() => window.print()}
-              variant="outline" 
+              variant="outline"
               className="flex items-center gap-2"
             >
               <Printer className="w-4 h-4" />
               Print Checklist
             </Button>
-            <Button 
+            <Button
               onClick={() => {
                 if (navigator.share) {
                   navigator.share({
@@ -154,7 +154,7 @@ export default function GDPRAICompliancePage() {
                   navigator.clipboard.writeText(window.location.href);
                 }
               }}
-              variant="outline" 
+              variant="outline"
               className="flex items-center gap-2"
             >
               <Share2 className="w-4 h-4" />
@@ -162,16 +162,16 @@ export default function GDPRAICompliancePage() {
             </Button>
           </div>
           <div className="flex gap-2">
-            <Button 
+            <Button
               onClick={() => window.open("https://gdpr.eu/checklist/", "_blank")}
               className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
             >
               <ExternalLink className="w-4 h-4" />
               Official GDPR Guide
             </Button>
-            <Button 
+            <Button
               onClick={() => window.open("https://edpb.europa.eu/our-work-tools/documents/public-consultations_en", "_blank")}
-              variant="outline" 
+              variant="outline"
               className="flex items-center gap-2"
             >
               <ExternalLink className="w-4 h-4" />
@@ -224,7 +224,7 @@ export default function GDPRAICompliancePage() {
             <div className="text-3xl font-bold text-purple-600 mb-2">{categories.length}</div>
             <p className="text-sm text-gray-600">Compliance areas covered</p>
             <div className="mt-3">
-              <select 
+              <select
                 className="w-full p-2 border border-gray-300 rounded-md text-sm"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -266,14 +266,14 @@ export default function GDPRAICompliancePage() {
                       </span>
                     </div>
                   </div>
-                  
+
                   <p className="text-gray-600 mb-3">{item.description}</p>
-                  
+
                   <div className="bg-blue-50 p-3 rounded-lg mb-3">
                     <h4 className="font-semibold text-blue-800 text-sm mb-1">Implementation Guidance:</h4>
                     <p className="text-blue-700 text-sm">{item.guidance}</p>
                   </div>
-                  
+
                   <div className="bg-green-50 p-3 rounded-lg">
                     <h4 className="font-semibold text-green-800 text-sm mb-2">Evidence & Documentation:</h4>
                     <ul className="space-y-1">
@@ -322,8 +322,8 @@ export default function GDPRAICompliancePage() {
           </div>
           <div className="mt-6 p-4 bg-yellow-50 rounded-lg">
             <p className="text-yellow-800 text-sm">
-              <strong>Legal Disclaimer:</strong> This checklist provides general guidance based on current GDPR requirements 
-              and regulatory guidance. It should not be considered as legal advice. Always consult with qualified 
+              <strong>Legal Disclaimer:</strong> This checklist provides general guidance based on current GDPR requirements
+              and regulatory guidance. It should not be considered as legal advice. Always consult with qualified
               data protection professionals and legal counsel for your specific circumstances and jurisdiction.
             </p>
           </div>
@@ -391,7 +391,7 @@ export default function GDPRAICompliancePage() {
                 Next: CCPA AI Compliance →
               </Button>
             </Link>
-            <Button 
+            <Button
               className="bg-green-600 hover:bg-green-700 text-white"
               disabled={requiredCompleted < requiredItems.length}
             >
@@ -402,4 +402,4 @@ export default function GDPRAICompliancePage() {
       </div>
     </div>
   );
-} 
+}

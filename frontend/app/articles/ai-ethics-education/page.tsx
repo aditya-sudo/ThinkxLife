@@ -16,7 +16,7 @@ export default function AIEthicsEducationPage() {
             AI Ethics in Education
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ensuring AI empowers learning while protecting student rights, educational equity, 
+            Ensuring AI empowers learning while protecting student rights, educational equity,
             and the irreplaceable value of human connection in education
           </p>
         </div>
@@ -24,7 +24,7 @@ export default function AIEthicsEducationPage() {
         {/* Quote */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <blockquote className="text-xl italic text-gray-700 text-center">
-            "AI in education should amplify human potential, not replace human connection. 
+            "AI in education should amplify human potential, not replace human connection.
             The goal is not to automate learning, but to personalize and democratize it."
           </blockquote>
           <p className="text-center text-gray-500 mt-4">
@@ -42,7 +42,7 @@ export default function AIEthicsEducationPage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                AI in education can either bridge or widen educational gaps, depending on 
+                AI in education can either bridge or widen educational gaps, depending on
                 implementation. The digital divide risks becoming an AI divide.
               </p>
               <div className="bg-red-50 p-4 rounded-lg">
@@ -57,9 +57,9 @@ export default function AIEthicsEducationPage() {
               <div className="bg-green-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-green-800 mb-2">Stanford Research:</h3>
                 <p className="text-green-700 text-sm">
-                  Stanford researchers found that AI's impact on racial disparities varies significantly, 
-                  with predictive analytics creating false alarms for Black and Latino students at 
-                  higher rates, but also showing potential for reducing bias when properly designed 
+                  Stanford researchers found that AI's impact on racial disparities varies significantly,
+                  with predictive analytics creating false alarms for Black and Latino students at
+                  higher rates, but also showing potential for reducing bias when properly designed
                   (Stanford Law, June 2024).
                 </p>
               </div>
@@ -74,7 +74,7 @@ export default function AIEthicsEducationPage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                Educational AI systems collect unprecedented amounts of data about students' 
+                Educational AI systems collect unprecedented amounts of data about students'
                 learning patterns, creating detailed psychological profiles that could follow them for life.
               </p>
               <div className="bg-yellow-50 p-4 rounded-lg">
@@ -89,8 +89,8 @@ export default function AIEthicsEducationPage() {
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-blue-800 mb-2">FERPA Challenges:</h3>
                 <p className="text-blue-700 text-sm">
-                  The Family Educational Rights and Privacy Act (FERPA) was written before AI, 
-                  creating gaps in protection for student data used in machine learning systems 
+                  The Family Educational Rights and Privacy Act (FERPA) was written before AI,
+                  creating gaps in protection for student data used in machine learning systems
                   (U.S. Department of Education, 2024).
                 </p>
               </div>
@@ -159,7 +159,7 @@ export default function AIEthicsEducationPage() {
           </div>
           <div className="mt-6 bg-gray-50 p-4 rounded-lg">
             <p className="text-gray-700 text-sm">
-              <strong>Sources:</strong> UNESCO AI and Education Report (2024), 
+              <strong>Sources:</strong> UNESCO AI and Education Report (2024),
               International Society for Technology in Education (2024), MIT Teaching Systems Lab (2024)
             </p>
           </div>
@@ -206,7 +206,7 @@ export default function AIEthicsEducationPage() {
           </div>
           <div className="mt-6 bg-white bg-opacity-20 p-4 rounded-lg">
             <p className="text-sm">
-              <strong>Source:</strong> Stanford Law (June 2024): "How will AI Impact Racial Disparities in Education?" 
+              <strong>Source:</strong> Stanford Law (June 2024): "How will AI Impact Racial Disparities in Education?"
               and MIT CSAIL Bias in Educational AI Systems Study (2024)
             </p>
           </div>
@@ -289,8 +289,8 @@ export default function AIEthicsEducationPage() {
             <div>
               <h3 className="text-xl font-semibold mb-3">The Problem</h3>
               <p className="mb-4">
-                Research revealed that AI essay grading systems exhibit systematic bias against 
-                certain writing styles, cultural expressions, and non-native English speakers, 
+                Research revealed that AI essay grading systems exhibit systematic bias against
+                certain writing styles, cultural expressions, and non-native English speakers,
                 potentially disadvantaging diverse students.
               </p>
               <h3 className="text-xl font-semibold mb-3">Specific Findings</h3>
@@ -423,8 +423,8 @@ export default function AIEthicsEducationPage() {
           </div>
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <p className="text-blue-800 text-sm">
-              <strong>Note:</strong> This content synthesizes current research from leading educational institutions, 
-              policy organizations, and academic journals. The field of AI in education is rapidly evolving, 
+              <strong>Note:</strong> This content synthesizes current research from leading educational institutions,
+              policy organizations, and academic journals. The field of AI in education is rapidly evolving,
               with new studies on bias, accessibility, and pedagogical effectiveness emerging regularly.
             </p>
           </div>
@@ -432,14 +432,14 @@ export default function AIEthicsEducationPage() {
 
         {/* Navigation */}
         <div className="flex justify-between mt-8">
-          <a 
-            href="/articles/ai-ethics-arts" 
+          <a
+            href="/articles/ai-ethics-arts"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             ← Previous: Arts Ethics
           </a>
-          <a 
-            href="/articles/ai-ethics-healthcare" 
+          <a
+            href="/articles/ai-ethics-healthcare"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             Next: Healthcare Ethics →
@@ -448,4 +448,4 @@ export default function AIEthicsEducationPage() {
       </div>
     </div>
   );
-} 
+}

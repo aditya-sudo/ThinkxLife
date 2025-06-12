@@ -16,7 +16,7 @@ export default function AIEthicsArtsPage() {
             AI Ethics in Arts & Creativity
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Navigating the complex intersection of artificial intelligence and human creativity, 
+            Navigating the complex intersection of artificial intelligence and human creativity,
             exploring questions of authorship, authenticity, and cultural preservation
           </p>
         </div>
@@ -24,7 +24,7 @@ export default function AIEthicsArtsPage() {
         {/* Quote */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <blockquote className="text-xl italic text-gray-700 text-center">
-            "The question is not whether machines can create art, but whether we can preserve 
+            "The question is not whether machines can create art, but whether we can preserve
             the human soul in creativity while embracing the possibilities of artificial intelligence."
           </blockquote>
           <p className="text-center text-gray-500 mt-4">
@@ -42,7 +42,7 @@ export default function AIEthicsArtsPage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                When AI generates art, music, or literature, fundamental questions arise about 
+                When AI generates art, music, or literature, fundamental questions arise about
                 creativity, originality, and the nature of artistic expression itself.
               </p>
               <div className="bg-purple-50 p-4 rounded-lg">
@@ -57,8 +57,8 @@ export default function AIEthicsArtsPage() {
               <div className="bg-yellow-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-yellow-800 mb-2">Research Insight:</h3>
                 <p className="text-yellow-700 text-sm">
-                  MIT researchers found that while AI can generate novel combinations, 
-                  human creativity involves intentionality, emotional expression, and 
+                  MIT researchers found that while AI can generate novel combinations,
+                  human creativity involves intentionality, emotional expression, and
                   cultural context that current AI systems lack (MIT Technology Review, 2024).
                 </p>
               </div>
@@ -73,7 +73,7 @@ export default function AIEthicsArtsPage() {
             </div>
             <div className="space-y-4">
               <p className="text-gray-600">
-                AI systems trained on cultural works may reproduce artistic styles without 
+                AI systems trained on cultural works may reproduce artistic styles without
                 understanding their significance or obtaining proper permissions from communities.
               </p>
               <div className="bg-red-50 p-4 rounded-lg">
@@ -88,8 +88,8 @@ export default function AIEthicsArtsPage() {
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-blue-800 mb-2">UNESCO Guidelines:</h3>
                 <p className="text-blue-700 text-sm">
-                  UNESCO's 2024 report on "AI and Cultural Diversity" emphasizes the need 
-                  for consent-based training data and benefit-sharing with cultural communities 
+                  UNESCO's 2024 report on "AI and Cultural Diversity" emphasizes the need
+                  for consent-based training data and benefit-sharing with cultural communities
                   whose artistic traditions are used in AI systems.
                 </p>
               </div>
@@ -158,7 +158,7 @@ export default function AIEthicsArtsPage() {
           </div>
           <div className="mt-6 bg-gray-50 p-4 rounded-lg">
             <p className="text-gray-700 text-sm">
-              <strong>Sources:</strong> World Intellectual Property Organization (2024), 
+              <strong>Sources:</strong> World Intellectual Property Organization (2024),
               Artists Rights Society Economic Impact Report (2024), Creative Commons AI Study (2024)
             </p>
           </div>
@@ -171,8 +171,8 @@ export default function AIEthicsArtsPage() {
             <div>
               <h3 className="text-xl font-semibold mb-3">The Incident</h3>
               <p className="mb-4">
-                In August 2022, Jason Allen's AI-generated artwork "Théâtre D'opéra Spatial" 
-                won first place at the Colorado State Fair's fine arts competition, sparking 
+                In August 2022, Jason Allen's AI-generated artwork "Théâtre D'opéra Spatial"
+                won first place at the Colorado State Fair's fine arts competition, sparking
                 global debate about AI in creative competitions.
               </p>
               <h3 className="text-xl font-semibold mb-3">The Backlash</h3>
@@ -212,28 +212,28 @@ export default function AIEthicsArtsPage() {
                 <div className="border-l-4 border-red-500 pl-4">
                   <h4 className="font-semibold text-red-800">Cultural Bias</h4>
                   <p className="text-gray-600 text-sm">
-                    AI systems often default to Western artistic styles and may 
+                    AI systems often default to Western artistic styles and may
                     struggle with non-Western art forms and aesthetics
                   </p>
                 </div>
                 <div className="border-l-4 border-orange-500 pl-4">
                   <h4 className="font-semibold text-orange-800">Gender Bias</h4>
                   <p className="text-gray-600 text-sm">
-                    Historical art datasets underrepresent women artists, 
+                    Historical art datasets underrepresent women artists,
                     leading to biased AI outputs and style recognition
                   </p>
                 </div>
                 <div className="border-l-4 border-yellow-500 pl-4">
                   <h4 className="font-semibold text-yellow-800">Racial Bias</h4>
                   <p className="text-gray-600 text-sm">
-                    AI image generators may struggle with accurate representation 
+                    AI image generators may struggle with accurate representation
                     of diverse ethnicities and skin tones
                   </p>
                 </div>
                 <div className="border-l-4 border-purple-500 pl-4">
                   <h4 className="font-semibold text-purple-800">Socioeconomic Bias</h4>
                   <p className="text-gray-600 text-sm">
-                    Training data skewed toward art from wealthy institutions 
+                    Training data skewed toward art from wealthy institutions
                     and established artists, excluding grassroots creativity
                   </p>
                 </div>
@@ -370,8 +370,8 @@ export default function AIEthicsArtsPage() {
           </div>
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <p className="text-blue-800 text-sm">
-              <strong>Note:</strong> This content draws from current research in digital humanities, technology ethics, 
-              and creative industry reports. The intersection of AI and arts is a rapidly evolving field with ongoing 
+              <strong>Note:</strong> This content draws from current research in digital humanities, technology ethics,
+              and creative industry reports. The intersection of AI and arts is a rapidly evolving field with ongoing
               debates about creativity, authorship, and cultural preservation in the digital age.
             </p>
           </div>
@@ -379,14 +379,14 @@ export default function AIEthicsArtsPage() {
 
         {/* Navigation */}
         <div className="flex justify-between mt-8">
-          <a 
-            href="/awareness/ethics" 
+          <a
+            href="/awareness/ethics"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             ← Back to Ethics Hub
           </a>
-          <a 
-            href="/articles/ai-ethics-education" 
+          <a
+            href="/articles/ai-ethics-education"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
           >
             Next: Education Ethics →
@@ -395,4 +395,4 @@ export default function AIEthicsArtsPage() {
       </div>
     </div>
   );
-} 
+}
