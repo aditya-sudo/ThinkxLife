@@ -75,6 +75,8 @@ jobs:
         run: |
           echo "🔧 Generating Prisma client..."
           npx prisma generate
+          echo "Verifying Prisma client installation:"
+          npm list @prisma/client || echo "Warning: @prisma/client not found in npm list"
           echo "✅ Prisma client generated"
 
       # Run pre-commit (handles all linting, formatting, type checking)
@@ -90,7 +92,7 @@ jobs:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         run: |
           echo "🔍 Running TypeScript check..."
-          if npx tsc --noEmit --skipLibCheck --pretty; then
+          if npm run type-check; then
             echo "✅ TypeScript check passed"
           else
             echo "❌ TypeScript check failed"
