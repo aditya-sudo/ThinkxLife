@@ -74,7 +74,7 @@ jobs:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         run: |
           echo "🔧 Generating Prisma client..."
-          npx prisma generate --silent
+          npx prisma generate
           echo "✅ Prisma client generated"
 
       # Run pre-commit (handles all linting, formatting, type checking)
