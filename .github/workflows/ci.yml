@@ -66,11 +66,16 @@ jobs:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         run: npx prisma generate
 
-      # Run pre-commit hooks (same as local)
-      - name: Run pre-commit hooks
+      # Run fast pre-commit hooks (no frontend linting)
+      - name: Run pre-commit hooks (fast)
         uses: pre-commit/action@v3.0.1
         with:
           extra_args: --show-diff-on-failure
+
+      # Frontend linting (separate step for speed)
+      - name: Frontend lint check
+        working-directory: frontend
+        run: npm run lint
 
       # Build check
       - name: Build Check
@@ -100,4 +105,4 @@ jobs:
       - name: CI Summary
         if: always()
         run: |
-          echo "🎉 CI Complete - Pre-commit hooks ✅ Build ✅ Tests ✅"
+          echo "🎉 CI Complete - Pre-commit ✅ Lint ✅ Build ✅ Tests ✅"

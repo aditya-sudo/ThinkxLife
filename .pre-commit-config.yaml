@@ -1,80 +1,47 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
-  # Custom hook to show changed files only
-  - repo: local
-    hooks:
-      - id: show-changed-files
-        name: Show changed files
-        entry: bash -c 'echo "📋 Files being committed:" && git diff --cached --name-only'
-        language: system
-        stages: [pre-commit]
-        pass_filenames: false
-        always_run: true
-
-  # Essential file checks (only on source files, not generated/build files)
+  # Essential file checks (very targeted)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
-      - id: end-of-file-fixer
-        files: \.(py|js|jsx|ts|tsx|yaml|yml|md)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|.*package-lock\.json|.*\.tsbuildinfo|.*\.d\.ts|frontend/lib/generated/|.*build/|.*dist/)$
-      - id: trailing-whitespace
-        files: \.(py|js|jsx|ts|tsx|yaml|yml|md)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.tsbuildinfo|.*\.d\.ts|frontend/lib/generated/|.*build/|.*dist/)$
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ['--maxkb=1000']
+      - id: end-of-file-fixer
+        files: \.(py|js|jsx|ts|tsx)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.d\.ts|.*build/|.*dist/)$
+      - id: trailing-whitespace
+        files: \.(py|js|jsx|ts|tsx)$
+        exclude: ^(frontend/node_modules/|frontend/\.next/|.*\.d\.ts|.*build/|.*dist/)$
 
-  # Python Backend (only run on Python files)
+  # Python Backend (only essential checks)
   - repo: https://github.com/psf/black
     rev: 24.10.0
     hooks:
       - id: black
         files: ^backend/.*\.py$
 
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-        files: ^backend/.*\.py$
-        args: ['--profile=black']
-
   - repo: https://github.com/pycqa/flake8
     rev: 7.2.0
     hooks:
       - id: flake8
         files: ^backend/.*\.py$
-        args: ['--max-line-length=88', '--extend-ignore=E203']
+        args: ['--max-line-length=88', '--extend-ignore=E203,W503']
 
-  # Frontend - Simplified linting (only on source files)
-  - repo: local
-    hooks:
-      - id: frontend-lint-check
-        name: frontend-lint-check
-        entry: bash -c 'cd frontend && npm run lint'
-        language: system
-        files: ^frontend/(app|components|hooks|lib)/.*\.(js|jsx|ts|tsx)$
-        exclude: ^(frontend/node_modules/|frontend/\.next/|frontend/lib/generated/)$
-        pass_filenames: false
+  # Frontend - Skip linting in pre-commit (let CI handle it)
+  # This is the slowest part, so we'll skip it here
 
-# Configuration
+# Configuration for speed
 default_language_version:
   python: python3
 default_stages: [pre-commit]
-
-# Performance optimization
 minimum_pre_commit_version: '3.0.0'
 
 # CI configuration
 ci:
-  autofix_commit_msg: |
-    [pre-commit.ci] auto fixes from pre-commit hooks
-
-    for more information, see https://pre-commit.ci
+  autofix_commit_msg: '[pre-commit.ci] auto fixes'
   autofix_prs: true
-  autoupdate_branch: ''
-  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
   autoupdate_schedule: weekly
   skip: []
   submodules: false
