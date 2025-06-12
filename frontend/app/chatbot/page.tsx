@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import UserInfoForm from "@/components/user-info-form";
@@ -45,18 +45,7 @@ export default function ChatbotPage() {
   const [aceScore, setAceScore] = useState<number>(0);
   const [_aceAnswers, setAceAnswers] = useState<Answer[]>([]);
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/auth/signin");
-      return;
-    }
-
-    if (status === "authenticated") {
-      fetchProfile();
-    }
-  }, [status, router]);
-
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     try {
       const response = await fetch("/api/profile");
       if (response.ok) {
@@ -85,7 +74,18 @@ export default function ChatbotPage() {
       console.error("Profile fetch error:", error);
       setStep("disclaimer");
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/signin");
+      return;
+    }
+
+    if (status === "authenticated") {
+      fetchProfile();
+    }
+  }, [status, router, fetchProfile]);
 
   const calculateAge = (birthDate: string | null) => {
     if (!birthDate) return null;

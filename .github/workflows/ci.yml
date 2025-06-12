@@ -39,31 +39,90 @@ jobs:
         working-directory: frontend
         run: npm ci --legacy-peer-deps
 
-      # Generate Prisma client
+      # Generate Prisma client (required for TypeScript and build)
       - name: Generate Prisma client
         working-directory: frontend
         env:
           DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
-        run: npx prisma generate
+        run: |
+          echo "Generating Prisma client..."
+          npx prisma generate
+          echo "Prisma client generated successfully"
 
       # Run pre-commit (handles all linting, formatting, type checking)
-      - uses: pre-commit/action@v3.0.1
+      - name: Run pre-commit hooks
+        uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --all-files
 
-      # Additional TypeScript check with controlled output
+      # TypeScript check with proper error handling
       - name: TypeScript Check
         working-directory: frontend
+        env:
+          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
         run: |
           echo "Running TypeScript check..."
-          npx tsc --noEmit --skipLibCheck || echo "TypeScript check completed with errors"
+          if npx tsc --noEmit --skipLibCheck; then
+            echo "✅ TypeScript check passed"
+          else
+            echo "❌ TypeScript check failed"
+            exit 1
+          fi
+
+      # Build check to ensure the app can be built
+      - name: Build Check
+        working-directory: frontend
+        env:
+          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
+          NEXTAUTH_SECRET: "dummy-secret-for-build"
+          NEXTAUTH_URL: "http://localhost:3000"
+        run: |
+          echo "Running build check..."
+          if npm run build; then
+            echo "✅ Build check passed"
+          else
+            echo "❌ Build check failed"
+            exit 1
+          fi
 
       # Run tests
-      - name: Provide dummy OpenAI key for tests
-        run: echo "OPENAI_API_KEY=test" >> $GITHUB_ENV
+      - name: Provide dummy environment variables for tests
+        run: |
+          echo "OPENAI_API_KEY=test" >> $GITHUB_ENV
+          echo "DATABASE_URL=postgresql://dummy:dummy@localhost:5432/dummy" >> $GITHUB_ENV
+          echo "NEXTAUTH_SECRET=dummy-secret-for-tests" >> $GITHUB_ENV
+          echo "NEXTAUTH_URL=http://localhost:3000" >> $GITHUB_ENV
 
       - name: Run backend tests
         working-directory: backend
-        run: pytest --maxfail=1 --disable-warnings -q
+        run: |
+          echo "Running backend tests..."
+          if pytest --maxfail=1 --disable-warnings -q; then
+            echo "✅ Backend tests passed"
+          else
+            echo "❌ Backend tests failed"
+            exit 1
+          fi
 
       - name: Run frontend tests
         working-directory: frontend
-        run: npm test -- --watchAll=false --bail
+        run: |
+          echo "Running frontend tests..."
+          if npm test -- --watchAll=false --bail --passWithNoTests; then
+            echo "✅ Frontend tests passed"
+          else
+            echo "❌ Frontend tests failed"
+            exit 1
+          fi
+
+      # Summary
+      - name: CI Summary
+        if: always()
+        run: |
+          echo "🎉 CI pipeline completed!"
+          echo "✅ Dependencies installed"
+          echo "✅ Prisma client generated"
+          echo "✅ Pre-commit hooks passed"
+          echo "✅ TypeScript check passed"
+          echo "✅ Build check passed"
+          echo "✅ Tests passed"

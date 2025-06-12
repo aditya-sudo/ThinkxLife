@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { Download, Printer, Share2 } from "lucide-react";
+import React from "react";
 
 interface ChecklistItem {
   id: string;
@@ -33,14 +34,20 @@ const gdprChecklist: ChecklistItem[] = [
   // Add more items...
 ];
 
-export default async function ChecklistPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-
-  return <ChecklistPageClient checklistId={id} />;
+export default function ChecklistPage({ params }: { params: Promise<{ id: string }> }) {
+  return <ChecklistPageClient params={params} />;
 }
 
-function ChecklistPageClient({ checklistId: _checklistId }: { checklistId: string }) {
+function ChecklistPageClient({ params }: { params: Promise<{ id: string }> }) {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [checklistId, setChecklistId] = useState<string>("");
+
+  // Handle the async params
+  React.useEffect(() => {
+    params.then(({ id }) => {
+      setChecklistId(id);
+    });
+  }, [params]);
 
   const handleCheck = (itemId: string) => {
     setCheckedItems((prev) =>

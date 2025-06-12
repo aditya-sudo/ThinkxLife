@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import {
   motion,
@@ -181,37 +181,45 @@ export default function AIAwarenessPage() {
   const [isOpen, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
   const progressBarWidth = useTransform(scrollY, [0, 2000], ["0%", "100%"]);
+  const educationSectionRef = useRef<HTMLElement>(null);
+
+  const scrollToEducation = () => {
+    educationSectionRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
 
   const features: FeatureContent[] = [
     {
       icon: <Shield className="w-6 h-6" />,
       title: "Ethics Explained",
       tagline:
-        "Understand AI ethics through clear, practical examples and real-world scenarios.",
+        "Understand AI ethics through real-world scenarios in Arts, Education, Healthcare, Social Justice, and Global Impact.",
       bullets: [
         {
-          title: "Bias & Fairness",
+          title: "Arts & Creativity",
           description:
-            "How data and algorithms can skew decisions, and simple steps to detect & correct it.",
+            "Creative authenticity, cultural appropriation, and artist rights in the age of AI-generated content.",
         },
         {
-          title: "Accountability",
+          title: "Education & Learning",
           description:
-            "Who's responsible when AI makes a mistake? Best practices for logging and audit trails.",
+            "Educational equity, student privacy, academic integrity, and the role of human teachers.",
         },
         {
-          title: "Transparency",
+          title: "Healthcare & Humanity",
           description:
-            "Techniques for explainable AI: model cards, feature importance, and user‐friendly reports.",
+            "Medical decision autonomy, healthcare bias, mental health AI, and preserving human dignity.",
         },
         {
-          title: "Case Studies",
+          title: "Social & Global Impact",
           description:
-            "Short stories showing ethics done right—and done wrong.",
+            "Algorithmic justice, digital divide, climate considerations, and global AI governance.",
         },
       ],
       cta: {
-        label: "Learn More → Ethics Module",
+        label: "Explore Human-Centered Ethics →",
         destination: "/awareness/ethics",
       },
     },
@@ -322,19 +330,6 @@ export default function AIAwarenessPage() {
     },
   ];
 
-  const testimonials = [
-    {
-      quote:
-        "This platform helped us implement ethical AI practices across our organization.",
-      author: "Tech Innovation Lab",
-    },
-    {
-      quote:
-        "The compliance checklists saved us months of research and preparation.",
-      author: "AI Startup Collective",
-    },
-  ];
-
   return (
     <div
       className={cn(
@@ -395,6 +390,7 @@ export default function AIAwarenessPage() {
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
                 <motion.button
+                  onClick={scrollToEducation}
                   whileHover={{
                     scale: 1.05,
                     boxShadow: "0 10px 25px rgba(34, 197, 94, 0.3)",
@@ -417,7 +413,7 @@ export default function AIAwarenessPage() {
         </section>
 
         {/* Features Section with enhanced cards */}
-        <section id="features" className="py-20 bg-white dark:bg-gray-900">
+        <section id="features" ref={educationSectionRef} className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6">
             <motion.div
               initial="hidden"
@@ -634,9 +630,10 @@ export default function AIAwarenessPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
+                  className="w-full mt-6 bg-gray-400 cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                  disabled
                 >
-                  Start Conversation
+                  Start Conversation<sup className="text-xs ml-1">Coming Soon</sup>
                 </motion.button>
               </div>
             </motion.div>
@@ -699,54 +696,11 @@ export default function AIAwarenessPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="text-green-600 hover:text-green-700 font-semibold"
+                    className="text-gray-400 cursor-not-allowed font-semibold"
+                    disabled
                   >
-                    Download →
+                    Download<sup className="text-xs ml-1">Coming Soon</sup> →
                   </motion.button>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="py-20 bg-white dark:bg-gray-900">
-          <div className="container mx-auto px-6">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="text-center mb-16"
-            >
-              <motion.h2
-                variants={fadeInUp}
-                className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
-              >
-                Trusted by Organizations
-              </motion.h2>
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
-            >
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInUp}
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-gray-50 dark:bg-gray-800 rounded-xl p-8 shadow-lg"
-                >
-                  <p className="text-gray-900 dark:text-white text-lg mb-4 italic">
-                    "{testimonial.quote}"
-                  </p>
-                  <p className="text-green-600 dark:text-green-400 font-semibold">
-                    — {testimonial.author}
-                  </p>
                 </motion.div>
               ))}
             </motion.div>

@@ -1,37 +1,102 @@
-# ThinkxLife (v1) — Zoe AI Companion
+# ThinkxLife (v1.2.x) — AI Awareness & Ethics Platform
 
-**Think Round, Inc.** is a nonprofit arts and education organization dedicated to empowering individuals and communities through creativity, cultural exchange, and trauma-informed support. From its roots in art-based youth programs in San Francisco’s Bayview-Hunters Point to its vision for a global “Center for the Human Family,” Think Round has always sought to weave stories of family, faith, environment, and healing into meaningful experiences.
+**Think Round, Inc.** is a nonprofit arts and education organization dedicated to empowering individuals and communities through creativity, cultural exchange, and trauma-informed support. From its roots in art-based youth programs in San Francisco's Bayview-Hunters Point to its vision for a global "Center for the Human Family," Think Round has always sought to weave stories of family, faith, environment, and healing into meaningful experiences.
 
-**ThinkxLife** brings that spirit into the digital realm with **Zoe**, an AI companion designed to offer empathetic conversation grounded in the world and mission of Think Round.
-
----
-
-## About Zoe
-
-* **Empathetic Support:** Zoe listens without judgment, acknowledges feelings, and offers compassionate guidance. She understands the impact of childhood experiences and uses trauma-informed best practices in her responses.
-* **Contextual Knowledge:** Drawing on Think Round’s rich legacy—mission statements, program descriptions, and community insights—Zoe can answer questions about the organization’s history, projects, and values.
-* **Accessible Anytime:** Whether you’re reflecting on personal challenges or curious about Think Round’s work, Zoe is your round-the-clock conversation partner.
+**ThinkxLife** represents our commitment to responsible AI education and ethical technology adoption. In an era where artificial intelligence touches every aspect of our lives, we believe everyone deserves to understand these powerful tools—not just how to use them, but how to use them wisely, ethically, and with deep consideration for human dignity and social justice.
 
 ---
 
-## Key Features
+## The Journey of Understanding
 
-* **Trauma-Informed Dialogue:** Every reply is crafted to validate emotions and encourage resilience, reflecting best practices from supportive counseling and art therapy.
-* **Organizational Wisdom:** Zoe seamlessly weaves in anecdotes and facts from Think Round’s programs—like the Children’s Mural Program, environmental education, and community art installations.
-* **Safe & Private:** All conversations remain confidential; Zoe never stores personal identifiers or sensitive details beyond the immediate session.
+This platform serves as your comprehensive guide through the complex landscape of artificial intelligence ethics and awareness. We've crafted an experience that transforms abstract concepts into tangible understanding, making the seemingly overwhelming world of AI accessible to everyone—from curious beginners to seasoned practitioners seeking deeper ethical grounding.
 
----
-
-## How to Engage with Zoe
-
-1. **Start the Chat:** Click “Start Chat with Zoe” to open a welcoming space for conversation.
-2. **Share What’s on Your Mind:** Whether it’s a question about Think Round’s mission or your own experiences, type freely—Zoe responds in real time.
-3. **Build Resilience:** Use Zoe’s suggestions for coping strategies, creative outlets, and community resources to support your personal journey.
+Our approach is rooted in the belief that AI education must be human-centered. Rather than focusing solely on technical capabilities, we explore how AI intersects with the most fundamental aspects of human experience: creativity and artistic expression, education and learning, healthcare and human dignity, social justice and equity, and global cooperation and environmental stewardship.
 
 ---
 
-## Why ThinkxLife
+## What You'll Discover
 
-Zoe isn’t just any chatbot—she’s a digital extension of Think Round’s decades-long mission to nurture creativity, healing, and social connection. By combining empathetic conversation with organizational knowledge, ThinkxLife aims to bridge the gap between art, education, and mental wellness in a single, approachable interface.
+**Comprehensive Ethics Education:** Journey through real-world scenarios across five critical domains—Arts & Creativity, Education, Healthcare & Humanity, Social Impact, and Global Governance. Each area includes detailed case studies, practical considerations, and research-backed insights from leading institutions like MIT, Stanford, and international organizations.
 
-Together, let’s explore our stories, honor our experiences, and imagine a world where everyone feels heard and supported.
+**Interactive Learning Experience:** Engage with thoughtfully designed quizzes and assessments that adapt to your knowledge level. Our scenario-based questions help you recognize bias, understand regulatory requirements, and develop ethical decision-making skills through practical application.
+
+**Regulatory Guidance & Compliance:** Navigate the complex world of AI regulations with our comprehensive compliance hub. From GDPR and CCPA to the EU AI Act, we provide clear, actionable checklists and guidance documents that translate legal requirements into practical steps.
+
+**Curated Resources & Research:** Access carefully selected articles, research papers, and expert insights that deepen your understanding of AI's impact on society. Our content draws from authoritative sources including academic institutions, international bodies, and leading policy organizations.
+
+---
+
+## The Evolution Ahead
+
+ThinkxLife v1.2.x represents the foundation of something much larger. While our current platform provides rich educational content and interactive learning experiences, we're developing advanced capabilities that will transform how you engage with AI knowledge.
+
+**Intelligent Conversation Partner:** Soon, you'll interact with an AI awareness agent that doesn't just provide static information, but engages in dynamic conversations tailored to your specific questions and concerns. This agent will understand context, remember your learning journey, and adapt its responses to your level of expertise.
+
+**Real-Time Knowledge Integration:** Our upcoming agentic chat system will seamlessly pull from live internet resources, current research publications, and breaking news in AI ethics and policy. This means you'll always have access to the most current information and emerging perspectives in this rapidly evolving field.
+
+**Dynamic Learning Pathways:** Advanced search capabilities will create personalized learning workflows that adapt to your interests, profession, and specific use cases. Whether you're an educator, healthcare professional, artist, or policy maker, the system will curate content and conversations specifically relevant to your context.
+
+---
+
+## A New Way of Learning
+
+We've reimagined how complex information should be presented in the digital age. Gone are the overwhelming walls of text and intimidating technical jargon. Instead, you'll find a thoughtfully designed interface that guides you naturally through concepts, with visual cues that help you understand relationships between ideas and progress indicators that celebrate your learning journey.
+
+Our design philosophy centers on clarity and accessibility. Information is organized in digestible sections with clear visual hierarchies. Interactive elements respond intuitively to your actions, and the overall experience feels more like exploring a well-curated museum than navigating a traditional educational website.
+
+Color and typography work together to create an environment that feels both professional and welcoming. Important concepts are highlighted naturally, and the flow between different sections feels seamless and logical. Every element has been considered not just for its aesthetic appeal, but for how it contributes to understanding and retention.
+
+---
+
+## Why This Matters Now
+
+We stand at a pivotal moment in human history. The decisions we make today about how AI is developed, deployed, and governed will shape the world our children inherit. This isn't just about technology—it's about preserving human agency, protecting vulnerable communities, fostering creativity, and ensuring that the benefits of AI serve all of humanity.
+
+ThinkxLife exists because we believe that ethical AI adoption requires more than good intentions—it requires deep understanding, practical skills, and ongoing commitment to human-centered values. We're not just teaching about AI; we're cultivating a community of thoughtful practitioners who will help guide our collective future.
+
+This platform is your invitation to join that community, to develop the knowledge and wisdom needed to navigate our AI-enhanced world with confidence and integrity. Together, we can ensure that as artificial intelligence grows more powerful, it remains fundamentally human in its purpose and impact.
+
+---
+
+## Development
+
+### Quick Start
+
+1. **Frontend Setup:**
+   ```bash
+   cd frontend
+   npm install --legacy-peer-deps
+   npm run dev
+   ```
+
+2. **Backend Setup:**
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   python main.py
+   ```
+
+### Testing Before Push
+
+To ensure your changes will pass CI, run our comprehensive test script:
+
+```bash
+./scripts/test-ci.sh
+```
+
+This script runs the same checks as our GitHub Actions workflow:
+- ✅ Dependency installation
+- ✅ Prisma client generation
+- ✅ Pre-commit hooks (linting, formatting, type checking)
+- ✅ TypeScript validation
+- ✅ Build verification
+- ✅ Test execution
+
+### Development Workflow
+
+1. Make your changes
+2. Run `./scripts/test-ci.sh` to verify everything works
+3. Commit your changes (pre-commit hooks will run automatically)
+4. Push to GitHub (CI will run automatically)
+
+For more details, see [`scripts/README.md`](scripts/README.md).

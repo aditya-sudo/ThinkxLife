@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -39,20 +39,7 @@ export default function AceQuestionnaire({
   const [currentAnswer, setCurrentAnswer] = useState<Answer>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Auto-advance to next question after selection
-  useEffect(() => {
-    if (currentAnswer !== null && !isTransitioning) {
-      setIsTransitioning(true);
-
-      // Small delay for visual feedback
-      setTimeout(() => {
-        handleNext();
-        setIsTransitioning(false);
-      }, 800);
-    }
-  }, [currentAnswer]);
-
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (currentAnswer === null) return;
 
     const newAnswers = [...answers];
@@ -68,7 +55,20 @@ export default function AceQuestionnaire({
       const score = calculateAceScore(newAnswers);
       onComplete(score, newAnswers);
     }
-  };
+  }, [currentAnswer, answers, currentQuestion, onComplete]);
+
+  // Auto-advance to next question after selection
+  useEffect(() => {
+    if (currentAnswer !== null && !isTransitioning) {
+      setIsTransitioning(true);
+
+      // Small delay for visual feedback
+      setTimeout(() => {
+        handleNext();
+        setIsTransitioning(false);
+      }, 800);
+    }
+  }, [currentAnswer, isTransitioning, handleNext]);
 
   const calculateAceScore = (answers: Answer[]): number => {
     return answers.reduce((score, answer) => {
