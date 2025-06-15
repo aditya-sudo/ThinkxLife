@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, X, Brain, Sparkles, User, LogOut, Lock, Activity } from "lucide-react";
+import { Menu, X, Brain, Heart, User, LogOut, Lock, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -34,7 +34,7 @@ export default function Navbar() {
 
   // Check if user is actively using AI features
   const isUsingAIAwareness = pathname?.startsWith('/ai-awareness') || pathname?.startsWith('/awareness');
-  const isUsingZoe = pathname?.startsWith('/chatbot');
+  const isUsingHealingRooms = pathname?.startsWith('/healing-rooms');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,7 +62,7 @@ export default function Navbar() {
     className: string;
     featureName: string;
     isActive?: boolean;
-    activeColor?: "green" | "blue";
+    activeColor?: "green" | "blue" | "rose";
   }) => {
     const getActiveIndicator = () => {
       if (!isActive) return null;
@@ -70,7 +70,8 @@ export default function Navbar() {
       return (
         <div className="absolute -top-1 -right-1 flex items-center">
           <div className={`px-1.5 py-0.5 text-xs font-bold rounded-full text-white ${
-            activeColor === "green" ? "bg-green-500" : "bg-blue-500"
+            activeColor === "green" ? "bg-green-500" :
+            activeColor === "blue" ? "bg-blue-500" : "bg-rose-500"
           }`}>
             USING
           </div>
@@ -135,15 +136,10 @@ export default function Navbar() {
       }`}>
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center group">
-            <div className="flex items-center">
-              <div className="relative">
-                <Brain className="w-8 h-8 text-purple-600 mr-3 group-hover:text-purple-700 transition-colors duration-300" />
-                <Sparkles className="w-3 h-3 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
-              </div>
-              <span className="text-2xl font-bold tracking-wider bg-gradient-to-r from-slate-800 to-purple-700 bg-clip-text text-transparent">
-                Think<span className="text-purple-600">x</span>Life
-              </span>
-            </div>
+            <span className="text-2xl font-bold tracking-wider bg-gradient-to-r from-slate-800 to-purple-700 bg-clip-text text-transparent">
+              Think<span className="text-purple-600">x</span>Life
+              <sub className="text-xs font-normal text-gray-400 ml-2 tracking-normal">by Think Round, Inc</sub>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -187,14 +183,14 @@ export default function Navbar() {
             </AuthRequiredButton>
 
             <AuthRequiredButton
-              href="/chatbot"
-              featureName="Zoe (AI Assistant)"
-              isActive={isUsingZoe}
-              activeColor="blue"
-              className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-xl px-6 py-2 font-medium shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+              href="/healing-rooms"
+              featureName="Healing Rooms"
+              isActive={isUsingHealingRooms}
+              activeColor="rose"
+              className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-xl px-6 py-2 font-medium shadow-lg hover:shadow-rose-500/25 transition-all duration-300 transform hover:scale-105"
             >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Zoe
+              <Heart className="w-4 h-4 mr-2" />
+              Healing Rooms
             </AuthRequiredButton>
 
             {/* Authentication Section */}
@@ -210,7 +206,7 @@ export default function Navbar() {
                         {getInitials(session.user?.name)}
                       </AvatarFallback>
                     </Avatar>
-                    {(isUsingAIAwareness || isUsingZoe) && (
+                    {(isUsingAIAwareness || isUsingHealingRooms) && (
                       <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"></div>
                     )}
                   </Button>
@@ -226,11 +222,11 @@ export default function Navbar() {
                           {session.user.email}
                         </p>
                       )}
-                      {(isUsingAIAwareness || isUsingZoe) && (
+                      {(isUsingAIAwareness || isUsingHealingRooms) && (
                         <div className="flex items-center gap-1 mt-1">
                           <Activity className="w-3 h-3 text-green-500" />
                           <span className="text-xs text-green-600 font-medium">
-                            {isUsingAIAwareness ? 'Using AI Awareness' : 'Chatting with Zoe'}
+                            {isUsingAIAwareness ? 'Using AI Awareness' : 'In Healing Rooms'}
                           </span>
                         </div>
                       )}
@@ -325,12 +321,12 @@ export default function Navbar() {
                         )}
                       </Button>
                     </Link>
-                    <Link href="/chatbot" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3 relative">
-                        <Sparkles className="w-4 h-4 mr-2" />
-                        Zoe
-                        {isUsingZoe && (
-                          <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-blue-500">
+                    <Link href="/healing-rooms" onClick={() => setIsMenuOpen(false)}>
+                      <Button className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3 relative">
+                        <Heart className="w-4 h-4 mr-2" />
+                        Healing Rooms
+                        {isUsingHealingRooms && (
+                          <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-rose-500">
                             USING
                           </div>
                         )}
@@ -375,9 +371,9 @@ export default function Navbar() {
 
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3">
+                        <Button className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3">
                           <Lock className="w-4 h-4 mr-2" />
-                          Zoe
+                          Healing Rooms
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent className="sm:max-w-md">
@@ -387,8 +383,8 @@ export default function Navbar() {
                             Sign In Required
                           </AlertDialogTitle>
                           <AlertDialogDescription className="text-left">
-                            To access <strong>Zoe (AI Assistant)</strong>, you need to be signed in to your ThinkxLife account.
-                            Join our community to chat with our AI assistant.
+                            To access <strong>Healing Rooms</strong>, you need to be signed in to your ThinkxLife account.
+                            Join our community to explore healing and trauma recovery resources.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter className="flex-col gap-2">

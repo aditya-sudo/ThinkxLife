@@ -49,158 +49,130 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             {/* ThinkxLife from ThinkRound Inc */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center">
               <Link href="/" className="flex items-center group">
-                <div className="relative">
-                  <Brain className="w-8 h-8 text-purple-600 mr-3 group-hover:text-purple-700 transition-colors duration-300" />
-                  <Sparkles className="w-3 h-3 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
-                </div>
                 <span className="text-2xl font-bold tracking-wider bg-gradient-to-r from-slate-800 to-purple-700 bg-clip-text text-transparent">
                   Think<span className="text-purple-600">x</span>Life
+                  <sub className="text-xs font-normal text-gray-400 ml-2 tracking-normal">by Think Round, Inc</sub>
                 </span>
               </Link>
-
-              <div className="flex items-center text-sm text-slate-500">
-                <span>from</span>
-                <Image
-                  src="/tr_logo.png"
-                  alt="Think Round, Inc Logo"
-                  width={24}
-                  height={24}
-                  className="mx-2"
-                />
-                <span className="font-medium text-slate-600">Think Round, Inc</span>
-              </div>
             </div>
 
             <p className="text-sm text-slate-600 leading-relaxed max-w-md">
               Pioneering AI for humanity through ethical innovation, community engagement,
               and transformative technology that connects us all.
             </p>
-
-            {/* Feature Pills */}
-            <div className="flex flex-wrap gap-2">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-1.5 bg-white/60 backdrop-blur-sm border border-purple-200/30 rounded-full px-3 py-1.5 shadow-sm hover:shadow-md transition-all duration-300"
-                >
-                  <feature.icon className={`w-3 h-3 ${feature.color}`} />
-                  <span className="text-xs font-medium text-slate-700">{feature.text}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Social Links */}
-            <div className="flex space-x-3">
-              {socialLinks.map((social) => (
-                <Link
-                  key={social.name}
-                  href={social.href}
-                  className={`p-2 bg-white/60 backdrop-blur-sm border border-purple-200/30 rounded-lg text-slate-500 ${social.color} transition-all duration-300 transform hover:scale-110 hover:shadow-lg`}
-                  onMouseEnter={() => setHoveredSocial(social.name)}
-                  onMouseLeave={() => setHoveredSocial(null)}
-                >
-                  <social.icon size={16} />
-                </Link>
-              ))}
-            </div>
           </div>
 
-          {/* Links Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Quick Links */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-slate-800 flex items-center">
-                <ArrowRight className="w-4 h-4 text-purple-600 mr-2" />
-                Quick Links
-              </h3>
-              <ul className="space-y-2">
-                {[
-                  { name: 'About Us', href: 'https://www.thinkround.org/aboutus' },
-                  { name: 'Shop Art', href: 'https://thinkround.shop/' },
-                  { name: 'Zoe', href: '/chatbot' },
-                  { name: 'AI Awareness', href: '/ai-awareness' },
-                ].map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="group flex items-center text-sm text-slate-600 hover:text-purple-700 transition-all duration-300"
-                    >
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">
-                        {link.name}
-                      </span>
-                      <ArrowRight className="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-slate-800 flex items-center">
-                <Mail className="w-4 h-4 text-purple-600 mr-2" />
-                Get in Touch
-              </h3>
-              <ul className="space-y-3">
-                <li className="flex items-start group">
-                  <MapPin className="w-4 h-4 text-purple-600 mr-2 mt-0.5 flex-shrink-0 group-hover:text-purple-700 transition-colors duration-300" />
-                  <div className="text-xs text-slate-600 group-hover:text-slate-700 transition-colors duration-300">
-                    <div>2140 Bush Street, 1</div>
-                    <div>San Francisco, CA 94115</div>
-                    <div>United States</div>
-                  </div>
-                </li>
-                <li className="flex items-center group">
-                  <Phone className="w-4 h-4 text-purple-600 mr-2 flex-shrink-0 group-hover:text-purple-700 transition-colors duration-300" />
-                  <span className="text-xs text-slate-600 group-hover:text-slate-700 transition-colors duration-300">
-                    (415) 602-9599
-                  </span>
-                </li>
-                <li className="flex items-center group">
-                  <Mail className="w-4 h-4 text-purple-600 mr-2 flex-shrink-0 group-hover:text-purple-700 transition-colors duration-300" />
-                  <span className="text-xs text-slate-600 group-hover:text-slate-700 transition-colors duration-300">
-                    info@thinkround.org
-                  </span>
-                </li>
-              </ul>
-
-              {/* Donate Button */}
-              <div className="mt-6">
-                <Link href="https://www.thinkround.org/donate">
-                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105">
-                    <Heart className="w-3 h-3" />
-                    Support Our Mission
-                  </div>
-                </Link>
-              </div>
-            </div>
+          {/* Social Links */}
+          <div className="flex space-x-3">
+            {socialLinks.map((social) => (
+              <Link
+                key={social.name}
+                href={social.href}
+                className={`p-2 bg-white/60 backdrop-blur-sm border border-purple-200/30 rounded-lg text-slate-500 ${social.color} transition-all duration-300 transform hover:scale-110 hover:shadow-lg`}
+                onMouseEnter={() => setHoveredSocial(social.name)}
+                onMouseLeave={() => setHoveredSocial(null)}
+              >
+                <social.icon size={16} />
+              </Link>
+            ))}
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-purple-200/30 pt-4">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-            <div className="flex items-center space-x-2 text-xs text-slate-500">
-              <span>&copy; {new Date().getFullYear()} Think Round, Inc.</span>
-              <span className="text-purple-400">•</span>
-              <span>All rights reserved</span>
-              <span className="text-purple-400">•</span>
-              <span className="flex items-center">
-                Made with <Heart className="w-3 h-3 text-red-500 mx-1 animate-pulse" /> for humanity
-              </span>
-            </div>
+        {/* Links Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-slate-800 flex items-center">
+              <ArrowRight className="w-4 h-4 text-purple-600 mr-2" />
+              Quick Links
+            </h3>
+            <ul className="space-y-2">
+              {[
+                { name: 'About Us', href: 'https://www.thinkround.org/aboutus' },
+                { name: 'Shop Art', href: 'https://thinkround.shop/' },
+                { name: 'Zoe', href: '/chatbot' },
+                { name: 'AI Awareness', href: '/ai-awareness' },
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="group flex items-center text-sm text-slate-600 hover:text-purple-700 transition-all duration-300"
+                  >
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">
+                      {link.name}
+                    </span>
+                    <ArrowRight className="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <div className="flex items-center space-x-3 text-xs text-slate-500">
-              <Link href="#" className="hover:text-purple-700 transition-colors duration-300">
-                Privacy Policy
-              </Link>
-              <span className="text-purple-400">•</span>
-              <Link href="#" className="hover:text-purple-700 transition-colors duration-300">
-                Terms of Service
+          {/* Contact Info */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-slate-800 flex items-center">
+              <Mail className="w-4 h-4 text-purple-600 mr-2" />
+              Get in Touch
+            </h3>
+            <ul className="space-y-3">
+              <li className="flex items-start group">
+                <MapPin className="w-4 h-4 text-purple-600 mr-2 mt-0.5 flex-shrink-0 group-hover:text-purple-700 transition-colors duration-300" />
+                <div className="text-xs text-slate-600 group-hover:text-slate-700 transition-colors duration-300">
+                  <div>2140 Bush Street, 1</div>
+                  <div>San Francisco, CA 94115</div>
+                  <div>United States</div>
+                </div>
+              </li>
+              <li className="flex items-center group">
+                <Phone className="w-4 h-4 text-purple-600 mr-2 flex-shrink-0 group-hover:text-purple-700 transition-colors duration-300" />
+                <span className="text-xs text-slate-600 group-hover:text-slate-700 transition-colors duration-300">
+                  (415) 602-9599
+                </span>
+              </li>
+              <li className="flex items-center group">
+                <Mail className="w-4 h-4 text-purple-600 mr-2 flex-shrink-0 group-hover:text-purple-700 transition-colors duration-300" />
+                <span className="text-xs text-slate-600 group-hover:text-slate-700 transition-colors duration-300">
+                  info@thinkround.org
+                </span>
+              </li>
+            </ul>
+
+            {/* Donate Button */}
+            <div className="mt-6">
+              <Link href="https://www.thinkround.org/donate">
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105">
+                  <Heart className="w-3 h-3" />
+                  Support Our Mission
+                </div>
               </Link>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Section */}
+      <div className="border-t border-purple-200/30 pt-4">
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+          <div className="flex items-center space-x-2 text-xs text-slate-500">
+            <span>&copy; {new Date().getFullYear()} Think Round, Inc.</span>
+            <span className="text-purple-400">•</span>
+            <span>All rights reserved</span>
+            <span className="text-purple-400">•</span>
+            <span className="flex items-center">
+              Made with <Heart className="w-3 h-3 text-red-500 mx-1 animate-pulse" /> for humanity
+            </span>
+          </div>
+
+          <div className="flex items-center space-x-3 text-xs text-slate-500">
+            <Link href="#" className="hover:text-purple-700 transition-colors duration-300">
+              Privacy Policy
+            </Link>
+            <span className="text-purple-400">•</span>
+            <Link href="#" className="hover:text-purple-700 transition-colors duration-300">
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>

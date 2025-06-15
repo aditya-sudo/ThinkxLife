@@ -14,7 +14,7 @@ import {
   Brain,
   Users,
   Target,
-  MessageCircle,
+  Heart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -150,12 +150,12 @@ const Sidebar = ({
                   <span>Features</span>
                 </Link>
                 <Link
-                  href="/chatbot"
+                  href="/healing-rooms"
                   className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
-                  <MessageCircle className="w-5 h-5 mr-2" />
-                  <span>Chat with Zoe</span>
+                  <Heart className="w-5 h-5 mr-2" />
+                  <span>Healing Rooms</span>
                 </Link>
               </div>
             </div>

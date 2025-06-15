@@ -1,11 +1,14 @@
 fastapi
-uvicorn[standard]
+uvicorn
 pydantic
 python-dotenv
 openai
-langchain-community
+langchain
 langchain-core
 pandas
 numpy
 langchain-openai
 langchain-chroma
+chromadb
+python-multipart
+psycopg2-binary

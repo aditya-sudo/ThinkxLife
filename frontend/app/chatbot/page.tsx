@@ -186,6 +186,9 @@ export default function ChatbotPage() {
           <ChatInterface
             initialMessage={getInitialMessage()}
             userName={userInfo.name}
+            userId={_session?.user?.id || ""}
+            age={userInfo.age}
+            aceScore={aceScore}
           />
         )}
       </div>

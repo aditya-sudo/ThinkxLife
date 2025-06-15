@@ -103,7 +103,7 @@ def build_chroma_index():
     # Remove old DB directory to avoid schema mismatch
     if os.path.exists(CHROMA_DB_DIR):
         print(
-            f"Removing existing Chroma DB at '{CHROMA_DB_DIR}'"
+            f"Removing existing Chroma DB at '{CHROMA_DB_DIR}' "
             "to avoid schema issues..."
         )
         try:
@@ -129,11 +129,11 @@ def build_chroma_index():
     print(f"Total documents to index: {len(all_docs)}.")
 
     # Create and save Chroma vectorstore
-    vectorstore = Chroma.from_documents(
+    Chroma.from_documents(
         documents=all_docs, embedding=embeddings, persist_directory=CHROMA_DB_DIR
     )
 
-    print(f"Chroma index built {vectorstore}and saved to '{CHROMA_DB_DIR}'.")
+    print(f"Chroma index built and saved to '{CHROMA_DB_DIR}'.")
 
 
 if __name__ == "__main__":
