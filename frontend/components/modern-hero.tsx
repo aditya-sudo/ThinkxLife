@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, Brain, Zap, Globe, Users, Shield } from 'lucide-react';
+import { ArrowRight, Sparkles, Brain, Zap, Globe, Users, Shield, Heart } from 'lucide-react';
 
 export default function ModernHero() {
   const [mounted, setMounted] = useState(false);
@@ -108,10 +108,10 @@ export default function ModernHero() {
             </Button>
           </Link>
 
-          <Link href="/chatbot">
+          <Link href="/healing-rooms">
             <Button variant="outline" className="group bg-white/70 backdrop-blur-sm border-purple-300 text-purple-700 hover:bg-white/90 hover:border-purple-400 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
-              <Zap className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
-              Zoe
+              <Heart className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
+              Healing Rooms
             </Button>
           </Link>
         </div>

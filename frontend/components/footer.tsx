@@ -92,7 +92,7 @@ export default function Footer() {
               {[
                 { name: 'About Us', href: 'https://www.thinkround.org/aboutus' },
                 { name: 'Shop Art', href: 'https://thinkround.shop/' },
-                { name: 'Zoe', href: '/chatbot' },
+                { name: 'Healing Rooms', href: '/healing-rooms' },
                 { name: 'AI Awareness', href: '/ai-awareness' },
               ].map((link) => (
                 <li key={link.name}>
