@@ -35,7 +35,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6 },
   },
 };
 
@@ -73,7 +73,7 @@ const Sidebar = ({
       >
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: [0.42, 0, 0.58, 1] }}
+          transition={{ duration: 0.3 }}
         >
           <Brain className="w-6 h-6 text-green-600" />
         </motion.div>
@@ -97,7 +97,7 @@ const Sidebar = ({
         initial={false}
         animate={{
           x: isOpen ? 0 : -280,
-          transition: { duration: 0.3, ease: [0.42, 0, 0.58, 1] },
+          transition: { duration: 0.3 },
         }}
         className="fixed top-0 left-0 h-full w-[280px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl z-50 border-r border-gray-200 dark:border-gray-700"
       >
@@ -450,7 +450,6 @@ export default function AIAwarenessPage() {
                   whileHover={{
                     y: -10,
                     boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-                    transition: { duration: 0.3 },
                   }}
                   className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-700 group"
                 >
