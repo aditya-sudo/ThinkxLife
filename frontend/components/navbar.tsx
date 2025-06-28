@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, X, Brain, Heart, User, LogOut, Lock, Activity } from "lucide-react";
+import { Menu, X, Brain, Heart, User, LogOut, Lock, Activity, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -193,6 +193,13 @@ export default function Navbar() {
               Healing Rooms
             </AuthRequiredButton>
 
+            <Link href="/exterior-spaces">
+              <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl px-6 py-2 font-medium shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105">
+                <Building2 className="w-4 h-4 mr-2" />
+                Exterior Spaces
+              </Button>
+            </Link>
+
             {/* Authentication Section */}
             {status === "loading" ? (
               <div className="w-10 h-10 rounded-full bg-slate-200 animate-pulse"></div>
@@ -332,6 +339,12 @@ export default function Navbar() {
                         )}
                       </Button>
                     </Link>
+                    <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)}>
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3">
+                        <Building2 className="w-4 h-4 mr-2" />
+                        Exterior Spaces
+                      </Button>
+                    </Link>
                   </>
                 ) : (
                   <>
@@ -402,6 +415,13 @@ export default function Navbar() {
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
+
+                    <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)}>
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3">
+                        <Building2 className="w-4 h-4 mr-2" />
+                        Exterior Spaces
+                      </Button>
+                    </Link>
                   </>
                 )}
 
