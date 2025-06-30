@@ -44,29 +44,53 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email
+        // Guest login fallback
+        if (credentials.email === "guest@guest.com" && credentials.password === "guest") {
+          return {
+            id: "guest-user",
+            email: "guest@thinkxlife.com",
+            name: "Guest User",
           }
-        })
-
-        if (!user || !user.password) {
-          return null
         }
 
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.password
-        )
+        try {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email
+            }
+          })
 
-        if (!isPasswordValid) {
+          if (!user || !user.password) {
+            return null
+          }
+
+          const isPasswordValid = await bcrypt.compare(
+            credentials.password,
+            user.password
+          )
+
+          if (!isPasswordValid) {
+            return null
+          }
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+          }
+        } catch (error) {
+          console.error("Database error during authentication:", error)
+          
+          // If database fails and guest credentials are provided, allow guest login
+          if (credentials.email === "guest@guest.com" && credentials.password === "guest") {
+            return {
+              id: "guest-user",
+              email: "guest@thinkxlife.com",
+              name: "Guest User (DB Fallback)",
+            }
+          }
+          
           return null
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
         }
       }
     })

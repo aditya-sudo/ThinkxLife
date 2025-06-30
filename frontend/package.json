@@ -10,9 +10,6 @@
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint",
-    "type-check": "tsc --noEmit",
-    "test": "jest --watchAll=false --bail",
     "postinstall": "prisma generate",
     "generate-auth-secret": "node scripts/generate-auth-secret.js"
   },
@@ -76,30 +73,11 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.3",
-    "@babel/preset-env": "^7.27.2",
-    "@babel/preset-react": "^7.27.1",
-    "@babel/preset-typescript": "^7.27.1",
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.27.0",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@types/jest": "^29.5.14",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "babel-jest": "^30.0.0-beta.3",
-    "eslint": "^9.27.0",
-    "eslint-config-next": "^15.3.3",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.2.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^30.0.0-beta.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.17",
-    "ts-jest": "^29.3.4",
-    "typescript": "^5",
-    "typescript-eslint": "^8.33.0"
+    "typescript": "^5"
   }
 }

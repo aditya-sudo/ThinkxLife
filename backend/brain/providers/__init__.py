@@ -1,0 +1,20 @@
+"""
+Brain Providers - AI provider implementations for ThinkxLife Brain
+"""
+
+from .local import LocalProvider
+
+__all__ = ["LocalProvider"]
+
+# Optional providers
+try:
+    from .openai import OpenAIProvider
+    __all__.append("OpenAIProvider")
+except ImportError:
+    pass
+
+try:
+    from .anthropic import AnthropicProvider
+    __all__.append("AnthropicProvider")
+except ImportError:
+    pass 

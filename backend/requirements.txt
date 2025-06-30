@@ -12,3 +12,4 @@ langchain-chroma
 chromadb
 python-multipart
 psycopg2-binary
+anthropic

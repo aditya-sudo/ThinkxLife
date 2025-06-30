@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, User, Bot, Brain, Sparkles, BarChart3 } from "lucide-react";
 import SessionSidebar from "./session-sidebar";
+import { useChatbotBrain } from "@/hooks/use-backend-brain";
 
 type Message = {
   id: string;
@@ -38,9 +39,11 @@ export default function ChatInterface({
   ]);
   const [input, setInput] = useState<string>("");
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Use backend Brain for chatbot functionality
+  const { loading, error, sendChatMessage, clearError } = useChatbotBrain();
 
   // Auto-scroll messages container to bottom
   useEffect(() => {
@@ -62,42 +65,63 @@ export default function ChatInterface({
     };
     setMessages((prev) => [...prev, userMsg]);
 
-    // Clear input and set loading
+    // Clear input and any previous errors
+    const messageToSend = input;
     setInput("");
-    setLoading(true);
+    clearError();
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: userMsg.content,
-          sessionId: sessionId,
-          userId: userId,
-          age: age,
-          aceScore: aceScore
-        }),
-      });
+      // Prepare user context for Brain
+      const userContext = {
+        user_id: userId,
+        session_id: sessionId,
+        age: age,
+        ace_score: aceScore,
+        name: userName
+      };
 
-      if (!res.ok) {
-        console.error("Chat API error:", await res.text());
-        return;
+      // Send message through Brain
+      const response = await sendChatMessage(
+        messageToSend,
+        userContext,
+        sessionId || undefined
+      );
+
+      if (response.success && response.message) {
+        // Display bot reply
+        const botMsg: Message = {
+          id: (Date.now() + 1).toString(),
+          content: response.message,
+          sender: "bot",
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, botMsg]);
+
+        // Update session ID if provided
+        if (response.data?.session_id) {
+          setSessionId(response.data.session_id);
+        }
+      } else {
+        // Handle error response
+        const errorMsg: Message = {
+          id: (Date.now() + 1).toString(),
+          content: response.error || "I'm sorry, I encountered an error. Please try again.",
+          sender: "bot",
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, errorMsg]);
       }
-
-      const { response } = (await res.json()) as { response: string };
-
-      // Display bot reply
-      const botMsg: Message = {
+    } catch (err) {
+      console.error("Chat error:", err);
+      
+      // Display error message
+      const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
-        content: response,
+        content: "I'm experiencing technical difficulties. Please try again later.",
         sender: "bot",
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, botMsg]);
-    } catch (err) {
-      console.error("Chat API error:", err);
-    } finally {
-      setLoading(false);
+      setMessages((prev) => [...prev, errorMsg]);
     }
   };
 

@@ -35,7 +35,7 @@ export default function RootLayout({
       >
         <AuthSessionProvider>
           <Navbar />
-          <main className="flex-grow pt-20">{children}</main>
+          <main className="flex-grow pt-10">{children}</main>
           <Footer />
         </AuthSessionProvider>
       </body>
