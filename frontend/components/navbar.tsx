@@ -176,9 +176,9 @@ export default function Navbar() {
               featureName="AI Awareness"
               isActive={isUsingAIAwareness}
               activeColor="green"
-              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl px-6 py-2 font-medium shadow-lg hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
+              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg px-3 py-1.5 text-sm font-medium shadow-md hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
             >
-              <Brain className="w-4 h-4 mr-2" />
+              <Brain className="w-3 h-3 mr-1.5" />
               AI Awareness
             </AuthRequiredButton>
 
@@ -187,15 +187,15 @@ export default function Navbar() {
               featureName="Healing Rooms"
               isActive={isUsingHealingRooms}
               activeColor="rose"
-              className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-xl px-6 py-2 font-medium shadow-lg hover:shadow-rose-500/25 transition-all duration-300 transform hover:scale-105"
+              className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-lg px-3 py-1.5 text-sm font-medium shadow-md hover:shadow-rose-500/25 transition-all duration-300 transform hover:scale-105"
             >
-              <Heart className="w-4 h-4 mr-2" />
+              <Heart className="w-3 h-3 mr-1.5" />
               Healing Rooms
             </AuthRequiredButton>
 
             <Link href="/exterior-spaces">
-              <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl px-6 py-2 font-medium shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105">
-                <Building2 className="w-4 h-4 mr-2" />
+              <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg px-3 py-1.5 text-sm font-medium shadow-md hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105">
+                <Building2 className="w-3 h-3 mr-1.5" />
                 Exterior Spaces
               </Button>
             </Link>
@@ -259,12 +259,12 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center space-x-2">
                 <Link href="/auth/signin">
-                  <Button variant="outline" className="border-purple-200 text-purple-700 hover:bg-purple-50">
+                  <Button variant="outline" className="border-purple-200 text-purple-700 hover:bg-purple-50 px-3 py-1.5 text-sm">
                     Sign In
                   </Button>
                 </Link>
                 <Link href="/auth/signup">
-                  <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white">
+                  <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-3 py-1.5 text-sm">
                     Sign Up
                   </Button>
                 </Link>
@@ -318,8 +318,8 @@ export default function Navbar() {
                 {session ? (
                   <>
                     <Link href="/ai-awareness" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3 relative">
-                        <Brain className="w-4 h-4 mr-2" />
+                      <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg py-2 text-sm font-medium shadow-md mb-2 relative">
+                        <Brain className="w-3 h-3 mr-1.5" />
                         AI Awareness
                         {isUsingAIAwareness && (
                           <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-green-500">
@@ -329,8 +329,8 @@ export default function Navbar() {
                       </Button>
                     </Link>
                     <Link href="/healing-rooms" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3 relative">
-                        <Heart className="w-4 h-4 mr-2" />
+                      <Button className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-lg py-2 text-sm font-medium shadow-md mb-2 relative">
+                        <Heart className="w-3 h-3 mr-1.5" />
                         Healing Rooms
                         {isUsingHealingRooms && (
                           <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-rose-500">
@@ -340,8 +340,8 @@ export default function Navbar() {
                       </Button>
                     </Link>
                     <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3">
-                        <Building2 className="w-4 h-4 mr-2" />
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg py-2 text-sm font-medium shadow-md mb-2">
+                        <Building2 className="w-3 h-3 mr-1.5" />
                         Exterior Spaces
                       </Button>
                     </Link>
@@ -350,8 +350,8 @@ export default function Navbar() {
                   <>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3">
-                          <Lock className="w-4 h-4 mr-2" />
+                        <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg py-2 text-sm font-medium shadow-md mb-2">
+                          <Lock className="w-3 h-3 mr-1.5" />
                           AI Awareness
                         </Button>
                       </AlertDialogTrigger>
@@ -384,8 +384,8 @@ export default function Navbar() {
 
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3">
-                          <Lock className="w-4 h-4 mr-2" />
+                        <Button className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-lg py-2 text-sm font-medium shadow-md mb-2">
+                          <Lock className="w-3 h-3 mr-1.5" />
                           Healing Rooms
                         </Button>
                       </AlertDialogTrigger>
@@ -417,8 +417,8 @@ export default function Navbar() {
                     </AlertDialog>
 
                     <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl py-3 font-medium shadow-lg mb-3">
-                        <Building2 className="w-4 h-4 mr-2" />
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg py-2 text-sm font-medium shadow-md mb-2">
+                        <Building2 className="w-3 h-3 mr-1.5" />
                         Exterior Spaces
                       </Button>
                     </Link>
@@ -429,32 +429,32 @@ export default function Navbar() {
                 {session ? (
                   <div className="space-y-2">
                     <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
-                      <Button variant="outline" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50">
-                        <User className="mr-2 h-4 w-4" />
+                      <Button variant="outline" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 py-2 text-sm">
+                        <User className="mr-1.5 h-3 w-3" />
                         Profile
                       </Button>
                     </Link>
                     <Button
                       variant="outline"
-                      className="w-full border-red-200 text-red-600 hover:bg-red-50"
+                      className="w-full border-red-200 text-red-600 hover:bg-red-50 py-2 text-sm"
                       onClick={() => {
                         setIsMenuOpen(false);
                         signOut({ callbackUrl: "/" });
                       }}
                     >
-                      <LogOut className="mr-2 h-4 w-4" />
+                      <LogOut className="mr-1.5 h-3 w-3" />
                       Sign Out
                     </Button>
                   </div>
                 ) : (
                   <div className="space-y-2">
                     <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
-                      <Button variant="outline" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50">
+                      <Button variant="outline" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 py-2 text-sm">
                         Sign In
                       </Button>
                     </Link>
                     <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white">
+                      <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2 text-sm">
                         Sign Up
                       </Button>
                     </Link>

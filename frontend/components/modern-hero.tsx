@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, Brain, Zap, Globe, Users, Shield, Heart } from 'lucide-react';
+import { Sparkles, Brain, Zap, Globe, Users, Shield } from 'lucide-react';
 
 export default function ModernHero() {
   const [mounted, setMounted] = useState(false);
@@ -99,22 +99,7 @@ export default function ModernHero() {
           </div>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up delay-400">
-          <Link href="/ai-awareness">
-            <Button className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105">
-              Explore AI Awareness
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
 
-          <Link href="/healing-rooms">
-            <Button variant="outline" className="group bg-white/70 backdrop-blur-sm border-purple-300 text-purple-700 hover:bg-white/90 hover:border-purple-400 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
-              <Heart className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
-              Healing Rooms
-            </Button>
-          </Link>
-        </div>
       </div>
 
       {/* Scroll Indicator */}

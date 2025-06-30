@@ -10,7 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Brain, Github, Mail, Eye, EyeOff, Loader2 } from "lucide-react"
+import { Brain, Eye, EyeOff, Loader2 } from "lucide-react"
+import { AuthButtons } from "@/components/auth-buttons"
 
 export default function SignInPage() {
   const [email, setEmail] = useState("")
@@ -44,14 +45,8 @@ export default function SignInPage() {
     }
   }
 
-  const handleProviderSignIn = async (provider: string) => {
-    try {
-      await signIn(provider, { callbackUrl: "/profile" })
-    } catch {
-      setError("An error occurred. Please try again.")
-    } finally {
-      setIsLoading(false)
-    }
+  const handleProviderError = (error: string) => {
+    setError(error)
   }
 
   return (
@@ -141,26 +136,11 @@ export default function SignInPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Button
-              variant="outline"
-              onClick={() => handleProviderSignIn("google")}
-              disabled={isLoading}
-              className="border-purple-200 hover:bg-purple-50"
-            >
-              <Mail className="mr-2 h-4 w-4" />
-              Google
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => handleProviderSignIn("github")}
-              disabled={isLoading}
-              className="border-purple-200 hover:bg-purple-50"
-            >
-              <Github className="mr-2 h-4 w-4" />
-              GitHub
-            </Button>
-          </div>
+          <AuthButtons
+            callbackUrl="/profile"
+            disabled={isLoading}
+            onError={handleProviderError}
+          />
 
           <div className="text-center text-sm text-slate-600">
             Don't have an account?{" "}

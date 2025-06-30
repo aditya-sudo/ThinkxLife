@@ -13,7 +13,8 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "test": "jest --watchAll=false --bail",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "generate-auth-secret": "node scripts/generate-auth-secret.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
