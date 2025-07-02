@@ -39,7 +39,11 @@ export default function ExteriorSpacesPage() {
   // Enter browser fullscreen mode
   const enterFullscreen = async () => {
     try {
-      const element = document.documentElement
+      const element = document.documentElement as HTMLElement & {
+        webkitRequestFullscreen?: () => Promise<void>
+        msRequestFullscreen?: () => Promise<void>
+      }
+      
       if (element.requestFullscreen) {
         await element.requestFullscreen()
       } else if (element.webkitRequestFullscreen) {
@@ -56,12 +60,17 @@ export default function ExteriorSpacesPage() {
   // Exit browser fullscreen mode
   const exitFullscreen = async () => {
     try {
-      if (document.exitFullscreen) {
-        await document.exitFullscreen()
-      } else if (document.webkitExitFullscreen) {
-        await document.webkitExitFullscreen()
-      } else if (document.msExitFullscreen) {
-        await document.msExitFullscreen()
+      const doc = document as Document & {
+        webkitExitFullscreen?: () => Promise<void>
+        msExitFullscreen?: () => Promise<void>
+      }
+      
+      if (doc.exitFullscreen) {
+        await doc.exitFullscreen()
+      } else if (doc.webkitExitFullscreen) {
+        await doc.webkitExitFullscreen()
+      } else if (doc.msExitFullscreen) {
+        await doc.msExitFullscreen()
       }
     } catch (error) {
       console.log('Exit fullscreen failed:', error)
@@ -72,7 +81,11 @@ export default function ExteriorSpacesPage() {
   // Listen for fullscreen changes
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement)
+      const doc = document as Document & {
+        webkitFullscreenElement?: Element
+        msFullscreenElement?: Element
+      }
+      setIsFullscreen(!!(doc.fullscreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement))
     }
 
     document.addEventListener('fullscreenchange', handleFullscreenChange)
