@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../../lib/auth"
-import { prisma, createFreshPrismaClient, findUserByEmailRaw, updateUserByEmailRaw } from "../../../lib/prisma"
+import { prisma } from "../../../lib/prisma"
 import { z } from "zod"
 
 const profileUpdateSchema = z.object({
@@ -57,41 +57,33 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: guestUser })
     }
 
-    // Progressive retry logic with multiple fallback strategies
+    // Simple retry logic for database connection issues
     let user = null
     let retryCount = 0
-    const maxRetries = 4 // Increased to allow for raw query fallback
-    let currentClient = prisma // Start with the default client
-    let useRawQuery = false
+    const maxRetries = 3
 
     while (retryCount < maxRetries && !user) {
       try {
-        if (useRawQuery) {
-          // Final fallback: use raw SQL query to completely bypass prepared statements
-          user = await findUserByEmailRaw(currentClient, session.user.email)
-        } else {
-          // Standard Prisma query
-          user = await currentClient.user.findUnique({
-            where: { email: session.user.email },
-            select: {
-              id: true,
-              name: true,
-              email: true,
-              firstName: true,
-              lastName: true,
-              bio: true,
-              phone: true,
-              dateOfBirth: true,
-              location: true,
-              website: true,
-              theme: true,
-              notifications: true,
-              newsletter: true,
-              createdAt: true,
-              updatedAt: true,
-            }
-          })
-        }
+        user = await prisma.user.findUnique({
+          where: { email: session.user.email },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+            bio: true,
+            phone: true,
+            dateOfBirth: true,
+            location: true,
+            website: true,
+            theme: true,
+            notifications: true,
+            newsletter: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        })
         break
       } catch (dbError: any) {
         retryCount++
@@ -104,24 +96,6 @@ export async function GET(request: NextRequest) {
           
           if (retryCount < maxRetries) {
             console.log(`Profile API: Retrying database query (${retryCount}/${maxRetries})`)
-            
-            if (dbError?.message?.includes('prepared statement')) {
-              if (retryCount === 1) {
-                // First retry: use fresh client with disabled prepared statements
-                console.log('Profile API: Creating fresh client with disabled prepared statements')
-                try {
-                  await currentClient.$disconnect()
-                } catch (disconnectError) {
-                  console.log('Profile API: Error during disconnect (continuing anyway):', disconnectError)
-                }
-                currentClient = createFreshPrismaClient()
-              } else if (retryCount >= 2) {
-                // Final retries: use raw SQL queries
-                console.log('Profile API: Switching to raw SQL query fallback')
-                useRawQuery = true
-                // Keep the current client but switch to raw queries
-              }
-            }
             
             // Wait with exponential backoff + random jitter to prevent thundering herd
             const baseDelay = Math.pow(2, retryCount) * 100
@@ -149,7 +123,7 @@ export async function GET(request: NextRequest) {
     // Cleanup connection in serverless
     if (process.env.NODE_ENV === 'production') {
       try {
-        await currentClient.$disconnect()
+        await prisma.$disconnect()
       } catch (disconnectError) {
         console.log('Profile API: Cleanup disconnect had issues (ignoring):', disconnectError)
       }
@@ -242,45 +216,37 @@ export async function PUT(request: NextRequest) {
 
     // Note: Prisma auto-connects on first query, no need to manually connect
 
-    // Progressive retry logic with multiple fallback strategies
+    // Simple retry logic for database connection issues
     let updatedUser = null
     let retryCount = 0
-    const maxRetries = 4 // Increased to allow for raw query fallback
-    let currentClient = prisma // Start with the default client
-    let useRawQuery = false
+    const maxRetries = 3
 
     while (retryCount < maxRetries && !updatedUser) {
       try {
-        if (useRawQuery) {
-          // Final fallback: use raw SQL query to completely bypass prepared statements
-          updatedUser = await updateUserByEmailRaw(currentClient, session.user.email, validatedData)
-        } else {
-          // Standard Prisma query
-          updatedUser = await currentClient.user.update({
-            where: { email: session.user.email },
-            data: {
-              ...validatedData,
-              updatedAt: new Date(),
-            },
-            select: {
-              id: true,
-              name: true,
-              email: true,
-              firstName: true,
-              lastName: true,
-              bio: true,
-              phone: true,
-              dateOfBirth: true,
-              location: true,
-              website: true,
-              theme: true,
-              notifications: true,
-              newsletter: true,
-              createdAt: true,
-              updatedAt: true,
-            }
-          })
-        }
+        updatedUser = await prisma.user.update({
+          where: { email: session.user.email },
+          data: {
+            ...validatedData,
+            updatedAt: new Date(),
+          },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+            bio: true,
+            phone: true,
+            dateOfBirth: true,
+            location: true,
+            website: true,
+            theme: true,
+            notifications: true,
+            newsletter: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        })
         break
       } catch (dbError: any) {
         retryCount++
@@ -293,24 +259,6 @@ export async function PUT(request: NextRequest) {
           
           if (retryCount < maxRetries) {
             console.log(`Profile Update API: Retrying database query (${retryCount}/${maxRetries})`)
-            
-            if (dbError?.message?.includes('prepared statement')) {
-              if (retryCount === 1) {
-                // First retry: use fresh client with disabled prepared statements
-                console.log('Profile Update API: Creating fresh client with disabled prepared statements')
-                try {
-                  await currentClient.$disconnect()
-                } catch (disconnectError) {
-                  console.log('Profile Update API: Error during disconnect (continuing anyway):', disconnectError)
-                }
-                currentClient = createFreshPrismaClient()
-              } else if (retryCount >= 2) {
-                // Final retries: use raw SQL queries
-                console.log('Profile Update API: Switching to raw SQL query fallback')
-                useRawQuery = true
-                // Keep the current client but switch to raw queries
-              }
-            }
             
             // Wait with exponential backoff + random jitter to prevent thundering herd
             const baseDelay = Math.pow(2, retryCount) * 100
@@ -342,7 +290,7 @@ export async function PUT(request: NextRequest) {
     // Cleanup connection in serverless
     if (process.env.NODE_ENV === 'production') {
       try {
-        await currentClient.$disconnect()
+        await prisma.$disconnect()
       } catch (disconnectError) {
         console.log('Profile Update API: Cleanup disconnect had issues (ignoring):', disconnectError)
       }
