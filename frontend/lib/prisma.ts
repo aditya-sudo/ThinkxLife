@@ -15,11 +15,19 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient({
   ...(process.env.NODE_ENV === 'production' && {
     log: ['error'],
     errorFormat: 'minimal',
+    // Optimize for serverless
+    transactionOptions: {
+      timeout: 5000, // 5 second timeout
+      isolationLevel: 'ReadCommitted',
+    },
   }),
   // Development configuration
   ...(process.env.NODE_ENV !== 'production' && {
     log: ['query', 'error', 'warn'],
     errorFormat: 'pretty',
+    transactionOptions: {
+      timeout: 10000, // 10 second timeout for dev
+    },
   }),
 })
 

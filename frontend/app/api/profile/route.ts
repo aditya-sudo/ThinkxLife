@@ -30,6 +30,15 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // Ensure fresh connection for each request in serverless
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        await prisma.$connect()
+      } catch (connectError) {
+        console.log('Profile API: Connection attempt had issues (continuing):', connectError)
+      }
+    }
+
     console.log("Profile API: Looking for user with email:", session.user.email)
 
     // Handle guest users who don't exist in database
@@ -94,8 +103,21 @@ export async function GET(request: NextRequest) {
           
           if (retryCount < maxRetries) {
             console.log(`Profile API: Retrying database query (${retryCount}/${maxRetries})`)
-            // Wait a bit before retry with exponential backoff
-            await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 100))
+            
+            // For prepared statement errors, disconnect and reconnect
+            if (dbError?.message?.includes('prepared statement')) {
+              console.log('Profile API: Disconnecting Prisma client due to prepared statement error')
+              try {
+                await prisma.$disconnect()
+              } catch (disconnectError) {
+                console.log('Profile API: Error during disconnect (continuing anyway):', disconnectError)
+              }
+            }
+            
+            // Wait with exponential backoff + random jitter to prevent thundering herd
+            const baseDelay = Math.pow(2, retryCount) * 100
+            const jitter = Math.random() * 100
+            await new Promise(resolve => setTimeout(resolve, baseDelay + jitter))
             continue
           }
         }
@@ -114,6 +136,16 @@ export async function GET(request: NextRequest) {
     }
 
     console.log("Profile API: Successfully found user:", user.id)
+    
+    // Cleanup connection in serverless
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        await prisma.$disconnect()
+      } catch (disconnectError) {
+        console.log('Profile API: Cleanup disconnect had issues (ignoring):', disconnectError)
+      }
+    }
+    
     return NextResponse.json({ user })
   } catch (error: any) {
     console.error("Profile fetch error:", error)
@@ -152,6 +184,15 @@ export async function GET(request: NextRequest) {
     }
 
     // Generic error fallback
+    // Cleanup connection on error in serverless
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        await prisma.$disconnect()
+      } catch (disconnectError) {
+        console.log('Profile API: Error cleanup disconnect had issues (ignoring):', disconnectError)
+      }
+    }
+    
     return NextResponse.json(
       { 
         error: "Internal server error", 
@@ -188,6 +229,15 @@ export async function PUT(request: NextRequest) {
         { error: "Guest users cannot update their profile. Please create a full account to save changes." },
         { status: 403 }
       )
+    }
+
+    // Ensure fresh connection for each request in serverless
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        await prisma.$connect()
+      } catch (connectError) {
+        console.log('Profile Update API: Connection attempt had issues (continuing):', connectError)
+      }
     }
 
     // Retry logic for database connection issues
@@ -233,8 +283,21 @@ export async function PUT(request: NextRequest) {
           
           if (retryCount < maxRetries) {
             console.log(`Profile Update API: Retrying database query (${retryCount}/${maxRetries})`)
-            // Wait a bit before retry with exponential backoff
-            await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 100))
+            
+            // For prepared statement errors, disconnect and reconnect
+            if (dbError?.message?.includes('prepared statement')) {
+              console.log('Profile Update API: Disconnecting Prisma client due to prepared statement error')
+              try {
+                await prisma.$disconnect()
+              } catch (disconnectError) {
+                console.log('Profile Update API: Error during disconnect (continuing anyway):', disconnectError)
+              }
+            }
+            
+            // Wait with exponential backoff + random jitter to prevent thundering herd
+            const baseDelay = Math.pow(2, retryCount) * 100
+            const jitter = Math.random() * 100
+            await new Promise(resolve => setTimeout(resolve, baseDelay + jitter))
             continue
           }
         }
@@ -257,6 +320,16 @@ export async function PUT(request: NextRequest) {
     }
 
     console.log("Profile Update API: Successfully updated user:", updatedUser.id)
+    
+    // Cleanup connection in serverless
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        await prisma.$disconnect()
+      } catch (disconnectError) {
+        console.log('Profile Update API: Cleanup disconnect had issues (ignoring):', disconnectError)
+      }
+    }
+    
     return NextResponse.json({
       message: "Profile updated successfully",
       user: updatedUser
@@ -305,6 +378,15 @@ export async function PUT(request: NextRequest) {
     }
 
     // Generic error fallback
+    // Cleanup connection on error in serverless
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        await prisma.$disconnect()
+      } catch (disconnectError) {
+        console.log('Profile Update API: Error cleanup disconnect had issues (ignoring):', disconnectError)
+      }
+    }
+    
     return NextResponse.json(
       { 
         error: "Internal server error", 
