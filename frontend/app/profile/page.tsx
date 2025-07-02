@@ -184,14 +184,26 @@ export default function ProfilePage() {
           notifications: data.user.notifications,
           newsletter: data.user.newsletter,
         })
+        setError("") // Clear any previous errors
       } else {
-        const errorData = await response.text()
-        console.error("Profile API error:", response.status, errorData)
-        setError(`Failed to load profile: ${response.status}`)
+        let errorMessage = `Failed to load profile (${response.status})`
+        try {
+          const errorData = await response.json()
+          console.error("Profile API error:", response.status, errorData)
+          if (errorData.error) {
+            errorMessage = `${errorData.error}${errorData.details ? `: ${errorData.details}` : ''}`
+          }
+        } catch (parseError) {
+          console.error("Could not parse error response:", parseError)
+          const errorText = await response.text()
+          console.error("Raw error response:", errorText)
+        }
+        setError(errorMessage)
       }
     } catch (error) {
       console.error("Profile fetch error:", error)
-      setError("Failed to load profile")
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred"
+      setError(`Network error: ${errorMessage}. Please check your connection and try again.`)
     } finally {
       setIsLoading(false)
     }
@@ -283,10 +295,13 @@ export default function ProfilePage() {
 
   if (status === "loading" || isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-purple-100 to-blue-50">
+      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-purple-100 to-blue-50 pt-24 pb-8 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-purple-600 mx-auto mb-4" />
-          <p className="text-slate-600">Loading profile...</p>
+          <div className="p-4 bg-purple-100 rounded-full inline-block mb-4">
+            <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
+          </div>
+          <h2 className="text-xl font-semibold text-slate-800 mb-2">Loading Your Profile</h2>
+          <p className="text-slate-600">Please wait while we fetch your information...</p>
         </div>
       </div>
     )
@@ -307,13 +322,50 @@ export default function ProfilePage() {
 
   if (!profile && !isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-purple-100 to-blue-50">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">Failed to load profile</p>
-          {error && <p className="text-slate-600 mb-4">{error}</p>}
-          <Button onClick={() => fetchProfile()}>
-            Retry
-          </Button>
+      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-purple-100 to-blue-50 pt-24 pb-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <Card className="bg-white/80 backdrop-blur-sm border border-red-200/50 shadow-xl">
+            <CardContent className="p-8 text-center">
+              <div className="p-4 bg-red-100 rounded-full inline-block mb-4">
+                <X className="w-8 h-8 text-red-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-red-800 mb-4">Profile Loading Error</h2>
+              <p className="text-red-700 mb-2">We couldn't load your profile at this time.</p>
+              {error && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                  <p className="text-red-800 font-medium mb-2">Error Details:</p>
+                  <p className="text-red-700 text-sm">{error}</p>
+                </div>
+              )}
+              <div className="space-y-3">
+                <Button 
+                  onClick={() => {
+                    setError("")
+                    setIsLoading(true)
+                    fetchProfile()
+                  }}
+                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mr-4"
+                >
+                  <Loader2 className="w-4 h-4 mr-2" />
+                  Try Again
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => router.push("/")}
+                  className="border-slate-300 text-slate-600"
+                >
+                  <User className="w-4 h-4 mr-2" />
+                  Go Home
+                </Button>
+              </div>
+              <div className="mt-6 pt-6 border-t border-red-200">
+                <p className="text-slate-600 text-sm mb-2">Need help?</p>
+                <p className="text-slate-500 text-xs">
+                  If this problem persists, try signing out and signing back in, or contact support.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     )
