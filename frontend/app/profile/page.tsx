@@ -327,7 +327,7 @@ export default function ProfilePage() {
   const userAge = calculateAge(formData.dateOfBirth)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-purple-100 to-blue-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-purple-100 to-blue-50 pt-24 pb-8">
       <div className="max-w-4xl mx-auto px-4">
         {/* Welcome Message */}
         <Card className="mb-8 bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0 shadow-xl">
