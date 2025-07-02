@@ -244,6 +244,18 @@ export async function PUT(request: NextRequest) {
       }
     }
 
+    if (!updatedUser) {
+      console.error("Profile Update API: Failed to update user after all retries")
+      return NextResponse.json(
+        { 
+          error: "Database update failed", 
+          details: "Unable to update profile after multiple attempts. Please try again.",
+          retryable: true
+        },
+        { status: 503 }
+      )
+    }
+
     console.log("Profile Update API: Successfully updated user:", updatedUser.id)
     return NextResponse.json({
       message: "Profile updated successfully",
