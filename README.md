@@ -87,7 +87,6 @@ To ensure your changes will pass CI, run our comprehensive test script:
 This script runs the same checks as our GitHub Actions workflow:
 - ✅ Dependency installation
 - ✅ Prisma client generation
-- ✅ Pre-commit hooks (linting, formatting, type checking)
 - ✅ TypeScript validation
 - ✅ Build verification
 - ✅ Test execution
@@ -96,7 +95,7 @@ This script runs the same checks as our GitHub Actions workflow:
 
 1. Make your changes
 2. Run `./scripts/test-ci.sh` to verify everything works
-3. Commit your changes (pre-commit hooks will run automatically)
+3. Commit your changes
 4. Push to GitHub (CI will run automatically)
 
 For more details, see [`scripts/README.md`](scripts/README.md).

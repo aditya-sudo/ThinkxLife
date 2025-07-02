@@ -3,328 +3,274 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Maximize2, Minimize2, Presentation } from 'lucide-react'
+import { ArrowLeft, Home, Maximize2, Minimize2 } from 'lucide-react'
 
 export default function ExteriorSpacesPage() {
-  // Your Figma prototype embed URL (presentation mode)
-  const figmaEmbedUrl = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FmAq1KGpFlEMPBiPRCEEbNy%2FExterior-Spaces%3Fnode-id%3D228-981%26p%3Df%26t%3DPkpHrsBjZLwUuO6f-0%26scaling%3Dmin-zoom%26content-scaling%3Dfixed%26page-id%3D0%253A1%26starting-point-node-id%3D228%253A981%26show-proto-sidebar%3D1"
+  // Your Figma prototype embed URL (optimized fit - no sidebar, no UI, proper scaling)
+  const figmaEmbedUrl = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FmAq1KGpFlEMPBiPRCEEbNy%2FExterior-Spaces%3Fnode-id%3D228-981%26p%3Df%26t%3DPkpHrsBjZLwUuO6f-0%26scaling%3Dscale-down%26content-scaling%3Dfixed%26page-id%3D0%253A1%26starting-point-node-id%3D228%253A981%26show-proto-sidebar%3D0%26hide-ui%3D1"
 
-  // State for fullscreen mode
+  // State for showing controls
+  const [showControls, setShowControls] = useState(true)
   const [isFullscreen, setIsFullscreen] = useState(false)
-
-  // Toggle fullscreen mode
-  const toggleFullscreen = () => {
-    setIsFullscreen(!isFullscreen)
-  }
+  const [iframeStyle, setIframeStyle] = useState({})
+  const [hideTimer, setHideTimer] = useState<NodeJS.Timeout | null>(null)
+  const [isHoveringControls, setIsHoveringControls] = useState(false)
 
   // Set page title
   useEffect(() => {
     document.title = 'Exterior Spaces | ThinkxLife'
   }, [])
 
-  // Exit fullscreen with Escape key
+  // Set basic iframe styling
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isFullscreen) {
-        setIsFullscreen(false)
-      }
-    }
+    setIframeStyle({
+      border: 'none',
+      marginTop: 0,
+      marginRight: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      padding: 0,
+      overflow: 'hidden',
+      width: '100%',
+      height: '100%'
+    })
+  }, [])
 
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [isFullscreen])
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+  // Enter browser fullscreen mode
+  const enterFullscreen = async () => {
+    try {
+      const element = document.documentElement
+      if (element.requestFullscreen) {
+        await element.requestFullscreen()
+      } else if (element.webkitRequestFullscreen) {
+        await element.webkitRequestFullscreen()
+      } else if (element.msRequestFullscreen) {
+        await element.msRequestFullscreen()
       }
+    } catch (error) {
+      console.log('Fullscreen request failed:', error)
+      // Fail silently - user can still use the page normally
     }
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
+  // Exit browser fullscreen mode
+  const exitFullscreen = async () => {
+    try {
+      if (document.exitFullscreen) {
+        await document.exitFullscreen()
+      } else if (document.webkitExitFullscreen) {
+        await document.webkitExitFullscreen()
+      } else if (document.msExitFullscreen) {
+        await document.msExitFullscreen()
+      }
+    } catch (error) {
+      console.log('Exit fullscreen failed:', error)
+      // Fail silently
     }
   }
 
-  // Fullscreen presentation mode
-  if (isFullscreen) {
-    return (
-      <AnimatePresence>
-        <motion.div
-          className="fixed inset-0 z-[9999] bg-black"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {/* Fullscreen Controls */}
-          <motion.div
-            className="absolute top-4 right-4 z-10 flex items-center gap-2"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <motion.button
-              onClick={toggleFullscreen}
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-3 py-2 rounded-lg transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Minimize2 className="h-4 w-4" />
-              Exit Fullscreen
-            </motion.button>
-          </motion.div>
+  // Listen for fullscreen changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
 
-          {/* Fullscreen Figma */}
-          <motion.iframe
-            src={figmaEmbedUrl}
-            className="w-full h-full"
-            allowFullScreen
-            title="Exterior Spaces Prototype - Presentation Mode"
-            style={{ border: 'none' }}
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-          />
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+    document.addEventListener('msfullscreenchange', handleFullscreenChange)
 
-          {/* Escape hint */}
-          <motion.div
-            className="absolute bottom-4 left-4 text-white/60 text-sm"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            Press <kbd className="bg-white/10 px-2 py-1 rounded">Esc</kbd> to exit fullscreen
-          </motion.div>
-        </motion.div>
-      </AnimatePresence>
-    )
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('msfullscreenchange', handleFullscreenChange)
+    }
+  }, [])
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (hideTimer) {
+        clearTimeout(hideTimer)
+      }
+    }
+  }, [hideTimer])
+
+  // Auto-hide controls after 5 seconds initially
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isHoveringControls) {
+        setShowControls(false)
+      }
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Stable hover handling
+  const handleControlAreaEnter = () => {
+    console.log('Control area entered')
+    if (hideTimer) {
+      clearTimeout(hideTimer)
+      setHideTimer(null)
+    }
+    setIsHoveringControls(true)
+    setShowControls(true)
+  }
+
+  const handleControlAreaLeave = () => {
+    console.log('Control area left')
+    setIsHoveringControls(false)
+    // Only hide if we're not hovering over controls
+    const timer = setTimeout(() => {
+      console.log('Hiding controls after delay')
+      setShowControls(false)
+    }, 500) // Increased delay for better UX
+    setHideTimer(timer)
   }
 
   return (
-    <motion.div
-      className="min-h-screen bg-gray-50"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      {/* Header */}
-      <motion.div
-        className="bg-white shadow-sm border-b"
-        variants={itemVariants}
+    <div className="w-full h-full relative">
+      {/* Combined Control Area - Full width top strip */}
+      <div 
+        className="absolute top-0 left-0 w-full h-20 z-[60] bg-transparent"
+        onMouseEnter={handleControlAreaEnter}
+        onMouseLeave={handleControlAreaLeave}
+        style={{ 
+          pointerEvents: 'auto',
+          // Uncomment for debugging: backgroundColor: 'rgba(255,0,0,0.1)'
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          {/* Back Link */}
-          <motion.div variants={itemVariants}>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-4 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Home
-            </Link>
-          </motion.div>
-
-          {/* Page Title */}
-          <motion.div
-            className="flex items-center justify-between"
-            variants={itemVariants}
-          >
-            <div>
-              <motion.h1
-                className="text-3xl font-bold text-gray-900"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                Exterior Spaces
-              </motion.h1>
-              <motion.p
-                className="text-gray-600 mt-2"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                Explore our innovative exterior space designs and architectural concepts
-              </motion.p>
-            </div>
-
-            {/* Action Buttons */}
+        {/* Floating Controls */}
+        <AnimatePresence>
+          {showControls && (
             <motion.div
-              className="flex items-center gap-3"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              className="absolute top-4 left-4 z-[70] flex items-center gap-3 pointer-events-auto"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
             >
-              <motion.button
-                onClick={toggleFullscreen}
-                className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(34, 197, 94, 0.3)" }}
-                whileTap={{ scale: 0.95 }}
+            {/* Home Button */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="pointer-events-auto"
+            >
+              <Link
+                href="/"
+                onClick={(e) => {
+                  console.log('Home button clicked')
+                  // Exit fullscreen before navigating home
+                  if (isFullscreen) {
+                    exitFullscreen()
+                  }
+                }}
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-all duration-200 border border-white/20 cursor-pointer"
+                style={{ pointerEvents: 'auto' }}
               >
-                <Presentation className="h-4 w-4" />
-                Presentation Mode
-              </motion.button>
+                <Home className="h-4 w-4" />
+                <span className="hidden sm:inline">Home</span>
+              </Link>
+            </motion.div>
+
+            {/* Fullscreen Toggle */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="pointer-events-auto"
+            >
+              <button
+                onClick={(e) => {
+                  console.log('Fullscreen button clicked', { isFullscreen })
+                  e.preventDefault()
+                  e.stopPropagation()
+                  if (isFullscreen) {
+                    exitFullscreen()
+                  } else {
+                    enterFullscreen()
+                  }
+                }}
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-all duration-200 border border-white/20 cursor-pointer"
+                style={{ pointerEvents: 'auto' }}
+              >
+                {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                <span className="hidden sm:inline">{isFullscreen ? 'Exit' : 'Fullscreen'}</span>
+              </button>
+            </motion.div>
+
+            {/* Page Title */}
+            <motion.div
+              className="bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-lg border border-white/20"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <span className="font-medium">Exterior Spaces Prototype</span>
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+      </div>
+
+      {/* Instructions (shown briefly) */}
+      <AnimatePresence>
+        {showControls && (
+          <motion.div
+            className="absolute bottom-4 left-4 z-[70] text-white/70 text-sm pointer-events-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <div className="bg-black/30 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10">
+              {isFullscreen 
+                ? "Press ESC or click Exit to exit fullscreen • Hover top-left area to show controls" 
+                : "Click Fullscreen for immersive experience • Hover top-left area to show controls"
+              }
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Fullscreen Figma Prototype */}
+      <motion.iframe
+        src={figmaEmbedUrl}
+        className="absolute inset-0 z-[40]"
+        allowFullScreen
+        title="Exterior Spaces Prototype"
+        style={{
+          ...iframeStyle,
+          pointerEvents: 'auto'
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      />
+
+      {/* Loading Overlay */}
+      <motion.div
+        className="absolute inset-0 bg-black flex items-center justify-center pointer-events-none"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 0.5, delay: 1 }}
+      >
+        <div className="text-white text-center">
+          <motion.div
+            className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+          <motion.p
+            className="text-white/70"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Loading Exterior Spaces Prototype...
+          </motion.p>
         </div>
       </motion.div>
-
-      {/* Figma Embed */}
-      <motion.div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
-        variants={itemVariants}
-      >
-        <motion.div
-          className="bg-white rounded-lg shadow-lg overflow-hidden"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          whileHover={{ boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)" }}
-        >
-          {/* Embed Header */}
-          <motion.div
-            className="bg-gray-50 px-6 py-4 border-b flex items-center justify-between"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            <div className="flex items-center gap-2">
-              <motion.div
-                className="w-3 h-3 bg-red-500 rounded-full"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <motion.div
-                className="w-3 h-3 bg-yellow-500 rounded-full"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
-              />
-              <motion.div
-                className="w-3 h-3 bg-green-500 rounded-full"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
-              />
-              <span className="ml-4 text-sm text-gray-600 font-medium">Figma Prototype</span>
-            </div>
-            <motion.button
-              onClick={toggleFullscreen}
-              className="text-gray-500 hover:text-gray-700 hover:bg-gray-100 p-1 rounded transition-colors"
-              title="Enter Presentation Mode"
-              whileHover={{ scale: 1.1, rotate: 90 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Maximize2 className="h-4 w-4" />
-            </motion.button>
-          </motion.div>
-
-          {/* Figma iFrame */}
-          <motion.div
-            className="relative"
-            style={{ paddingBottom: '56.25%', height: 0 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1 }}
-          >
-            <iframe
-              src={figmaEmbedUrl}
-              className="absolute top-0 left-0 w-full h-full"
-              allowFullScreen
-              title="Exterior Spaces Prototype"
-              style={{ border: 'none', minHeight: '600px' }}
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Figma Info */}
-        <motion.div
-          className="mt-8 bg-green-50 border border-green-200 rounded-lg p-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          whileHover={{ scale: 1.02 }}
-        >
-          <motion.h3
-            className="text-lg font-semibold text-green-800 mb-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.4 }}
-          >
-            ✅ Figma Integration Active
-          </motion.h3>
-          <motion.div
-            className="text-green-700 text-sm space-y-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-          >
-            <p>Your Exterior Spaces prototype is now embedded and ready to interact with. Experience the full interactive prototype above.</p>
-            <motion.div
-              className="flex items-center gap-2 mt-3"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.6 }}
-            >
-              <Presentation className="h-4 w-4" />
-              <span className="font-medium">Presentation Mode:</span>
-              <span>Click the "Presentation Mode" button for fullscreen viewing without navbar/footer (Press Esc to exit)</span>
-            </motion.div>
-            <motion.div
-              className="flex items-center gap-2 mt-2"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.7 }}
-            >
-              <span className="text-xs bg-green-100 px-2 py-1 rounded">🔒 Private:</span>
-              <span className="text-xs">Your Figma file remains private - users only see the interactive prototype</span>
-            </motion.div>
-          </motion.div>
-        </motion.div>
-
-        {/* Additional Info */}
-        <motion.div
-          className="mt-6 grid md:grid-cols-2 gap-6"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.3 }}
-        >
-          <motion.div
-            className="bg-white p-6 rounded-lg shadow-sm"
-            whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)" }}
-            transition={{ duration: 0.3 }}
-          >
-            <h3 className="font-semibold text-gray-900 mb-3">About Exterior Spaces</h3>
-            <p className="text-gray-600 text-sm">
-              Our exterior space designs focus on creating harmonious environments that blend
-              natural elements with innovative architectural concepts. These designs promote
-              wellbeing and sustainable living practices.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="bg-white p-6 rounded-lg shadow-sm"
-            whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)" }}
-            transition={{ duration: 0.3 }}
-          >
-            <h3 className="font-semibold text-gray-900 mb-3">Design Features</h3>
-            <ul className="text-gray-600 text-sm space-y-1">
-              <li>• Sustainable materials and practices</li>
-              <li>• Biophilic design principles</li>
-              <li>• Community-focused spaces</li>
-              <li>• Accessibility considerations</li>
-            </ul>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+    </div>
   )
 }

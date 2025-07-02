@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         // Guest login fallback
-        if (credentials.email === "guest@guest.com" && credentials.password === "guest") {
+        if (credentials.email === "guest@guest.com" && credentials.password === "ThinxLife") {
           return {
             id: "guest-user",
             email: "guest@thinkxlife.com",
@@ -82,7 +82,7 @@ export const authOptions: NextAuthOptions = {
           console.error("Database error during authentication:", error)
           
           // If database fails and guest credentials are provided, allow guest login
-          if (credentials.email === "guest@guest.com" && credentials.password === "guest") {
+          if (credentials.email === "guest@guest.com" && credentials.password === "ThinxLife") {
             return {
               id: "guest-user",
               email: "guest@thinkxlife.com",

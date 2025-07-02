@@ -17,7 +17,6 @@ A comprehensive script that mimics the GitHub Actions CI workflow locally. This 
 **What it does:**
 - ✅ Installs backend and frontend dependencies
 - ✅ Generates Prisma client
-- ✅ Runs pre-commit hooks (linting, formatting, type checking)
 - ✅ Performs TypeScript type checking
 - ✅ Tests the build process
 - ✅ Runs backend and frontend tests
@@ -25,7 +24,6 @@ A comprehensive script that mimics the GitHub Actions CI workflow locally. This 
 **Requirements:**
 - Python 3.11+
 - Node.js 22+
-- pre-commit installed (`pip install pre-commit`)
 
 **Example output:**
 ```
@@ -35,8 +33,6 @@ A comprehensive script that mimics the GitHub Actions CI workflow locally. This 
 ✅ Frontend dependencies passed
 🔧 Generating Prisma client...
 ✅ Prisma client generation passed
-🔍 Running pre-commit hooks...
-✅ Pre-commit hooks passed
 📝 Running TypeScript check...
 ✅ TypeScript check passed
 🏗️ Running build check...

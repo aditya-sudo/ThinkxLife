@@ -98,8 +98,6 @@ export default function ModernHero() {
             ))}
           </div>
         </div>
-
-
       </div>
 
       {/* Scroll Indicator */}
@@ -110,6 +108,7 @@ export default function ModernHero() {
       </div>
 
       <style jsx>{`
+
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-20px) rotate(180deg); }
@@ -150,7 +149,7 @@ export default function ModernHero() {
         .delay-500 {
           animation-delay: 0.5s;
         }
-        .delay-1000 {
+                .delay-1000 {
           animation-delay: 1s;
         }
       `}</style>

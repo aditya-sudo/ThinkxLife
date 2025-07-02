@@ -12,8 +12,7 @@
 /frontend/.env
 /frontend/.env.local
 
-# pre-commit cache
-/.cache/
+
 
 # Next.js & Jest artifacts
 /.next/
