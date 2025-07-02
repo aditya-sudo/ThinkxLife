@@ -13,8 +13,12 @@ This guide will help you set up the complete authentication system for ThinkxLif
 Create a `.env.local` file in the `frontend` directory:
 
 ```env
-# Database Configuration - REPLACE 'YOUR_SUPABASE_PASSWORD_HERE' with your actual password
-DATABASE_URL="postgresql://postgres:YOUR_SUPABASE_PASSWORD_HERE@db.olldtnzbrmjzxavxivvd.supabase.co:5432/postgres"
+# Database Configuration - USE SESSION MODE for serverless environments
+# Direct Connection (current - causes prepared statement issues):
+# DATABASE_URL="postgresql://postgres:YOUR_SUPABASE_PASSWORD_HERE@db.olldtnzbrmjzxavxivvd.supabase.co:5432/postgres"
+# 
+# Session Mode (recommended for Vercel/serverless - prevents prepared statement conflicts):
+DATABASE_URL="postgresql://postgres.xxxx:YOUR_SUPABASE_PASSWORD_HERE@aws-0-us-west-1.pooler.supabase.com:5432/postgres"
 
 # NextAuth.js Configuration
 NEXTAUTH_URL="http://localhost:3000"

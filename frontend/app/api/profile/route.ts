@@ -57,58 +57,27 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: guestUser })
     }
 
-    // Simple retry logic for database connection issues
-    let user = null
-    let retryCount = 0
-    const maxRetries = 3
-
-    while (retryCount < maxRetries && !user) {
-      try {
-        user = await prisma.user.findUnique({
-          where: { email: session.user.email },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            firstName: true,
-            lastName: true,
-            bio: true,
-            phone: true,
-            dateOfBirth: true,
-            location: true,
-            website: true,
-            theme: true,
-            notifications: true,
-            newsletter: true,
-            createdAt: true,
-            updatedAt: true,
-          }
-        })
-        break
-      } catch (dbError: any) {
-        retryCount++
-        console.error(`Profile API: Database query attempt ${retryCount} failed:`, dbError?.message)
-        
-        // Handle specific Prisma/PostgreSQL errors
-        if (dbError?.message?.includes('prepared statement') || 
-            dbError?.code === 'P2024' || 
-            dbError?.code === 'P2002') {
-          
-          if (retryCount < maxRetries) {
-            console.log(`Profile API: Retrying database query (${retryCount}/${maxRetries})`)
-            
-            // Wait with exponential backoff + random jitter to prevent thundering herd
-            const baseDelay = Math.pow(2, retryCount) * 100
-            const jitter = Math.random() * 100
-            await new Promise(resolve => setTimeout(resolve, baseDelay + jitter))
-            continue
-          }
-        }
-        
-        // If it's not a retryable error or we've exhausted retries, throw
-        throw dbError
+    // Query user from database
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        bio: true,
+        phone: true,
+        dateOfBirth: true,
+        location: true,
+        website: true,
+        theme: true,
+        notifications: true,
+        newsletter: true,
+        createdAt: true,
+        updatedAt: true,
       }
-    }
+    })
 
     if (!user) {
       console.error("Profile API: User not found in database for email:", session.user.email)
@@ -119,16 +88,6 @@ export async function GET(request: NextRequest) {
     }
 
     console.log("Profile API: Successfully found user:", user.id)
-    
-    // Cleanup connection in serverless
-    if (process.env.NODE_ENV === 'production') {
-      try {
-        await prisma.$disconnect()
-      } catch (disconnectError) {
-        console.log('Profile API: Cleanup disconnect had issues (ignoring):', disconnectError)
-      }
-    }
-    
     return NextResponse.json({ user })
   } catch (error: any) {
     console.error("Profile fetch error:", error)
@@ -140,47 +99,22 @@ export async function GET(request: NextRequest) {
       clientVersion: error?.clientVersion
     })
 
-    // Handle specific database connection errors
-    if (error?.message?.includes('prepared statement') || 
-        error?.message?.includes('ConnectorError') ||
-        error?.code === 'P2024') {
-      return NextResponse.json(
-        { 
-          error: "Database connection issue", 
-          details: "We're experiencing high traffic. Please try again in a moment.",
-          retryable: true
-        },
-        { status: 503 }
-      )
-    }
-
-    // Handle general database errors
+    // Handle database errors
     if (error?.code?.startsWith('P') || error?.clientVersion) {
       return NextResponse.json(
         { 
           error: "Database error", 
           details: "We're having trouble accessing your data. Please try again.",
-          retryable: true
         },
         { status: 503 }
       )
     }
 
     // Generic error fallback
-    // Cleanup connection on error in serverless
-    if (process.env.NODE_ENV === 'production') {
-      try {
-        await prisma.$disconnect()
-      } catch (disconnectError) {
-        console.log('Profile API: Error cleanup disconnect had issues (ignoring):', disconnectError)
-      }
-    }
-    
     return NextResponse.json(
       { 
         error: "Internal server error", 
         details: error instanceof Error ? error.message : 'Unknown error',
-        retryable: false
       },
       { status: 500 }
     )
@@ -216,86 +150,33 @@ export async function PUT(request: NextRequest) {
 
     // Note: Prisma auto-connects on first query, no need to manually connect
 
-    // Simple retry logic for database connection issues
-    let updatedUser = null
-    let retryCount = 0
-    const maxRetries = 3
-
-    while (retryCount < maxRetries && !updatedUser) {
-      try {
-        updatedUser = await prisma.user.update({
-          where: { email: session.user.email },
-          data: {
-            ...validatedData,
-            updatedAt: new Date(),
-          },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            firstName: true,
-            lastName: true,
-            bio: true,
-            phone: true,
-            dateOfBirth: true,
-            location: true,
-            website: true,
-            theme: true,
-            notifications: true,
-            newsletter: true,
-            createdAt: true,
-            updatedAt: true,
-          }
-        })
-        break
-      } catch (dbError: any) {
-        retryCount++
-        console.error(`Profile Update API: Database query attempt ${retryCount} failed:`, dbError?.message)
-        
-        // Handle specific Prisma/PostgreSQL errors
-        if (dbError?.message?.includes('prepared statement') || 
-            dbError?.code === 'P2024' || 
-            dbError?.code === 'P2002') {
-          
-          if (retryCount < maxRetries) {
-            console.log(`Profile Update API: Retrying database query (${retryCount}/${maxRetries})`)
-            
-            // Wait with exponential backoff + random jitter to prevent thundering herd
-            const baseDelay = Math.pow(2, retryCount) * 100
-            const jitter = Math.random() * 100
-            await new Promise(resolve => setTimeout(resolve, baseDelay + jitter))
-            continue
-          }
-        }
-        
-        // If it's not a retryable error or we've exhausted retries, throw
-        throw dbError
+    // Update user in database
+    const updatedUser = await prisma.user.update({
+      where: { email: session.user.email },
+      data: {
+        ...validatedData,
+        updatedAt: new Date(),
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        bio: true,
+        phone: true,
+        dateOfBirth: true,
+        location: true,
+        website: true,
+        theme: true,
+        notifications: true,
+        newsletter: true,
+        createdAt: true,
+        updatedAt: true,
       }
-    }
-
-    if (!updatedUser) {
-      console.error("Profile Update API: Failed to update user after all retries")
-      return NextResponse.json(
-        { 
-          error: "Database update failed", 
-          details: "Unable to update profile after multiple attempts. Please try again.",
-          retryable: true
-        },
-        { status: 503 }
-      )
-    }
+    })
 
     console.log("Profile Update API: Successfully updated user:", updatedUser.id)
-    
-    // Cleanup connection in serverless
-    if (process.env.NODE_ENV === 'production') {
-      try {
-        await prisma.$disconnect()
-      } catch (disconnectError) {
-        console.log('Profile Update API: Cleanup disconnect had issues (ignoring):', disconnectError)
-      }
-    }
-    
     return NextResponse.json({
       message: "Profile updated successfully",
       user: updatedUser
@@ -317,47 +198,22 @@ export async function PUT(request: NextRequest) {
       clientVersion: error?.clientVersion
     })
 
-    // Handle specific database connection errors
-    if (error?.message?.includes('prepared statement') || 
-        error?.message?.includes('ConnectorError') ||
-        error?.code === 'P2024') {
-      return NextResponse.json(
-        { 
-          error: "Database connection issue", 
-          details: "We're experiencing high traffic. Please try again in a moment.",
-          retryable: true
-        },
-        { status: 503 }
-      )
-    }
-
-    // Handle general database errors
+    // Handle database errors
     if (error?.code?.startsWith('P') || error?.clientVersion) {
       return NextResponse.json(
         { 
           error: "Database error", 
           details: "We're having trouble accessing your data. Please try again.",
-          retryable: true
         },
         { status: 503 }
       )
     }
 
     // Generic error fallback
-    // Cleanup connection on error in serverless
-    if (process.env.NODE_ENV === 'production') {
-      try {
-        await prisma.$disconnect()
-      } catch (disconnectError) {
-        console.log('Profile Update API: Error cleanup disconnect had issues (ignoring):', disconnectError)
-      }
-    }
-    
     return NextResponse.json(
       { 
         error: "Internal server error", 
         details: error instanceof Error ? error.message : 'Unknown error',
-        retryable: false
       },
       { status: 500 }
     )
