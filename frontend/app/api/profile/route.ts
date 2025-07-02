@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../../lib/auth"
-import { prisma, createFreshPrismaClient } from "../../../lib/prisma"
+import { prisma, createFreshPrismaClient, findUserByEmailRaw, updateUserByEmailRaw } from "../../../lib/prisma"
 import { z } from "zod"
 
 const profileUpdateSchema = z.object({
@@ -57,34 +57,41 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: guestUser })
     }
 
-    // Retry logic for database connection issues
+    // Progressive retry logic with multiple fallback strategies
     let user = null
     let retryCount = 0
-    const maxRetries = 3
+    const maxRetries = 4 // Increased to allow for raw query fallback
     let currentClient = prisma // Start with the default client
+    let useRawQuery = false
 
     while (retryCount < maxRetries && !user) {
       try {
-        user = await currentClient.user.findUnique({
-          where: { email: session.user.email },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            firstName: true,
-            lastName: true,
-            bio: true,
-            phone: true,
-            dateOfBirth: true,
-            location: true,
-            website: true,
-            theme: true,
-            notifications: true,
-            newsletter: true,
-            createdAt: true,
-            updatedAt: true,
-          }
-        })
+        if (useRawQuery) {
+          // Final fallback: use raw SQL query to completely bypass prepared statements
+          user = await findUserByEmailRaw(currentClient, session.user.email)
+        } else {
+          // Standard Prisma query
+          user = await currentClient.user.findUnique({
+            where: { email: session.user.email },
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+              bio: true,
+              phone: true,
+              dateOfBirth: true,
+              location: true,
+              website: true,
+              theme: true,
+              notifications: true,
+              newsletter: true,
+              createdAt: true,
+              updatedAt: true,
+            }
+          })
+        }
         break
       } catch (dbError: any) {
         retryCount++
@@ -98,17 +105,22 @@ export async function GET(request: NextRequest) {
           if (retryCount < maxRetries) {
             console.log(`Profile API: Retrying database query (${retryCount}/${maxRetries})`)
             
-            // For prepared statement errors, use a fresh client with disabled prepared statements
             if (dbError?.message?.includes('prepared statement')) {
-              console.log('Profile API: Creating fresh client with disabled prepared statements')
-              try {
-                await currentClient.$disconnect()
-              } catch (disconnectError) {
-                console.log('Profile API: Error during disconnect (continuing anyway):', disconnectError)
+              if (retryCount === 1) {
+                // First retry: use fresh client with disabled prepared statements
+                console.log('Profile API: Creating fresh client with disabled prepared statements')
+                try {
+                  await currentClient.$disconnect()
+                } catch (disconnectError) {
+                  console.log('Profile API: Error during disconnect (continuing anyway):', disconnectError)
+                }
+                currentClient = createFreshPrismaClient()
+              } else if (retryCount >= 2) {
+                // Final retries: use raw SQL queries
+                console.log('Profile API: Switching to raw SQL query fallback')
+                useRawQuery = true
+                // Keep the current client but switch to raw queries
               }
-              
-              // Create a fresh client with prepared statements disabled
-              currentClient = createFreshPrismaClient()
             }
             
             // Wait with exponential backoff + random jitter to prevent thundering herd
@@ -230,38 +242,45 @@ export async function PUT(request: NextRequest) {
 
     // Note: Prisma auto-connects on first query, no need to manually connect
 
-    // Retry logic for database connection issues
+    // Progressive retry logic with multiple fallback strategies
     let updatedUser = null
     let retryCount = 0
-    const maxRetries = 3
+    const maxRetries = 4 // Increased to allow for raw query fallback
     let currentClient = prisma // Start with the default client
+    let useRawQuery = false
 
     while (retryCount < maxRetries && !updatedUser) {
       try {
-        updatedUser = await currentClient.user.update({
-          where: { email: session.user.email },
-          data: {
-            ...validatedData,
-            updatedAt: new Date(),
-          },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            firstName: true,
-            lastName: true,
-            bio: true,
-            phone: true,
-            dateOfBirth: true,
-            location: true,
-            website: true,
-            theme: true,
-            notifications: true,
-            newsletter: true,
-            createdAt: true,
-            updatedAt: true,
-          }
-        })
+        if (useRawQuery) {
+          // Final fallback: use raw SQL query to completely bypass prepared statements
+          updatedUser = await updateUserByEmailRaw(currentClient, session.user.email, validatedData)
+        } else {
+          // Standard Prisma query
+          updatedUser = await currentClient.user.update({
+            where: { email: session.user.email },
+            data: {
+              ...validatedData,
+              updatedAt: new Date(),
+            },
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+              bio: true,
+              phone: true,
+              dateOfBirth: true,
+              location: true,
+              website: true,
+              theme: true,
+              notifications: true,
+              newsletter: true,
+              createdAt: true,
+              updatedAt: true,
+            }
+          })
+        }
         break
       } catch (dbError: any) {
         retryCount++
@@ -275,17 +294,22 @@ export async function PUT(request: NextRequest) {
           if (retryCount < maxRetries) {
             console.log(`Profile Update API: Retrying database query (${retryCount}/${maxRetries})`)
             
-            // For prepared statement errors, use a fresh client with disabled prepared statements
             if (dbError?.message?.includes('prepared statement')) {
-              console.log('Profile Update API: Creating fresh client with disabled prepared statements')
-              try {
-                await currentClient.$disconnect()
-              } catch (disconnectError) {
-                console.log('Profile Update API: Error during disconnect (continuing anyway):', disconnectError)
+              if (retryCount === 1) {
+                // First retry: use fresh client with disabled prepared statements
+                console.log('Profile Update API: Creating fresh client with disabled prepared statements')
+                try {
+                  await currentClient.$disconnect()
+                } catch (disconnectError) {
+                  console.log('Profile Update API: Error during disconnect (continuing anyway):', disconnectError)
+                }
+                currentClient = createFreshPrismaClient()
+              } else if (retryCount >= 2) {
+                // Final retries: use raw SQL queries
+                console.log('Profile Update API: Switching to raw SQL query fallback')
+                useRawQuery = true
+                // Keep the current client but switch to raw queries
               }
-              
-              // Create a fresh client with prepared statements disabled
-              currentClient = createFreshPrismaClient()
             }
             
             // Wait with exponential backoff + random jitter to prevent thundering herd
