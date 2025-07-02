@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../../lib/auth"
-import { prisma } from "../../../lib/prisma"
+import { prisma, createFreshPrismaClient } from "../../../lib/prisma"
 import { z } from "zod"
 
 const profileUpdateSchema = z.object({
@@ -30,14 +30,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Ensure fresh connection for each request in serverless
-    if (process.env.NODE_ENV === 'production') {
-      try {
-        await prisma.$connect()
-      } catch (connectError) {
-        console.log('Profile API: Connection attempt had issues (continuing):', connectError)
-      }
-    }
+    // Note: Prisma auto-connects on first query, no need to manually connect
 
     console.log("Profile API: Looking for user with email:", session.user.email)
 
@@ -68,10 +61,11 @@ export async function GET(request: NextRequest) {
     let user = null
     let retryCount = 0
     const maxRetries = 3
+    let currentClient = prisma // Start with the default client
 
     while (retryCount < maxRetries && !user) {
       try {
-        user = await prisma.user.findUnique({
+        user = await currentClient.user.findUnique({
           where: { email: session.user.email },
           select: {
             id: true,
@@ -104,14 +98,17 @@ export async function GET(request: NextRequest) {
           if (retryCount < maxRetries) {
             console.log(`Profile API: Retrying database query (${retryCount}/${maxRetries})`)
             
-            // For prepared statement errors, disconnect and reconnect
+            // For prepared statement errors, use a fresh client with disabled prepared statements
             if (dbError?.message?.includes('prepared statement')) {
-              console.log('Profile API: Disconnecting Prisma client due to prepared statement error')
+              console.log('Profile API: Creating fresh client with disabled prepared statements')
               try {
-                await prisma.$disconnect()
+                await currentClient.$disconnect()
               } catch (disconnectError) {
                 console.log('Profile API: Error during disconnect (continuing anyway):', disconnectError)
               }
+              
+              // Create a fresh client with prepared statements disabled
+              currentClient = createFreshPrismaClient()
             }
             
             // Wait with exponential backoff + random jitter to prevent thundering herd
@@ -140,7 +137,7 @@ export async function GET(request: NextRequest) {
     // Cleanup connection in serverless
     if (process.env.NODE_ENV === 'production') {
       try {
-        await prisma.$disconnect()
+        await currentClient.$disconnect()
       } catch (disconnectError) {
         console.log('Profile API: Cleanup disconnect had issues (ignoring):', disconnectError)
       }
@@ -231,23 +228,17 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    // Ensure fresh connection for each request in serverless
-    if (process.env.NODE_ENV === 'production') {
-      try {
-        await prisma.$connect()
-      } catch (connectError) {
-        console.log('Profile Update API: Connection attempt had issues (continuing):', connectError)
-      }
-    }
+    // Note: Prisma auto-connects on first query, no need to manually connect
 
     // Retry logic for database connection issues
     let updatedUser = null
     let retryCount = 0
     const maxRetries = 3
+    let currentClient = prisma // Start with the default client
 
     while (retryCount < maxRetries && !updatedUser) {
       try {
-        updatedUser = await prisma.user.update({
+        updatedUser = await currentClient.user.update({
           where: { email: session.user.email },
           data: {
             ...validatedData,
@@ -284,14 +275,17 @@ export async function PUT(request: NextRequest) {
           if (retryCount < maxRetries) {
             console.log(`Profile Update API: Retrying database query (${retryCount}/${maxRetries})`)
             
-            // For prepared statement errors, disconnect and reconnect
+            // For prepared statement errors, use a fresh client with disabled prepared statements
             if (dbError?.message?.includes('prepared statement')) {
-              console.log('Profile Update API: Disconnecting Prisma client due to prepared statement error')
+              console.log('Profile Update API: Creating fresh client with disabled prepared statements')
               try {
-                await prisma.$disconnect()
+                await currentClient.$disconnect()
               } catch (disconnectError) {
                 console.log('Profile Update API: Error during disconnect (continuing anyway):', disconnectError)
               }
+              
+              // Create a fresh client with prepared statements disabled
+              currentClient = createFreshPrismaClient()
             }
             
             // Wait with exponential backoff + random jitter to prevent thundering herd
@@ -324,7 +318,7 @@ export async function PUT(request: NextRequest) {
     // Cleanup connection in serverless
     if (process.env.NODE_ENV === 'production') {
       try {
-        await prisma.$disconnect()
+        await currentClient.$disconnect()
       } catch (disconnectError) {
         console.log('Profile Update API: Cleanup disconnect had issues (ignoring):', disconnectError)
       }
