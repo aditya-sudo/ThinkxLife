@@ -125,7 +125,7 @@ const Sidebar = ({
               <div className="space-y-1">
                 <Link
                   href="#philosophy"
-                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-1"
                   onClick={() => setIsOpen(false)}
                 >
                   <Heart className="w-5 h-5 mr-2" />
@@ -133,7 +133,7 @@ const Sidebar = ({
                 </Link>
                 <Link
                   href="#applications"
-                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-1"
                   onClick={() => setIsOpen(false)}
                 >
                   <Code className="w-5 h-5 mr-2" />
@@ -149,7 +149,7 @@ const Sidebar = ({
               <div className="space-y-1">
                 <Link
                   href="#programs"
-                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-1"
                   onClick={() => setIsOpen(false)}
                 >
                   <Users className="w-5 h-5 mr-2" />
@@ -157,7 +157,7 @@ const Sidebar = ({
                 </Link>
                 <Link
                   href="/healing-rooms"
-                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-1"
                   onClick={() => setIsOpen(false)}
                 >
                   <Heart className="w-5 h-5 mr-2" />

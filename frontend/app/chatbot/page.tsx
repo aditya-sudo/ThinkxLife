@@ -77,13 +77,15 @@ export default function ChatbotPage() {
   }, []);
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/auth/signin");
+    if (status === "loading") {
       return;
     }
 
     if (status === "authenticated") {
       fetchProfile();
+    } else {
+      // For unauthenticated users, proceed directly to disclaimer
+      setStep("disclaimer");
     }
   }, [status, router, fetchProfile]);
 

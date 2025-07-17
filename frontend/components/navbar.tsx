@@ -197,47 +197,35 @@ export default function Navbar() {
       }`}>
         <div className="flex items-center justify-center">
           {/* Desktop Navigation - Second Bar */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link href="/">
-              <Button className={`${
-                isHome 
-                  ? 'bg-slate-200 text-slate-800 shadow-sm hover:bg-gradient-to-r hover:from-slate-600 hover:to-slate-700 hover:text-white' 
-                  : 'bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-slate-400 hover:to-slate-500 hover:text-white'
-              } rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105`}>
-                <Home className="w-3.5 h-3.5 mr-1.5" />
-                Home
-              </Button>
+          <div className="hidden md:flex items-center space-x-6">
+            <Link href="/" className={`flex items-center ${
+              isHome 
+                ? 'text-slate-800 font-semibold' 
+                : 'text-slate-600 hover:text-slate-800'
+            } text-sm font-medium transition-colors duration-300`}>
+              <Home className="w-4 h-4 mr-2" />
+              Home
             </Link>
 
-            <Link href="/ai-awareness">
-              <Button className="bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-600 hover:text-white rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105 relative">
-                <Brain className="w-3.5 h-3.5 mr-1.5" />
-                AI Awareness
-                {isUsingAIAwareness && (
-                  <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-green-500">
-                    USING
-                  </div>
-                )}
-              </Button>
+            <Link href="/ai-awareness" className="flex items-center text-slate-600 hover:text-green-600 text-sm font-medium transition-colors duration-300 relative">
+              <Brain className="w-4 h-4 mr-2" />
+              AI Awareness
+              {isUsingAIAwareness && (
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></div>
+              )}
             </Link>
 
-            <Link href="/healing-rooms">
-              <Button className="bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-rose-500 hover:to-pink-600 hover:text-white rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105 relative">
-                <Heart className="w-3.5 h-3.5 mr-1.5" />
-                Healing Rooms
-                {isUsingHealingRooms && (
-                  <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-rose-500">
-                    USING
-                  </div>
-                )}
-              </Button>
+            <Link href="/healing-rooms" className="flex items-center text-slate-600 hover:text-rose-600 text-sm font-medium transition-colors duration-300 relative">
+              <Heart className="w-4 h-4 mr-2" />
+              Healing Rooms
+              {isUsingHealingRooms && (
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></div>
+              )}
             </Link>
 
-            <Link href="/exterior-spaces">
-              <Button className="bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-600 hover:text-white rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105">
-                <Building2 className="w-3.5 h-3.5 mr-1.5" />
-                Exterior Spaces
-              </Button>
+            <Link href="/exterior-spaces" className="flex items-center text-slate-600 hover:text-blue-600 text-sm font-medium transition-colors duration-300">
+              <Building2 className="w-4 h-4 mr-2" />
+              Exterior Spaces
             </Link>
           </div>
         </div>
@@ -256,7 +244,7 @@ export default function Navbar() {
                 href="https://www.thinkround.org/aboutus"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 px-3 rounded-lg hover:bg-purple-50/50 transition-all duration-200"
+                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <User className="w-4 h-4 mr-3" />
@@ -266,7 +254,7 @@ export default function Navbar() {
                 href="https://thinkround.shop/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 px-3 rounded-lg hover:bg-purple-50/50 transition-all duration-200"
+                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <ShoppingBag className="w-4 h-4 mr-3" />
@@ -276,7 +264,7 @@ export default function Navbar() {
                 href="https://www.thinkround.org/art"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 px-3 rounded-lg hover:bg-purple-50/50 transition-all duration-200"
+                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Palette className="w-4 h-4 mr-3" />
@@ -286,7 +274,7 @@ export default function Navbar() {
                 href="https://www.thinkround.org/donate"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 px-3 rounded-lg hover:bg-purple-50/50 transition-all duration-200"
+                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <DollarSign className="w-4 h-4 mr-3" />
@@ -298,45 +286,33 @@ export default function Navbar() {
             <div className="pb-3">
               <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">ThinkxLife Platform</h3>
               
-              <Link href="/" onClick={() => setIsMenuOpen(false)}>
-                <Button className={`w-full ${
-                  isHome 
-                    ? 'bg-slate-200 text-slate-800 hover:bg-gradient-to-r hover:from-slate-600 hover:to-slate-700 hover:text-white' 
-                    : 'bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-slate-400 hover:to-slate-500 hover:text-white'
-                } rounded-lg py-2 text-sm font-medium shadow-sm mb-2 transition-all duration-300`}>
-                  <Home className="w-4 h-4 mr-2" />
-                  Home
-                </Button>
+              <Link href="/" onClick={() => setIsMenuOpen(false)} className={`flex items-center ${
+                isHome 
+                  ? 'text-slate-800 font-semibold' 
+                  : 'text-slate-600 hover:text-slate-800'
+              } text-sm font-medium py-2 transition-colors duration-300`}>
+                <Home className="w-4 h-4 mr-2" />
+                Home
               </Link>
 
               {/* Always show direct links to all sections */}
-              <Link href="/ai-awareness" onClick={() => setIsMenuOpen(false)}>
-                <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 relative transition-all duration-300">
-                  <Brain className="w-4 h-4 mr-2" />
-                  AI Awareness
-                  {isUsingAIAwareness && (
-                    <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-green-500">
-                      USING
-                    </div>
-                  )}
-                </Button>
+              <Link href="/ai-awareness" onClick={() => setIsMenuOpen(false)} className="flex items-center text-slate-600 hover:text-green-600 text-sm font-medium py-2 transition-colors duration-300 relative">
+                <Brain className="w-4 h-4 mr-2" />
+                AI Awareness
+                {isUsingAIAwareness && (
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></div>
+                )}
               </Link>
-              <Link href="/healing-rooms" onClick={() => setIsMenuOpen(false)}>
-                <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-rose-500 hover:to-pink-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 relative transition-all duration-300">
-                  <Heart className="w-4 h-4 mr-2" />
-                  Healing Rooms
-                  {isUsingHealingRooms && (
-                    <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-rose-500">
-                      USING
-                    </div>
-                  )}
-                </Button>
+              <Link href="/healing-rooms" onClick={() => setIsMenuOpen(false)} className="flex items-center text-slate-600 hover:text-rose-600 text-sm font-medium py-2 transition-colors duration-300 relative">
+                <Heart className="w-4 h-4 mr-2" />
+                Healing Rooms
+                {isUsingHealingRooms && (
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></div>
+                )}
               </Link>
-              <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)}>
-                <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 transition-all duration-300">
-                  <Building2 className="w-4 h-4 mr-2" />
-                  Exterior Spaces
-                </Button>
+              <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)} className="flex items-center text-slate-600 hover:text-blue-600 text-sm font-medium py-2 transition-colors duration-300">
+                <Building2 className="w-4 h-4 mr-2" />
+                Exterior Spaces
               </Link>
             </div>
 
