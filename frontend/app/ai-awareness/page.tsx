@@ -15,6 +15,12 @@ import {
   Users,
   Target,
   Heart,
+  Palette,
+  GraduationCap,
+  Globe,
+  MessageCircle,
+  Sparkles,
+  Code,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -104,50 +110,50 @@ const Sidebar = ({
         <div className="p-6 h-full flex flex-col">
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-green-600 dark:text-green-400 text-center">
-              AI Awareness
+              AI at ThinkRound
             </h1>
             <p className="text-gray-600 dark:text-gray-300 text-center mt-2">
-              Navigate AI safely
+              AI for humanity
             </p>
           </div>
 
           <nav className="flex-1 space-y-8">
             <div className="space-y-3">
               <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
-                Main
+                Our Approach
               </h2>
               <div className="space-y-1">
                 <Link
-                  href="#how-it-works"
+                  href="#philosophy"
                   className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
-                  <BookOpen className="w-5 h-5 mr-2" />
-                  <span>How It Works</span>
+                  <Heart className="w-5 h-5 mr-2" />
+                  <span>Philosophy</span>
                 </Link>
                 <Link
-                  href="#resources"
+                  href="#applications"
                   className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
-                  <Target className="w-5 h-5 mr-2" />
-                  <span>Resources</span>
+                  <Code className="w-5 h-5 mr-2" />
+                  <span>Applications</span>
                 </Link>
               </div>
             </div>
 
             <div className="space-y-3">
               <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">
-                Others
+                Programs
               </h2>
               <div className="space-y-1">
                 <Link
-                  href="#features"
+                  href="#programs"
                   className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
-                  <Shield className="w-5 h-5 mr-2" />
-                  <span>Features</span>
+                  <Users className="w-5 h-5 mr-2" />
+                  <span>AI Programs</span>
                 </Link>
                 <Link
                   href="/healing-rooms"
@@ -162,13 +168,15 @@ const Sidebar = ({
           </nav>
 
           <div className="mt-auto">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
-            >
-              Start Learning
-            </motion.button>
+            <Link href="/chatbot">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
+              >
+                Chat with Zoe
+              </motion.button>
+            </Link>
           </div>
         </div>
       </motion.aside>
@@ -181,10 +189,10 @@ export default function AIAwarenessPage() {
   const [isOpen, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
   const progressBarWidth = useTransform(scrollY, [0, 2000], ["0%", "100%"]);
-  const educationSectionRef = useRef<HTMLElement>(null);
+  const philosophySectionRef = useRef<HTMLElement>(null);
 
-  const scrollToEducation = () => {
-    educationSectionRef.current?.scrollIntoView({
+  const scrollToPhilosophy = () => {
+    philosophySectionRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     });
@@ -192,99 +200,99 @@ export default function AIAwarenessPage() {
 
   const features: FeatureContent[] = [
     {
-      icon: <Shield className="w-6 h-6" />,
-      title: "Ethics Explained",
+      icon: <Heart className="w-6 h-6" />,
+      title: "Trauma-Informed AI",
       tagline:
-        "Understand AI ethics through real-world scenarios in Arts, Education, Healthcare, Social Justice, and Global Impact.",
+        "Our AI systems are designed with trauma-informed care principles, ensuring safe and supportive interactions for all users.",
       bullets: [
         {
-          title: "Arts & Creativity",
+          title: "Zoe AI Companion",
           description:
-            "Creative authenticity, cultural appropriation, and artist rights in the age of AI-generated content.",
+            "Our empathetic AI companion Zoe provides 24/7 support with trauma-informed responses and emotional intelligence.",
         },
         {
-          title: "Education & Learning",
+          title: "ACEs Integration",
           description:
-            "Educational equity, student privacy, academic integrity, and the role of human teachers.",
+            "Adverse Childhood Experiences (ACEs) assessment integration helps personalize interactions for healing journeys.",
         },
         {
-          title: "Healthcare & Humanity",
+          title: "Crisis Detection",
           description:
-            "Medical decision autonomy, healthcare bias, mental health AI, and preserving human dignity.",
+            "Advanced algorithms detect crisis situations and provide appropriate resources and professional referrals.",
         },
         {
-          title: "Social & Global Impact",
+          title: "Safety First",
           description:
-            "Algorithmic justice, digital divide, climate considerations, and global AI governance.",
+            "Every AI interaction is filtered through our trauma-safety protocols to prevent re-traumatization.",
         },
       ],
       cta: {
-        label: "Explore Human-Centered Ethics →",
-        destination: "/awareness/ethics",
+        label: "Experience Zoe →",
+        destination: "/chatbot",
       },
     },
     {
-      icon: <BookOpen className="w-6 h-6" />,
-      title: "Regulatory Checklists",
+      icon: <Palette className="w-6 h-6" />,
+      title: "AI in Arts & Education",
       tagline:
-        "Stay compliant with comprehensive guides for AI regulations and best practices.",
+        "Integrating AI into our arts and education programs while preserving human creativity and cultural authenticity.",
       bullets: [
         {
-          title: "GDPR Essentials",
+          title: "Creative Collaboration",
           description:
-            "Data subject rights, consent flows, and breach notification templates.",
+            "AI tools that enhance human creativity rather than replace artists, supporting our community art programs.",
         },
         {
-          title: "CCPA Overview",
+          title: "Cultural Preservation",
           description:
-            "Consumer privacy rights in California: opt-out flows and data deletion.",
+            "Using AI to document and preserve cultural narratives from diverse communities in San Francisco's Bayview-Hunters Point.",
         },
         {
-          title: "EU AI Act Primer",
+          title: "Educational Equity",
           description:
-            "Risk levels, documentation requirements, and conformity assessment steps.",
+            "AI-powered personalized learning that adapts to different learning styles and cultural backgrounds.",
         },
         {
-          title: "Downloadable Checklists",
+          title: "Youth Empowerment",
           description:
-            "Printable PDFs to track your compliance tasks as you build or audit.",
+            "Teaching young people to understand and responsibly use AI tools in their creative and educational pursuits.",
         },
       ],
       cta: {
-        label: "View Checklists → Compliance Hub",
-        destination: "/awareness/compliance",
+        label: "Explore Programs →",
+        destination: "https://www.thinkround.org/art",
       },
     },
     {
-      icon: <Brain className="w-6 h-6" />,
-      title: "Interactive Quizzes",
+      icon: <Globe className="w-6 h-6" />,
+      title: "Community & Global Impact",
       tagline:
-        "Test your knowledge with engaging quizzes and practical exercises.",
+        "Leveraging AI to strengthen communities and create positive global change through our Center for the Human Family vision.",
       bullets: [
         {
-          title: "Scenario-Based Questions",
+          title: "Community Building",
           description:
-            "Spot the bias in a hiring example, pick the right GDPR response.",
+            "AI-powered tools that connect community members, facilitate cultural exchange, and strengthen social bonds.",
         },
         {
-          title: "Instant Feedback",
+          title: "Social Justice",
           description:
-            "Explanations on why each answer is right (or wrong), with links to deeper reading.",
+            "Using AI to identify and address systemic inequalities while ensuring algorithmic fairness in our programs.",
         },
         {
-          title: "Progress Tracker",
+          title: "Global Connection",
           description:
-            "See your quiz history, average score, and earn 'Ethics Champion' badges.",
+            "Creating AI-mediated connections between communities worldwide, fostering understanding and collaboration.",
         },
         {
-          title: "Adaptive Difficulty",
+          title: "Environmental Awareness",
           description:
-            "Questions get harder as you master the basics, so you keep learning.",
+            "AI systems that promote environmental consciousness and sustainable practices in our community work.",
         },
       ],
       cta: {
-        label: "Start Quiz → Knowledge Check",
-        destination: "/awareness/quiz/basic-ai",
+        label: "Join Our Community →",
+        destination: "https://www.thinkround.org/aboutus",
       },
     },
   ];
@@ -292,41 +300,41 @@ export default function AIAwarenessPage() {
   const steps = [
     {
       number: "01",
-      title: "Learn the Basics",
-      description: "Start with fundamental AI concepts and ethical principles",
+      title: "Human-Centered Design",
+      description: "We start with human needs and values, ensuring AI serves humanity rather than replacing it",
     },
     {
       number: "02",
-      title: "Explore Use Cases",
-      description: "Discover real-world applications and potential risks",
+      title: "Trauma-Informed Development",
+      description: "Every AI system is built with trauma-informed care principles at its core",
     },
     {
       number: "03",
-      title: "Practice with Quizzes",
-      description: "Test your knowledge with interactive scenarios",
+      title: "Community Integration",
+      description: "AI tools are designed to strengthen communities and preserve cultural authenticity",
     },
     {
       number: "04",
-      title: "Stay Compliant",
-      description: "Use our checklists to ensure regulatory compliance",
+      title: "Ethical Governance",
+      description: "Continuous monitoring and improvement ensure our AI remains ethical and beneficial",
     },
   ];
 
-  const resources = [
+  const programs = [
     {
-      icon: <BookOpen className="w-8 h-8" />,
-      title: "AI Ethics Guide",
-      description: "Comprehensive guide to ethical AI development",
+      icon: <MessageCircle className="w-8 h-8" />,
+      title: "ThinkxLife Platform",
+      description: "Our comprehensive AI awareness and ethics platform with Zoe AI companion",
     },
     {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Compliance Toolkit",
-      description: "Templates and checklists for regulatory compliance",
+      icon: <GraduationCap className="w-8 h-8" />,
+      title: "AI Education Workshops",
+      description: "Community workshops teaching responsible AI use and digital literacy",
     },
     {
-      icon: <Users className="w-8 h-8" />,
-      title: "Community Forum",
-      description: "Connect with other AI practitioners and experts",
+      icon: <Sparkles className="w-8 h-8" />,
+      title: "AI for Healing",
+      description: "Trauma-informed AI tools supporting mental health and healing journeys",
     },
   ];
 
@@ -347,7 +355,7 @@ export default function AIAwarenessPage() {
       >
         {/* Progress Bar */}
         <motion.div
-          className="fixed top-0 right-0 h-1 bg-gradient-to-r from-green-500 to-emerald-600 z-50"
+          className="fixed top-0 right-0 h-1 bg-gradient-to-r from-green-500 to-green-600 z-50"
           style={{ width: progressBarWidth }}
         />
 
@@ -369,51 +377,62 @@ export default function AIAwarenessPage() {
               variants={staggerContainer}
               className="text-center max-w-4xl mx-auto"
             >
+              <motion.div
+                variants={fadeInUp}
+                className="inline-flex items-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full px-6 py-3 mb-8 shadow-lg"
+              >
+                <Brain className="w-5 h-5 text-green-500 mr-2" />
+                <span className="text-gray-700 dark:text-gray-300 font-medium">
+                  Think Round Inc • AI for Humanity
+                </span>
+              </motion.div>
+
               <motion.h1
                 variants={fadeInUp}
                 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6"
               >
-                Understand AI{" "}
+                AI that serves{" "}
                 <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                  Safely and Ethically
+                  humanity
                 </span>
               </motion.h1>
               <motion.p
                 variants={fadeInUp}
-                className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed"
+                className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed"
               >
-                Navigate the future of AI with confidence through our
-                comprehensive guides and interactive resources.
+                Discover how Think Round Inc integrates artificial intelligence into our arts, education, and 
+                community programs while maintaining our core values of human dignity, cultural authenticity, 
+                and trauma-informed care.
               </motion.p>
+
               <motion.div
                 variants={fadeInUp}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               >
-                <motion.button
-                  onClick={scrollToEducation}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 10px 25px rgba(34, 197, 94, 0.3)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
-                >
-                  Start Your Journey
-                </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300"
+                  onClick={scrollToPhilosophy}
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
                 >
-                  Watch Demo
+                  Learn Our Approach
                 </motion.button>
+                <Link href="/chatbot">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-white hover:bg-gray-50 text-green-600 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg border border-green-200 hover:border-green-300"
+                  >
+                    Chat with Zoe
+                  </motion.button>
+                </Link>
               </motion.div>
             </motion.div>
           </div>
         </section>
 
-        {/* Features Section with enhanced cards */}
-        <section id="features" ref={educationSectionRef} className="py-20 bg-white dark:bg-gray-900">
+        {/* Philosophy Section */}
+        <section id="philosophy" ref={philosophySectionRef} className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6">
             <motion.div
               initial="hidden"
@@ -426,13 +445,14 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
               >
-                Comprehensive AI Education
+                Our AI Philosophy
               </motion.h2>
               <motion.p
                 variants={fadeInUp}
-                className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+                className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
               >
-                Everything you need to understand and implement AI responsibly
+                At Think Round Inc, we believe "Earth is home. Humans are family. AI for humanity." 
+                Our approach to artificial intelligence is rooted in human dignity, cultural respect, and healing.
               </motion.p>
             </motion.div>
 
@@ -499,9 +519,9 @@ export default function AIAwarenessPage() {
           </div>
         </section>
 
-        {/* How It Works Section */}
+        {/* How We Work Section */}
         <section
-          id="how-it-works"
+          id="applications"
           className="py-20 bg-gray-50 dark:bg-gray-800"
         >
           <div className="container mx-auto px-6">
@@ -516,13 +536,13 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
               >
-                How It Works
+                How We Integrate AI
               </motion.h2>
               <motion.p
                 variants={fadeInUp}
                 className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
               >
-                Your journey to AI literacy in four simple steps
+                Our four-step approach ensures AI enhances rather than replaces human connection and creativity
               </motion.p>
             </motion.div>
 
@@ -585,13 +605,13 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
               >
-                Interactive Learning Experience
+                AI Awareness Agent
               </motion.h2>
               <motion.p
                 variants={fadeInUp}
                 className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
               >
-                Try our AI-powered assistant to get personalized guidance
+                Our specialized AI agent will help you understand AI ethics, safety, and responsible usage
               </motion.p>
             </motion.div>
 
@@ -606,19 +626,20 @@ export default function AIAwarenessPage() {
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                      AI
+                      A
                     </div>
                     <div className="bg-white dark:bg-gray-700 rounded-lg p-3 flex-1">
                       <p className="text-gray-900 dark:text-white">
-                        Hi! I'm here to help you understand AI ethics. What
-                        would you like to learn about?
+                        Hello! I'm your AI Awareness Agent. I'm here to help you understand AI ethics, 
+                        safety principles, and responsible AI usage. I can guide you through AI awareness 
+                        topics and best practices.
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3 justify-end">
                     <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg p-3 max-w-xs">
                       <p className="text-white">
-                        How can I detect bias in my AI model?
+                        I'd like to learn about AI ethics and how to use AI responsibly in my daily life.
                       </p>
                     </div>
                     <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
@@ -626,21 +647,24 @@ export default function AIAwarenessPage() {
                     </div>
                   </div>
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full mt-6 bg-gray-400 cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
-                  disabled
-                >
-                  Start Conversation<sup className="text-xs ml-1">Coming Soon</sup>
-                </motion.button>
+                <div className="mt-6 relative">
+                  <motion.button
+                    className="w-full bg-gray-400 text-gray-600 font-semibold py-3 px-6 rounded-lg cursor-not-allowed shadow-lg relative"
+                    disabled
+                  >
+                    Start AI Awareness Session
+                    <span className="absolute -top-2 -right-2 text-xs bg-gray-600 text-white px-2 py-1 rounded-full">
+                      Coming Soon
+                    </span>
+                  </motion.button>
+                </div>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Resources Section */}
-        <section id="resources" className="py-20 bg-gray-50 dark:bg-gray-800">
+        {/* Programs Section */}
+        <section id="programs" className="py-20 bg-gray-50 dark:bg-gray-800">
           <div className="container mx-auto px-6">
             <motion.div
               initial="hidden"
@@ -653,13 +677,13 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
               >
-                Resource Spotlight
+                Our AI Programs
               </motion.h2>
               <motion.p
                 variants={fadeInUp}
                 className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
               >
-                Downloadable materials and expert resources
+                Explore our initiatives that integrate AI with community building, arts education, and healing
               </motion.p>
             </motion.div>
 
@@ -670,7 +694,7 @@ export default function AIAwarenessPage() {
               variants={staggerContainer}
               className="grid grid-cols-1 md:grid-cols-3 gap-8"
             >
-              {resources.map((resource, index) => (
+              {programs.map((program, index) => (
                 <motion.div
                   key={index}
                   variants={fadeInUp}
@@ -684,24 +708,72 @@ export default function AIAwarenessPage() {
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     className="text-green-600 dark:text-green-400 mb-4 inline-block"
                   >
-                    {resource.icon}
+                    {program.icon}
                   </motion.div>
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {resource.title}
+                    {program.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    {resource.description}
+                    {program.description}
                   </p>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="text-gray-400 cursor-not-allowed font-semibold"
-                    disabled
+                    className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-semibold transition-colors"
                   >
-                    Download<sup className="text-xs ml-1">Coming Soon</sup> →
+                    Learn More →
                   </motion.button>
                 </motion.div>
               ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section className="py-20 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+          <div className="container mx-auto px-6 text-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              <motion.h2
+                variants={fadeInUp}
+                className="text-3xl md:text-4xl font-bold mb-6"
+              >
+                Join Our AI for Humanity Mission
+              </motion.h2>
+              <motion.p
+                variants={fadeInUp}
+                className="text-xl mb-8 max-w-2xl mx-auto opacity-90"
+              >
+                Be part of a community that's pioneering ethical AI development and ensuring 
+                technology serves humanity's highest values.
+              </motion.p>
+              <motion.div
+                variants={fadeInUp}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
+                <Link href="/chatbot">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-white text-green-600 hover:bg-gray-50 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg"
+                  >
+                    Try ThinkxLife Platform
+                  </motion.button>
+                </Link>
+                <Link href="https://www.thinkround.org/donate">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-green-600 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300"
+                  >
+                    Support Our Mission
+                  </motion.button>
+                </Link>
+              </motion.div>
             </motion.div>
           </div>
         </section>

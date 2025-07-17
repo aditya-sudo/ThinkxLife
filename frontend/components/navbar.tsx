@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, X, Brain, Heart, User, LogOut, Lock, Activity, Building2, Home, ShoppingBag, Palette, DollarSign } from "lucide-react";
+import { Menu, X, Brain, Heart, User, LogOut, Activity, Building2, Home, ShoppingBag, Palette, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -14,17 +14,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,83 +39,7 @@ export default function Navbar() {
     return name.split(" ").map(n => n[0]).join("").toUpperCase();
   };
 
-  const AuthRequiredButton = ({
-    href,
-    children,
-    className,
-    featureName,
-    isActive = false,
-    activeColor = "green"
-  }: {
-    href: string;
-    children: React.ReactNode;
-    className: string;
-    featureName: string;
-    isActive?: boolean;
-    activeColor?: "green" | "blue" | "rose";
-  }) => {
-    const getActiveIndicator = () => {
-      if (!isActive) return null;
 
-      return (
-        <div className="absolute -top-1 -right-1 flex items-center">
-          <div className={`px-1.5 py-0.5 text-xs font-bold rounded-full text-white ${
-            activeColor === "green" ? "bg-green-500" :
-            activeColor === "blue" ? "bg-blue-500" : "bg-rose-500"
-          }`}>
-            USING
-          </div>
-        </div>
-      );
-    };
-
-    if (session) {
-      return (
-        <Link href={href}>
-          <Button className={`${className} relative`}>
-            {children}
-            {getActiveIndicator()}
-          </Button>
-        </Link>
-      );
-    }
-
-    return (
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button className={`${className} relative`}>
-            <Lock className="w-3 h-3 mr-1.5" />
-            {children}
-          </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent className="sm:max-w-md">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2">
-              <Lock className="w-5 h-5 text-purple-600" />
-              Sign In Required
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-left">
-              To access <strong>{featureName}</strong>, you need to be signed in to your ThinkxLife account.
-              Join our community to explore AI tools and awareness resources.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <Link href="/auth/signin">
-              <AlertDialogAction className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                Sign In
-              </AlertDialogAction>
-            </Link>
-            <Link href="/auth/signup">
-              <AlertDialogAction className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                Sign Up
-              </AlertDialogAction>
-            </Link>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    );
-  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -296,27 +209,29 @@ export default function Navbar() {
               </Button>
             </Link>
 
-            <AuthRequiredButton
-              href="/ai-awareness"
-              featureName="AI Awareness"
-              isActive={isUsingAIAwareness}
-              activeColor="green"
-              className="bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-600 hover:text-white rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105"
-            >
-              <Brain className="w-3.5 h-3.5 mr-1.5" />
-              AI Awareness
-            </AuthRequiredButton>
+            <Link href="/ai-awareness">
+              <Button className="bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-600 hover:text-white rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105 relative">
+                <Brain className="w-3.5 h-3.5 mr-1.5" />
+                AI Awareness
+                {isUsingAIAwareness && (
+                  <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-green-500">
+                    USING
+                  </div>
+                )}
+              </Button>
+            </Link>
 
-            <AuthRequiredButton
-              href="/healing-rooms"
-              featureName="Healing Rooms"
-              isActive={isUsingHealingRooms}
-              activeColor="rose"
-              className="bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-rose-500 hover:to-pink-600 hover:text-white rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105"
-            >
-              <Heart className="w-3.5 h-3.5 mr-1.5" />
-              Healing Rooms
-            </AuthRequiredButton>
+            <Link href="/healing-rooms">
+              <Button className="bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-rose-500 hover:to-pink-600 hover:text-white rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105 relative">
+                <Heart className="w-3.5 h-3.5 mr-1.5" />
+                Healing Rooms
+                {isUsingHealingRooms && (
+                  <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-rose-500">
+                    USING
+                  </div>
+                )}
+              </Button>
+            </Link>
 
             <Link href="/exterior-spaces">
               <Button className="bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-600 hover:text-white rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 transform hover:scale-105">
@@ -394,115 +309,35 @@ export default function Navbar() {
                 </Button>
               </Link>
 
-              {session ? (
-                <>
-                  <Link href="/ai-awareness" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 relative transition-all duration-300">
-                      <Brain className="w-4 h-4 mr-2" />
-                      AI Awareness
-                      {isUsingAIAwareness && (
-                        <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-green-500">
-                          USING
-                        </div>
-                      )}
-                    </Button>
-                  </Link>
-                  <Link href="/healing-rooms" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-rose-500 hover:to-pink-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 relative transition-all duration-300">
-                      <Heart className="w-4 h-4 mr-2" />
-                      Healing Rooms
-                      {isUsingHealingRooms && (
-                        <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-rose-500">
-                          USING
-                        </div>
-                      )}
-                    </Button>
-                  </Link>
-                  <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 transition-all duration-300">
-                      <Building2 className="w-4 h-4 mr-2" />
-                      Exterior Spaces
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 transition-all duration-300">
-                        <Lock className="w-4 h-4 mr-2" />
-                        AI Awareness
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent className="sm:max-w-md">
-                      <AlertDialogHeader>
-                        <AlertDialogTitle className="flex items-center gap-2">
-                          <Lock className="w-5 h-5 text-purple-600" />
-                          Sign In Required
-                        </AlertDialogTitle>
-                        <AlertDialogDescription className="text-left">
-                          To access <strong>AI Awareness</strong>, you need to be signed in to your ThinkxLife account.
-                          Join our community to explore AI awareness resources.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter className="flex-col gap-2">
-                        <AlertDialogCancel onClick={() => setIsMenuOpen(false)}>Cancel</AlertDialogCancel>
-                        <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
-                          <AlertDialogAction className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                            Sign In
-                          </AlertDialogAction>
-                        </Link>
-                        <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
-                          <AlertDialogAction className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                            Sign Up
-                          </AlertDialogAction>
-                        </Link>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-rose-500 hover:to-pink-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 transition-all duration-300">
-                        <Lock className="w-4 h-4 mr-2" />
-                        Healing Rooms
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent className="sm:max-w-md">
-                      <AlertDialogHeader>
-                        <AlertDialogTitle className="flex items-center gap-2">
-                          <Lock className="w-5 h-5 text-purple-600" />
-                          Sign In Required
-                        </AlertDialogTitle>
-                        <AlertDialogDescription className="text-left">
-                          To access <strong>Healing Rooms</strong>, you need to be signed in to your ThinkxLife account.
-                          Join our community to explore healing and trauma recovery resources.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter className="flex-col gap-2">
-                        <AlertDialogCancel onClick={() => setIsMenuOpen(false)}>Cancel</AlertDialogCancel>
-                        <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
-                          <AlertDialogAction className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                            Sign In
-                          </AlertDialogAction>
-                        </Link>
-                        <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
-                          <AlertDialogAction className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                            Sign Up
-                          </AlertDialogAction>
-                        </Link>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-
-                  <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 transition-all duration-300">
-                      <Building2 className="w-4 h-4 mr-2" />
-                      Exterior Spaces
-                    </Button>
-                  </Link>
-                </>
-              )}
+              {/* Always show direct links to all sections */}
+              <Link href="/ai-awareness" onClick={() => setIsMenuOpen(false)}>
+                <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 relative transition-all duration-300">
+                  <Brain className="w-4 h-4 mr-2" />
+                  AI Awareness
+                  {isUsingAIAwareness && (
+                    <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-green-500">
+                      USING
+                    </div>
+                  )}
+                </Button>
+              </Link>
+              <Link href="/healing-rooms" onClick={() => setIsMenuOpen(false)}>
+                <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-rose-500 hover:to-pink-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 relative transition-all duration-300">
+                  <Heart className="w-4 h-4 mr-2" />
+                  Healing Rooms
+                  {isUsingHealingRooms && (
+                    <div className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white bg-rose-500">
+                      USING
+                    </div>
+                  )}
+                </Button>
+              </Link>
+              <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)}>
+                <Button className="w-full bg-slate-100 text-slate-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-600 hover:text-white rounded-lg py-2 text-sm font-medium shadow-sm mb-2 transition-all duration-300">
+                  <Building2 className="w-4 h-4 mr-2" />
+                  Exterior Spaces
+                </Button>
+              </Link>
             </div>
 
             {/* Mobile Authentication */}
