@@ -342,7 +342,11 @@ export default function AIAwarenessPage() {
     <div
       className={cn(
         "min-h-screen",
+<<<<<<< Updated upstream
         isDarkMode ? "dark bg-gray-900" : "bg-white",
+=======
+        isDarkMode ? "dark bg-gray-900" : "bg-[#F5F1EB]",
+>>>>>>> Stashed changes
       )}
     >
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -366,7 +370,11 @@ export default function AIAwarenessPage() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
+<<<<<<< Updated upstream
             className="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900"
+=======
+            className="absolute inset-0 bg-[#F5F1EB] dark:from-gray-800 dark:to-gray-900"
+>>>>>>> Stashed changes
           />
 
           {/* Content */}
@@ -432,7 +440,11 @@ export default function AIAwarenessPage() {
         </section>
 
         {/* Philosophy Section */}
+<<<<<<< Updated upstream
         <section id="philosophy" ref={philosophySectionRef} className="py-20 bg-white dark:bg-gray-900">
+=======
+        <section id="philosophy" ref={philosophySectionRef} className="py-20 bg-[#F5F1EB] dark:bg-gray-900">
+>>>>>>> Stashed changes
           <div className="container mx-auto px-6">
             <motion.div
               initial="hidden"
@@ -522,7 +534,11 @@ export default function AIAwarenessPage() {
         {/* How We Work Section */}
         <section
           id="applications"
+<<<<<<< Updated upstream
           className="py-20 bg-gray-50 dark:bg-gray-800"
+=======
+          className="py-20 bg-[#F5F1EB] dark:bg-gray-800"
+>>>>>>> Stashed changes
         >
           <div className="container mx-auto px-6">
             <motion.div
@@ -592,7 +608,11 @@ export default function AIAwarenessPage() {
         </section>
 
         {/* Interactive Preview Section */}
+<<<<<<< Updated upstream
         <section className="py-20 bg-white dark:bg-gray-900">
+=======
+        <section className="py-20 bg-[#F5F1EB] dark:bg-gray-900">
+>>>>>>> Stashed changes
           <div className="container mx-auto px-6">
             <motion.div
               initial="hidden"
@@ -664,7 +684,11 @@ export default function AIAwarenessPage() {
         </section>
 
         {/* Programs Section */}
+<<<<<<< Updated upstream
         <section id="programs" className="py-20 bg-gray-50 dark:bg-gray-800">
+=======
+        <section id="programs" className="py-20 bg-[#F5F1EB] dark:bg-gray-800">
+>>>>>>> Stashed changes
           <div className="container mx-auto px-6">
             <motion.div
               initial="hidden"

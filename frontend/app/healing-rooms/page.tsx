@@ -236,7 +236,11 @@ export default function HealingRoomsPage() {
                 className="bg-gray-400 cursor-not-allowed text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg"
                 disabled
               >
+<<<<<<< Updated upstream
                 Access Virtual Healing Rooms<sup className="text-xs ml-1">Coming Soon</sup>
+=======
+                Access Virtual Healing Rooms<sup className="text-xs ml-1 text-[#5B2655]">Coming Soon</sup>
+>>>>>>> Stashed changes
               </motion.button>
               <p className="text-gray-500 dark:text-gray-400 mt-3 text-sm">
                 Full virtual healing environment launching soon
