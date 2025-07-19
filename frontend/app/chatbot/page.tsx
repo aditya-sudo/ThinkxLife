@@ -97,7 +97,10 @@ export default function ChatbotPage() {
               can provide more personalized support. Your answers are
               confidential.
             </p>
-            <AceQuestionnaire onComplete={handleQuestionnaireComplete} />
+            <AceQuestionnaire 
+              onComplete={handleQuestionnaireComplete} 
+              userName={userInfo?.name || "User"} 
+            />
           </div>
         )}
 
@@ -113,6 +116,9 @@ export default function ChatbotPage() {
           <ChatInterface
             userName={userInfo.name}
             initialMessage={getInitialMessage()}
+            userId={userInfo.name.toLowerCase().replace(/\s+/g, '') || "user"}
+            age={userInfo.age}
+            aceScore={aceScore}
           />
         )}
       </div>

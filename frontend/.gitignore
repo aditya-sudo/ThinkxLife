@@ -1,26 +1,57 @@
-node_modules
-# Keep environment variables out of version control
+# dependencies
+/frontend/node_modules/
+/node_modules/
+
+# Environment variables
 .env
 .env.local
-.env.backup
+.env.development.local
+.env.test.local
+.env.production.local
+/backend/.env
+/frontend/.env
+/frontend/.env.local
 
-# Next.js build output
-.next/
-out/
-build/
-dist/
+
+
+# Next.js & Jest artifacts
+/.next/
+/frontend/.next/
+/coverage/
+/frontend/coverage/
+
+# Build outputs
+/frontend/dist/
+/frontend/build/
+/frontend/out/
 
 # TypeScript build info
 *.tsbuildinfo
+/frontend/*.tsbuildinfo
 
-# Prisma generated files
-/lib/generated/
-
-# OS generated files
+# OS & editor cruft
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+/backend/lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
