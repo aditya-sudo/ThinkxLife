@@ -1,84 +1,35 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSession, signOut } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
-<<<<<<< Updated upstream
-import { Menu, X, Brain, Heart, User, LogOut, Activity, Building2, Home, ShoppingBag, Palette, DollarSign } from "lucide-react";
-=======
 <<<<<<< Updated upstream
 import { Menu, X, Brain } from "lucide-react";
 =======
 import { Menu, X, User, LogOut, Activity, Heart } from "lucide-react";
 >>>>>>> Stashed changes
->>>>>>> Stashed changes
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 <<<<<<< Updated upstream
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { data: session, status } = useSession();
-  const pathname = usePathname();
-
-  // Check if user is actively using AI features
-  const isUsingAIAwareness = pathname?.startsWith('/ai-awareness') || pathname?.startsWith('/awareness');
-  const isUsingHealingRooms = pathname?.startsWith('/healing-rooms');
-  const isHome = pathname === '/';
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const getInitials = (name: string | null | undefined) => {
-    if (!name) return "U";
-    return name.split(" ").map(n => n[0]).join("").toUpperCase();
-  };
-
-
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      {/* First Navigation Bar - About, Shop, Art, Donate, Auth */}
-      <nav className={`py-2 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-slate-50/90 backdrop-blur-lg border-b border-slate-200/50'
-          : 'bg-slate-50/70 backdrop-blur-sm border-b border-slate-100/30'
-      }`}>
+    <header>
+      <nav className="py-4 px-6 md:px-12 lg:px-24 border-b border-gray-200">
         <div className="flex items-center justify-between">
-          {/* Logo - Completely Left */}
-          <Link href="/" className="flex items-center group pl-4">
-            <span className="text-xl font-bold tracking-wider bg-gradient-to-r from-slate-800 to-purple-700 bg-clip-text text-transparent">
-              Think<span className="text-purple-600">x</span>Life
-              <sub className="text-xs font-normal text-gray-400 ml-2 tracking-normal">by Think Round, Inc</sub>
-            </span>
+          <Link href="/" className="flex items-center">
+            <div className="flex items-center">
+              <Brain className="w-8 h-8 text-purple-400 mr-2" />
+              <span className="text-xl font-bold tracking-wider">
+                Think<span className="text-purple-400">x</span>Life
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Navigation - First Bar Center */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             <Link
               href="https://www.thinkround.org/aboutus"
-<<<<<<< Updated upstream
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-slate-600 hover:text-purple-700 font-medium transition-colors duration-300 text-sm"
-=======
               className="text-gray-700 hover:text-purple-700 uppercase text-sm font-medium"
 =======
   const [isScrolled, setIsScrolled] = useState(false);
@@ -130,9 +81,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="text-slate-600 hover:text-[#5B2655] font-medium transition-colors duration-300 text-sm"
 >>>>>>> Stashed changes
->>>>>>> Stashed changes
             >
-              <User className="w-4 h-4 mr-1.5" />
               About
             </Link>
             <Link href="/ai-awareness" className="text-slate-600 hover:text-[#5B2655] text-sm font-medium transition-colors duration-300 relative">
@@ -152,12 +101,6 @@ export default function Navbar() {
             </Link>
             <Link
 <<<<<<< Updated upstream
-              href="https://thinkround.shop/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-slate-600 hover:text-purple-700 font-medium transition-colors duration-300 text-sm"
-=======
-<<<<<<< Updated upstream
               href="https://www.thinkround.org/donate"
               className="text-gray-700 hover:text-purple-700 uppercase text-sm font-medium"
 =======
@@ -174,125 +117,26 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="text-slate-600 hover:text-[#5B2655] font-medium transition-colors duration-300 text-sm"
 >>>>>>> Stashed changes
->>>>>>> Stashed changes
             >
-              <ShoppingBag className="w-4 h-4 mr-1.5" />
-              Shop Art
-            </Link>
-            <Link
-              href="https://www.thinkround.org/art"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-slate-600 hover:text-purple-700 font-medium transition-colors duration-300 text-sm"
-            >
-              <Palette className="w-4 h-4 mr-1.5" />
-              Art
-            </Link>
-            <Link
-              href="https://www.thinkround.org/donate"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-slate-600 hover:text-purple-700 font-medium transition-colors duration-300 text-sm"
-            >
-              <DollarSign className="w-4 h-4 mr-1.5" />
               Donate
+            </Link>
+            <Link
+              href="https://thinkround.shop/"
+              className="text-gray-700 hover:text-purple-700 uppercase text-sm font-medium"
+            >
+              Shop Art
             </Link>
           </div>
 
-<<<<<<< Updated upstream
-          {/* Mobile Logo */}
-          <Link href="/" className="flex items-center group md:hidden">
-            <span className="text-xl font-bold tracking-wider bg-gradient-to-r from-slate-800 to-purple-700 bg-clip-text text-transparent">
-              Think<span className="text-purple-600">x</span>Life
-              <sub className="text-xs font-normal text-gray-400 ml-2 tracking-normal">by Think Round, Inc</sub>
-            </span>
-=======
 <<<<<<< Updated upstream
           <Link href="/chatbot" className="hidden md:block">
             <Button className="bg-purple-700 hover:bg-purple-800 text-white rounded-md">
               Meet Zoe
             </Button>
->>>>>>> Stashed changes
           </Link>
-
-          {/* Authentication Section */}
-          <div className="hidden md:flex items-center space-x-3 pr-4">
-            {status === "loading" ? (
-              <div className="w-8 h-8 rounded-full bg-slate-200 animate-pulse"></div>
-            ) : session ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src={session.user?.image || ""} alt={session.user?.name || ""} />
-                      <AvatarFallback className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm">
-                        {getInitials(session.user?.name)}
-                      </AvatarFallback>
-                    </Avatar>
-                    {(isUsingAIAwareness || isUsingHealingRooms) && (
-                      <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
-                    )}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <div className="flex items-center justify-start gap-2 p-2">
-                    <div className="flex flex-col space-y-1 leading-none">
-                      {session.user?.name && (
-                        <p className="font-medium text-sm">{session.user.name}</p>
-                      )}
-                      {session.user?.email && (
-                        <p className="w-[200px] truncate text-xs text-muted-foreground">
-                          {session.user.email}
-                        </p>
-                      )}
-                      {(isUsingAIAwareness || isUsingHealingRooms) && (
-                        <div className="flex items-center gap-1 mt-1">
-                          <Activity className="w-3 h-3 text-green-500" />
-                          <span className="text-xs text-green-600 font-medium">
-                            {isUsingAIAwareness ? 'Using AI Awareness' : 'In Healing Rooms'}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/profile" className="flex items-center">
-                      <User className="mr-2 h-4 w-4" />
-                      Profile
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className="cursor-pointer text-red-600 focus:text-red-600"
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Sign out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <div className="flex items-center space-x-2">
-                <Link href="/auth/signin">
-                  <Button variant="outline" className="border-purple-200 text-purple-700 hover:bg-purple-50 px-3 py-1 text-sm h-8">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href="/auth/signup">
-                  <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-3 py-1 text-sm h-8">
-                    Sign Up
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </div>
 
           {/* Mobile Menu Button */}
           <button
-<<<<<<< Updated upstream
-            className="md:hidden p-2 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200/30 text-slate-700 hover:text-purple-700 transition-all duration-300 mr-4"
-=======
             className="md:hidden text-gray-700"
 =======
           {/* Authentication Section - Right */}
@@ -372,72 +216,12 @@ export default function Navbar() {
           <button
             className="md:hidden p-2 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200/30 text-slate-700 hover:text-[#5B2655] transition-all duration-300"
 >>>>>>> Stashed changes
->>>>>>> Stashed changes
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </nav>
 
-<<<<<<< Updated upstream
-      {/* Second Navigation Bar - Home, AI Awareness, Healing Rooms, Exterior Spaces */}
-      <nav className={`py-2 px-6 md:px-12 lg:px-24 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/90 backdrop-blur-lg border-b border-slate-200/30'
-          : 'bg-white/70 backdrop-blur-sm border-b border-slate-100/20'
-      }`}>
-        <div className="flex items-center justify-center">
-          {/* Desktop Navigation - Second Bar */}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="/" className={`flex items-center ${
-              isHome 
-                ? 'text-slate-800 font-semibold' 
-                : 'text-slate-600 hover:text-slate-800'
-            } text-sm font-medium transition-colors duration-300`}>
-              <Home className="w-4 h-4 mr-2" />
-              Home
-            </Link>
-
-            <Link href="/ai-awareness" className="flex items-center text-slate-600 hover:text-green-600 text-sm font-medium transition-colors duration-300 relative">
-              <Brain className="w-4 h-4 mr-2" />
-              AI Awareness
-              {isUsingAIAwareness && (
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></div>
-              )}
-            </Link>
-
-            <Link href="/healing-rooms" className="flex items-center text-slate-600 hover:text-rose-600 text-sm font-medium transition-colors duration-300 relative">
-              <Heart className="w-4 h-4 mr-2" />
-              Healing Rooms
-              {isUsingHealingRooms && (
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></div>
-              )}
-            </Link>
-
-            <Link href="/exterior-spaces" className="flex items-center text-slate-600 hover:text-blue-600 text-sm font-medium transition-colors duration-300">
-              <Building2 className="w-4 h-4 mr-2" />
-              Exterior Spaces
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Navigation */}
-      <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-        isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-      }`}>
-        <div className="bg-white/90 backdrop-blur-lg border-b border-purple-200/30 p-4 shadow-lg">
-          <div className="flex flex-col space-y-3">
-            {/* First Bar Links */}
-            <div className="pb-3 border-b border-slate-200">
-              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Organization</h3>
-              <Link
-                href="https://www.thinkround.org/aboutus"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 transition-colors duration-300"
-=======
 <<<<<<< Updated upstream
         {/* Mobile Navigation */}
         {isMenuOpen && (
@@ -462,42 +246,29 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 className="flex items-center text-slate-700 hover:text-[#5B2655] font-medium py-2 transition-colors duration-300"
 >>>>>>> Stashed changes
->>>>>>> Stashed changes
                 onClick={() => setIsMenuOpen(false)}
               >
-                <User className="w-4 h-4 mr-3" />
                 About
               </Link>
 <<<<<<< Updated upstream
               <Link
-                href="https://thinkround.shop/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 transition-colors duration-300"
+                href="https://www.thinkround.org/donate"
+                className="text-gray-700 hover:text-purple-700 uppercase text-sm font-medium py-1"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <ShoppingBag className="w-4 h-4 mr-3" />
+                Donate
+              </Link>
+              <Link
+                href="https://thinkround.shop/"
+                className="text-gray-700 hover:text-purple-700 uppercase text-sm font-medium py-1"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Shop Art
               </Link>
-              <Link
-                href="https://www.thinkround.org/art"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 transition-colors duration-300"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Palette className="w-4 h-4 mr-3" />
-                Art
-              </Link>
-              <Link
-                href="https://www.thinkround.org/donate"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-slate-700 hover:text-purple-700 font-medium py-2 transition-colors duration-300"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <DollarSign className="w-4 h-4 mr-3" />
-                Donate
+              <Link href="/chatbot" onClick={() => setIsMenuOpen(false)}>
+                <Button className="w-full bg-purple-700 hover:bg-purple-800 text-white rounded-md mt-2">
+                  Meet Zoe
+                </Button>
               </Link>
 =======
               <Link href="/ai-awareness" onClick={() => setIsMenuOpen(false)} className="flex items-center text-slate-600 hover:text-[#5B2655] text-sm font-medium py-2 transition-colors duration-300 relative">
@@ -585,93 +356,9 @@ export default function Navbar() {
               )}
 >>>>>>> Stashed changes
             </div>
-
-            {/* Second Bar Links */}
-            <div className="pb-3">
-              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">ThinkxLife Platform</h3>
-              
-              <Link href="/" onClick={() => setIsMenuOpen(false)} className={`flex items-center ${
-                isHome 
-                  ? 'text-slate-800 font-semibold' 
-                  : 'text-slate-600 hover:text-slate-800'
-              } text-sm font-medium py-2 transition-colors duration-300`}>
-                <Home className="w-4 h-4 mr-2" />
-                Home
-              </Link>
-
-              {/* Always show direct links to all sections */}
-              <Link href="/ai-awareness" onClick={() => setIsMenuOpen(false)} className="flex items-center text-slate-600 hover:text-green-600 text-sm font-medium py-2 transition-colors duration-300 relative">
-                <Brain className="w-4 h-4 mr-2" />
-                AI Awareness
-                {isUsingAIAwareness && (
-                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></div>
-                )}
-              </Link>
-              <Link href="/healing-rooms" onClick={() => setIsMenuOpen(false)} className="flex items-center text-slate-600 hover:text-rose-600 text-sm font-medium py-2 transition-colors duration-300 relative">
-                <Heart className="w-4 h-4 mr-2" />
-                Healing Rooms
-                {isUsingHealingRooms && (
-                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></div>
-                )}
-              </Link>
-              <Link href="/exterior-spaces" onClick={() => setIsMenuOpen(false)} className="flex items-center text-slate-600 hover:text-blue-600 text-sm font-medium py-2 transition-colors duration-300">
-                <Building2 className="w-4 h-4 mr-2" />
-                Exterior Spaces
-              </Link>
-            </div>
-
-            {/* Mobile Authentication */}
-            <div className="pt-3 border-t border-slate-200">
-              {session ? (
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src={session.user?.image || ""} alt={session.user?.name || ""} />
-                      <AvatarFallback className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm">
-                        {getInitials(session.user?.name)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-medium text-sm">{session.user?.name}</p>
-                      <p className="text-xs text-slate-500">{session.user?.email}</p>
-                    </div>
-                  </div>
-                  <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="outline" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 py-2 text-sm">
-                      <User className="mr-2 h-4 w-4" />
-                      Profile
-                    </Button>
-                  </Link>
-                  <Button
-                    variant="outline"
-                    className="w-full border-red-200 text-red-600 hover:bg-red-50 py-2 text-sm"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      signOut({ callbackUrl: "/" });
-                    }}
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Sign Out
-                  </Button>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="outline" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 py-2 text-sm">
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2 text-sm">
-                      Sign Up
-                    </Button>
-                  </Link>
-                </div>
-              )}
-            </div>
           </div>
-        </div>
-      </div>
+        )}
+      </nav>
     </header>
   );
 }
