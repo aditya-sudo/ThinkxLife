@@ -191,7 +191,7 @@ export default function ModernLanding() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-[#5B2655]" />
-                  <span className="text-[#2C2C2C]">Nonprofit organization since 2018</span>
+                  <span className="text-[#2C2C2C]">Nonprofit organization since 2004</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-[#5B2655]" />
