@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import ExperienceForm from './experience-form';
+import ExperienceDisplay from './experience-display';
 import { 
   Heart, 
   Brain, 
@@ -24,16 +26,6 @@ import {
 
 export default function ModernLanding() {
   const [mounted, setMounted] = useState(false);
-
-
-  const testimonials = [
-    {
-      quote: "ThinkxLife represents the future of compassionate technology. Our platform ensures AI serves humanity with dignity, empathy, and respect for individual trauma experiences.",
-      author: "Heidi Hardin",
-      role: "Executive Director @ Think Round, Inc",
-      rating: 5
-    }
-  ];
 
   const benefits = [
     {
@@ -420,9 +412,9 @@ export default function ModernLanding() {
         `}</style>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 px-6 md:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto">
+      {/* Community Experiences Section */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-[#F5F1EB]/50 to-white/60 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#2C2C2C] mb-4">
               What Our Community Says
@@ -432,40 +424,21 @@ export default function ModernLanding() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8">
-              <div className="text-center">
-                <div className="flex justify-center mb-6">
-                  {[...Array(testimonials[0].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="text-xl text-[#2C2C2C] italic mb-6">
-                  "{testimonials[0].quote}"
-                </blockquote>
-                <div className="flex items-center justify-center">
-                  <div className="w-12 h-12 bg-[#5B2655]/10 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-[#5B2655] font-semibold">
-                      {testimonials[0].author.charAt(0)}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-[#2C2C2C]">{testimonials[0].author}</div>
-                    <div className="text-[#6B6B6B]">{testimonials[0].role}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Experience Display */}
+          <div className="mb-20">
+            <ExperienceDisplay initialLimit={6} showPagination={true} compact={false} />
+          </div>
 
-            {/* Comment Experience Button */}
-            <div className="flex justify-center mt-8">
-              <Link href="/chatbot">
-                <Button className="bg-[#5B2655] hover:bg-[#5A3A7A] text-white px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ring-2 ring-[#5B2655]/20 hover:ring-[#5B2655]/40">
-                  Share Your Experience
-                  <MessageCircle className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
+          {/* Experience Submission Form */}
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-2xl font-bold text-[#5B2655] mb-4">Share Your Story</h3>
+              <p className="text-[#6B6B6B] max-w-xl mx-auto">
+                Your experience could inspire and help others on their journey. We'd love to hear from you.
+              </p>
             </div>
+            
+            <ExperienceForm />
           </div>
         </div>
       </section>

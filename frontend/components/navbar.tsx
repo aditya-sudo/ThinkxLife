@@ -50,7 +50,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo - Left */}
           <Link href="/" className="flex items-center group">
-            <span className="text-xl font-bold tracking-wider bg-gradient-to-r from-[#5B2655] to-[#5A3A7A] bg-clip-text text-transparent">
+            <span className="text-2xl font-bold tracking-wider bg-gradient-to-r from-[#5B2655] to-[#5A3A7A] bg-clip-text text-transparent">
               Think<span className="text-[#5B2655]">x</span>Life
               <sup className="text-xs font-normal text-[#5B2655] ml-2 tracking-normal flex items-center">
                 from <img src="/tr_logo.png" alt="Think Round" className="w-4 h-4 ml-1" /> Think Round, Inc

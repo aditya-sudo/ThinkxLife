@@ -32,7 +32,7 @@ export default function Footer() {
             {/* Brand - Match Header Logo */}
             <div className="text-center md:text-left">
               <Link href="/" className="inline-block">
-                <span className="text-base font-bold tracking-wider bg-gradient-to-r from-[#5B2655] to-[#5A3A7A] bg-clip-text text-transparent">
+                <span className="text-lg font-bold tracking-wider bg-gradient-to-r from-[#5B2655] to-[#5A3A7A] bg-clip-text text-transparent">
                   Think<span className="text-[#5B2655]">x</span>Life
                   <sup className="text-xs font-normal text-[#5B2655] ml-2 tracking-normal flex items-center">
                     from <img src="/tr_logo.png" alt="Think Round" className="w-3 h-3 ml-1" /> Think Round, Inc
