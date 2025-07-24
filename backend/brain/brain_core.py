@@ -9,15 +9,8 @@ import uuid
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any
 
-from .types import (
-    BrainRequest, BrainResponse, BrainConfig, ApplicationType, ProviderType,
-    UserContext, RequestContext, ResponseMetadata, HealthStatus, BrainAnalytics,
-    SecurityConfig, LocalProviderConfig, OpenAIProviderConfig, AnthropicProviderConfig
-)
-from .providers import LocalProvider, OpenAIProvider, AnthropicProvider
-from .context_manager import ContextManager
-from .session_manager import SessionManager
-from .security_manager import SecurityManager
+# Types are used in other modules but not directly in brain_core
+# Providers are imported dynamically in _initialize_providers()
 
 logger = logging.getLogger(__name__)
 

@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 # Import Brain system
 from brain import ThinkxLifeBrain
-from brain.types import ApplicationType
+from brain.types import ApplicationType, BrainRequest as BrainRequestType, BrainResponse as BrainResponseType
 
 # Import Zoe AI Companion
 from zoe import ZoeCore
@@ -102,9 +102,9 @@ app.add_middleware(
 )
 
 
-# Pydantic models
-class BrainRequest(BaseModel):
-    """Brain request model"""
+# Pydantic models for API validation
+class APIBrainRequest(BaseModel):
+    """API Brain request model"""
     message: str
     application: str
     user_context: Dict[str, Any] = {}
@@ -112,8 +112,8 @@ class BrainRequest(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-class BrainResponse(BaseModel):
-    """Brain response model"""
+class APIBrainResponse(BaseModel):
+    """API Brain response model"""
     success: bool
     message: Optional[str] = None
     data: Optional[Dict[str, Any]] = None
@@ -149,11 +149,11 @@ async def brain_options():
     """Handle CORS preflight requests for brain endpoint"""
     return {"message": "OK"}
 
-@app.post("/api/brain", response_model=BrainResponse)
+@app.post("/api/brain", response_model=APIBrainResponse)
 async def process_brain_request(
-    request: BrainRequest,
+    request: APIBrainRequest,
     brain: ThinkxLifeBrain = Depends(get_brain)
-) -> BrainResponse:
+) -> APIBrainResponse:
     """
     Process a request through the ThinkxLife Brain system
     
@@ -186,7 +186,7 @@ async def process_brain_request(
         response_data = await brain.process_request(brain_request_data)
         
         # Return formatted response
-        return BrainResponse(
+        return APIBrainResponse(
             success=response_data.get("success", False),
             message=response_data.get("message"),
             data=response_data.get("data"),
@@ -251,14 +251,22 @@ async def zoe_chat_endpoint(
     that integrates with the Brain system for LLM calls.
     """
     try:
+        # Validate request structure
+        if not isinstance(request, dict):
+            raise HTTPException(status_code=400, detail="Invalid request format")
+        
         # Extract request data
         message = request.get("message", "")
         user_id = request.get("user_id", "anonymous")
         session_id = request.get("session_id")
         user_context = request.get("user_context", {})
         
-        if not message:
-            raise HTTPException(status_code=400, detail="Message is required")
+        # Validate required fields
+        if not message or not message.strip():
+            raise HTTPException(status_code=400, detail="Message is required and cannot be empty")
+        
+        if len(message) > 10000:
+            raise HTTPException(status_code=400, detail="Message too long (max 10,000 characters)")
         
         # Process message through Zoe
         response = await zoe.process_message(
@@ -342,6 +350,39 @@ async def get_zoe_health(zoe: ZoeCore = Depends(get_zoe)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/session-analytics")
+async def get_session_analytics(
+    user_id: Optional[str] = None,
+    session_id: Optional[str] = None,
+    brain: ThinkxLifeBrain = Depends(get_brain),
+    zoe: ZoeCore = Depends(get_zoe)
+):
+    """Get session analytics and statistics"""
+    try:
+        # Get Brain analytics
+        brain_analytics = await brain.get_analytics()
+        
+        # Get session-specific data if requested
+        session_data = {}
+        if session_id:
+            session_data = await zoe.get_session_history(session_id)
+        
+        return {
+            "success": True,
+            "data": {
+                "brain_analytics": brain_analytics,
+                "session_data": session_data,
+                "user_id": user_id,
+                "session_id": session_id
+            },
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting session analytics: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Legacy chatbot endpoints (redirects to Zoe for backward compatibility)
 @app.options("/api/chat")
 async def chat_options():
@@ -366,11 +407,20 @@ async def legacy_chat_endpoint(
         session_id = request.get("session_id")
         user_context = request.get("user_context", {})
         
-        if not message:
+        # Validate required fields
+        if not message or not message.strip():
             return {
                 "response": "I didn't receive a message. What would you like to talk about?",
                 "success": False,
                 "error": "No message provided",
+                "timestamp": datetime.now().isoformat()
+            }
+        
+        if len(message) > 10000:
+            return {
+                "response": "Your message is too long. Please keep it under 10,000 characters.",
+                "success": False,
+                "error": "Message too long",
                 "timestamp": datetime.now().isoformat()
             }
         
@@ -402,6 +452,24 @@ async def legacy_chat_endpoint(
         }
 
 
+# Helper function for application-specific endpoints
+async def create_application_endpoint(
+    request: Dict[str, Any],
+    application: str,
+    brain: ThinkxLifeBrain = Depends(get_brain)
+):
+    """Generic handler for application-specific endpoints"""
+    api_request = APIBrainRequest(
+        message=request.get("message", ""),
+        application=application,
+        user_context=request.get("user_context", {}),
+        session_id=request.get("session_id"),
+        metadata=request.get("metadata", {})
+    )
+    
+    return await process_brain_request(api_request, brain)
+
+
 # Application-specific endpoints
 @app.post("/api/healing-rooms")
 async def healing_rooms_endpoint(
@@ -409,15 +477,7 @@ async def healing_rooms_endpoint(
     brain: ThinkxLifeBrain = Depends(get_brain)
 ):
     """Healing rooms specific endpoint"""
-    brain_request = BrainRequest(
-        message=request.get("message", ""),
-        application="healing-rooms",
-        user_context=request.get("user_context", {}),
-        session_id=request.get("session_id"),
-        metadata=request.get("metadata", {})
-    )
-    
-    return await process_brain_request(brain_request, brain)
+    return await create_application_endpoint(request, "healing-rooms", brain)
 
 
 @app.post("/api/ai-awareness")
@@ -426,15 +486,7 @@ async def ai_awareness_endpoint(
     brain: ThinkxLifeBrain = Depends(get_brain)
 ):
     """AI awareness specific endpoint"""
-    brain_request = BrainRequest(
-        message=request.get("message", ""),
-        application="ai-awareness",
-        user_context=request.get("user_context", {}),
-        session_id=request.get("session_id"),
-        metadata=request.get("metadata", {})
-    )
-    
-    return await process_brain_request(brain_request, brain)
+    return await create_application_endpoint(request, "ai-awareness", brain)
 
 
 @app.post("/api/compliance")
@@ -443,15 +495,7 @@ async def compliance_endpoint(
     brain: ThinkxLifeBrain = Depends(get_brain)
 ):
     """Compliance specific endpoint"""
-    brain_request = BrainRequest(
-        message=request.get("message", ""),
-        application="compliance",
-        user_context=request.get("user_context", {}),
-        session_id=request.get("session_id"),
-        metadata=request.get("metadata", {})
-    )
-    
-    return await process_brain_request(brain_request, brain)
+    return await create_application_endpoint(request, "compliance", brain)
 
 
 @app.post("/api/exterior-spaces")
@@ -460,15 +504,7 @@ async def exterior_spaces_endpoint(
     brain: ThinkxLifeBrain = Depends(get_brain)
 ):
     """Exterior spaces specific endpoint"""
-    brain_request = BrainRequest(
-        message=request.get("message", ""),
-        application="exterior-spaces",
-        user_context=request.get("user_context", {}),
-        session_id=request.get("session_id"),
-        metadata=request.get("metadata", {})
-    )
-    
-    return await process_brain_request(brain_request, brain)
+    return await create_application_endpoint(request, "exterior-spaces", brain)
 
 
 # Health check endpoint
