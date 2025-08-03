@@ -53,8 +53,8 @@ export default function ModernLanding() {
   const services = [
     {
       icon: Brain,
-      title: "AI Awareness",
-      description: "Comprehensive learning about AI ethics, safety, and responsible usage with trauma-informed approaches."
+      title: "Inside our AI",
+      description: "See how AI enhances our healing rooms, arts programs, and community initiatives with trauma-informed approaches."
     },
     {
       icon: Heart,
@@ -230,7 +230,7 @@ export default function ModernLanding() {
               Our Services
             </h2>
             <p className="text-lg text-[#6B6B6B] max-w-2xl mx-auto">
-              Comprehensive support for your AI awareness and personal growth journey.
+              See how AI enhances our healing rooms, arts programs, and community initiatives.
             </p>
           </div>
 
@@ -451,7 +451,7 @@ export default function ModernLanding() {
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-[#6B6B6B]">
-              Common questions about our platform and approach to AI ethics.
+              Common questions about how we integrate AI into our programs.
             </p>
           </div>
 
@@ -492,7 +492,7 @@ export default function ModernLanding() {
               </h3>
               <p className="text-[#6B6B6B]">
                 Yes, our core services are free to use. We're a nonprofit organization committed to making 
-                ethical AI education and support accessible to everyone.
+                AI-enhanced healing and creative experiences accessible to everyone.
               </p>
             </div>
           </div>

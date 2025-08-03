@@ -163,7 +163,7 @@ async def process_brain_request(
     try:
         # Validate application type
         valid_applications = [
-            "healing-rooms", "ai-awareness", "chatbot", 
+            "healing-rooms", "inside-our-ai", "chatbot", 
             "compliance", "exterior-spaces", "general"
         ]
         
@@ -480,13 +480,13 @@ async def healing_rooms_endpoint(
     return await create_application_endpoint(request, "healing-rooms", brain)
 
 
-@app.post("/api/ai-awareness")
-async def ai_awareness_endpoint(
+@app.post("/api/inside-our-ai")
+async def inside_our_ai_endpoint(
     request: Dict[str, Any],
     brain: ThinkxLifeBrain = Depends(get_brain)
 ):
-    """AI awareness specific endpoint"""
-    return await create_application_endpoint(request, "ai-awareness", brain)
+    """Inside our AI specific endpoint"""
+    return await create_application_endpoint(request, "inside-our-ai", brain)
 
 
 @app.post("/api/compliance")
@@ -541,7 +541,7 @@ async def root():
             },
             "applications": {
                 "healing_rooms": "/api/healing-rooms",
-                "ai_awareness": "/api/ai-awareness",
+                "inside_our_ai": "/api/inside-our-ai",
                 "compliance": "/api/compliance",
                 "exterior_spaces": "/api/exterior-spaces",
                 "chatbot": "/api/chat"  # Legacy endpoint, routes to Zoe

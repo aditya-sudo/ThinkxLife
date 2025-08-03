@@ -2,9 +2,5 @@
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/api/experiences/route": "app/api/experiences/route.js",
   "/page": "app/page.js",
-  "/auth/signin/page": "app/auth/signin/page.js",
-  "/auth/signup/page": "app/auth/signup/page.js",
-  "/profile/page": "app/profile/page.js",
-  "/healing-rooms/page": "app/healing-rooms/page.js",
-  "/exterior-spaces/page": "app/exterior-spaces/page.js"
+  "/inside-our-ai/page": "app/inside-our-ai/page.js"
 }

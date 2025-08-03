@@ -139,7 +139,7 @@ export function useAIAwarenessBrain() {
   ) => {
     return brain.sendMessage({
       message,
-      application: 'ai-awareness',
+      application: 'inside-our-ai',
       user_context: userContext,
       session_id: sessionId,
       metadata: {

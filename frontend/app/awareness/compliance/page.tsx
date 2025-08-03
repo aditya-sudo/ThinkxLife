@@ -377,9 +377,9 @@ export default function ComplianceHub() {
 
         {/* Navigation */}
         <div className="flex justify-between mt-8">
-          <Link href="/ai-awareness">
+          <Link href="/inside-our-ai">
             <Button variant="outline" className="hover:bg-blue-50 border-blue-200 text-blue-700 hover:text-blue-800">
-              ← Back to AI Awareness Hub
+              ← Back to Inside our AI Hub
             </Button>
           </Link>
           <Link href="/awareness/ethics">

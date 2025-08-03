@@ -276,9 +276,9 @@ export default function EthicsModule() {
 
       {/* Back to Home CTA */}
       <div className="text-center">
-        <Link href="/ai-awareness">
+        <Link href="/inside-our-ai">
           <Button variant="outline" className="hover:bg-green-50 mr-4">
-            ← Back to AI Awareness
+            ← Back to Inside our AI
           </Button>
         </Link>
         <Link href="/awareness/quiz/basic-ai">

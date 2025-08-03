@@ -37,7 +37,7 @@ const staggerContainer = {
 
 export default function HealingRoomsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         {/* Background Elements */}
@@ -96,7 +96,7 @@ export default function HealingRoomsPage() {
             {/* About Section */}
             <motion.div
               variants={fadeInUp}
-              className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl mb-12"
+              className="bg-white dark:bg-gray-800/70 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl mb-12"
             >
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl flex items-center justify-center mr-4">
@@ -126,7 +126,7 @@ export default function HealingRoomsPage() {
             >
               <motion.div
                 variants={fadeInUp}
-                className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
+                className="bg-white dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
               >
                 <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center mb-4">
                   <Shield className="w-5 h-5 text-white" />
@@ -141,7 +141,7 @@ export default function HealingRoomsPage() {
 
               <motion.div
                 variants={fadeInUp}
-                className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
+                className="bg-white dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
               >
                 <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mb-4">
                   <Eye className="w-5 h-5 text-white" />
@@ -156,7 +156,7 @@ export default function HealingRoomsPage() {
 
               <motion.div
                 variants={fadeInUp}
-                className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
+                className="bg-white dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
               >
                 <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mb-4">
                   <Heart className="w-5 h-5 text-white" />
@@ -171,7 +171,7 @@ export default function HealingRoomsPage() {
 
               <motion.div
                 variants={fadeInUp}
-                className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
+                className="bg-white dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
               >
                 <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4">
                   <MessageCircle className="w-5 h-5 text-white" />
@@ -199,7 +199,7 @@ export default function HealingRoomsPage() {
               </h2>
 
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Zoe is our compassionate AI assistant, specially designed to provide supportive guidance
+                Zoe is our compassionate AI companion, specially designed to provide supportive assistance
                 and resources for your healing journey. She offers 24/7 availability with trauma-informed
                 responses.
               </p>

@@ -74,7 +74,7 @@ export default function ModernHero() {
         {/* Subtitle */}
         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-200 mb-16">
           At ThinkRound, Inc, we're pioneering AI for humanity through ThinkxLife, our comprehensive platform
-          that combines AI awareness education with empathetic AI assistance, creating a safer digital future for everyone.
+          that integrates AI thoughtfully into healing rooms, arts programs, and community initiatives while preserving human dignity and cultural authenticity.
         </p>
 
         {/* Rotating Features */}

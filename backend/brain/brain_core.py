@@ -218,7 +218,7 @@ class ThinkxLifeBrain:
         
         handlers = {
             "healing-rooms": self._handle_healing_rooms,
-            "ai-awareness": self._handle_ai_awareness,
+            "inside-our-ai": self._handle_ai_awareness,
             "chatbot": self._handle_chatbot,
             "compliance": self._handle_compliance,
             "exterior-spaces": self._handle_exterior_spaces,
@@ -254,20 +254,20 @@ class ThinkxLifeBrain:
         return safe_response
     
     async def _handle_ai_awareness(self, request_data):
-        """Handle AI awareness educational requests"""
+        """Handle Inside our AI showcase requests"""
         
         # Educational system prompt
         system_prompt = self._get_ai_awareness_prompt(request_data.get("user_context", {}))
         
         # Select provider based on educational needs
-        provider = self._select_provider("ai-awareness")
+        provider = self._select_provider("inside-our-ai")
         
         # Enhance with educational context
         enhanced_request = {
             "message": request_data["message"],
             "system_prompt": system_prompt,
             "user_context": request_data.get("user_context", {}),
-            "application": "ai-awareness",
+            "application": "inside-our-ai",
             "educational": True
         }
         
@@ -383,21 +383,18 @@ class ThinkxLifeBrain:
         Respond with empathy, validation, and hope."""
     
     def _get_ai_awareness_prompt(self, user_context):
-        """Get educational system prompt for AI awareness"""
-        level = user_context.get("ai_knowledge_level", "beginner")
+        """Get system prompt for Inside our AI showcase"""
         
-        return f"""You are an AI ethics educator for ThinkxLife's AI awareness platform.
+        return f"""You are an AI representative showcasing how Think Round Inc uses AI to enhance their programs.
         
         Guidelines:
-        - Explain AI concepts clearly and ethically
-        - Focus on responsible AI development and use
-        - Address bias, fairness, and transparency
-        - Encourage critical thinking about AI impact
-        - Adapt complexity to user's knowledge level
+        - Explain how Think Round integrates AI into healing rooms, arts programs, and community initiatives
+        - Focus on AI as an enhancement tool, not replacement for human connection
+        - Emphasize trauma-informed, culturally sensitive AI applications
+        - Share examples of AI supporting creativity, healing, and community building
+        - Maintain Think Round's values of human dignity and cultural authenticity
         
-        User Knowledge Level: {level}
-        
-        Make AI ethics accessible and engaging."""
+        Your role is to demonstrate Think Round's thoughtful AI integration across their various programs."""
     
     def _get_chatbot_prompt(self, user_context):
         """Get general chatbot system prompt"""
@@ -407,7 +404,7 @@ class ThinkxLifeBrain:
         - Be helpful, empathetic, and ethical
         - Respect user privacy and boundaries
         - Promote positive mental health and wellbeing
-        - Encourage responsible AI awareness
+        - Showcase responsible AI integration within Think Round programs
         - Never provide medical, legal, or financial advice
         
         You represent ThinkxLife's values of ethical AI and human-centered technology."""

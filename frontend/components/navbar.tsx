@@ -22,7 +22,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   // Check if user is actively using AI features
-  const isUsingAIAwareness = pathname?.startsWith('/ai-awareness') || pathname?.startsWith('/awareness');
+  const isUsingAIAwareness = pathname?.startsWith('/inside-our-ai') || pathname?.startsWith('/awareness');
   const isUsingHealingRooms = pathname?.startsWith('/healing-rooms');
   const isHome = pathname === '/';
 
@@ -68,8 +68,8 @@ export default function Navbar() {
             >
               About
             </Link>
-            <Link href="/ai-awareness" className="text-slate-600 hover:text-[#5B2655] text-sm font-medium transition-colors duration-300 relative">
-              AI Awareness
+            <Link href="/inside-our-ai" className="text-slate-600 hover:text-[#5B2655] text-sm font-medium transition-colors duration-300 relative">
+              Inside our AI
               {isUsingAIAwareness && (
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></div>
               )}
@@ -203,7 +203,7 @@ export default function Navbar() {
                 About
               </Link>
               <Link
-                href="/ai-awareness"
+                href="/inside-our-ai"
                 className="text-slate-600 hover:text-[#5B2655] py-2 transition-colors duration-300 flex items-center"
                 onClick={() => setIsMenuOpen(false)}
               >

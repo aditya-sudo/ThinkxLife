@@ -152,7 +152,7 @@ class OpenAIProvider:
         if application == "healing-rooms":
             response["metadata"]["trauma_informed"] = True
             response["metadata"]["safety_checked"] = True
-        elif application == "ai-awareness":
+        elif application == "inside-our-ai":
             response["metadata"]["educational"] = True
             response["metadata"]["ethics_focused"] = True
         elif application == "compliance":

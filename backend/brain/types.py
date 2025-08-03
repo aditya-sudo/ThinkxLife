@@ -11,7 +11,7 @@ from enum import Enum
 class ApplicationType(str, Enum):
     """Available application types"""
     HEALING_ROOMS = "healing-rooms"
-    AI_AWARENESS = "ai-awareness"
+    AI_AWARENESS = "inside-our-ai"
     CHATBOT = "chatbot"
     COMPLIANCE = "compliance"
     EXTERIOR_SPACES = "exterior-spaces"

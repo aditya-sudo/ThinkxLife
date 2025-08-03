@@ -523,7 +523,7 @@ export default function BasicAIQuiz() {
 
             {/* Next Steps */}
             <div className="flex flex-col sm:flex-row justify-between gap-4">
-              <Link href="/ai-awareness">
+              <Link href="/inside-our-ai">
                 <Button variant="outline" className="w-full sm:w-auto">
                   ← Return to Home
                 </Button>

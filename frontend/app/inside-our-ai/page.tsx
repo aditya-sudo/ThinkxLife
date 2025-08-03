@@ -233,9 +233,9 @@ export default function AIAwarenessPage() {
     },
     {
       icon: <Palette className="w-6 h-6" />,
-      title: "AI in Arts & Education",
+      title: "AI in Arts Programs",
       tagline:
-        "Integrating AI into our arts and education programs while preserving human creativity and cultural authenticity.",
+        "Integrating AI into our arts programs while preserving human creativity and cultural authenticity.",
       bullets: [
         {
           title: "Creative Collaboration",
@@ -248,14 +248,14 @@ export default function AIAwarenessPage() {
             "Using AI to document and preserve cultural narratives from diverse communities in San Francisco's Bayview-Hunters Point.",
         },
         {
-          title: "Educational Equity",
+          title: "Program Accessibility",
           description:
             "AI-powered personalized learning that adapts to different learning styles and cultural backgrounds.",
         },
         {
           title: "Youth Empowerment",
           description:
-            "Teaching young people to understand and responsibly use AI tools in their creative and educational pursuits.",
+            "Ensuring AI enhancements in our programs are accessible to all community members regardless of technological background.",
         },
       ],
       cta: {
@@ -300,41 +300,41 @@ export default function AIAwarenessPage() {
   const steps = [
     {
       number: "01",
-      title: "Human-Centered Design",
-      description: "We start with human needs and values, ensuring AI serves humanity rather than replacing it",
+      title: "Enhance, Don't Replace",
+      description: "AI amplifies our artists, healers, and educators rather than replacing human creativity and care",
     },
     {
       number: "02",
-      title: "Trauma-Informed Development",
-      description: "Every AI system is built with trauma-informed care principles at its core",
+      title: "Trauma-Informed AI",
+      description: "Our AI tools in healing rooms are designed with trauma-informed care principles at their core",
     },
     {
       number: "03",
-      title: "Community Integration",
-      description: "AI tools are designed to strengthen communities and preserve cultural authenticity",
+      title: "Cultural Preservation",
+      description: "AI helps document, preserve, and celebrate cultural traditions within our community programs",
     },
     {
       number: "04",
-      title: "Ethical Governance",
-      description: "Continuous monitoring and improvement ensure our AI remains ethical and beneficial",
+      title: "Creative Collaboration",
+      description: "Artists and AI work together in our studios to create innovative expressions while maintaining authenticity",
     },
   ];
 
   const programs = [
     {
-      icon: <MessageCircle className="w-8 h-8" />,
-      title: "ThinkxLife Platform",
-      description: "Our comprehensive AI awareness and ethics platform with Zoe AI companion",
+      icon: <Heart className="w-8 h-8" />,
+      title: "Healing Rooms Enhancement",
+      description: "AI companions like Zoe provide trauma-informed support and personalized healing experiences",
     },
     {
-      icon: <GraduationCap className="w-8 h-8" />,
-      title: "AI Education Workshops",
-      description: "Community workshops teaching responsible AI use and digital literacy",
+      icon: <Palette className="w-8 h-8" />,
+      title: "Arts Program Integration",
+      description: "AI tools help artists explore new creative possibilities while preserving authentic expression",
     },
     {
-      icon: <Sparkles className="w-8 h-8" />,
-      title: "AI for Healing",
-      description: "Trauma-informed AI tools supporting mental health and healing journeys",
+      icon: <Globe className="w-8 h-8" />,
+      title: "Paradise Project Support",
+      description: "AI assists in community building, cultural preservation, and environmental stewardship initiatives",
     },
   ];
 
@@ -400,9 +400,9 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed"
               >
-                Discover how Think Round Inc integrates artificial intelligence into our arts, education, and 
-                community programs while maintaining our core values of human dignity, cultural authenticity, 
-                and trauma-informed care.
+                Discover how Think Round Inc uses artificial intelligence to enhance our arts programs, 
+                healing rooms, paradise project, and community initiatives while preserving our core values 
+                of human dignity, cultural authenticity, and trauma-informed care.
               </motion.p>
 
               <motion.div
@@ -415,7 +415,7 @@ export default function AIAwarenessPage() {
                   onClick={scrollToPhilosophy}
                   className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
                 >
-                  Learn Our Approach
+                  Explore Our AI Applications
                 </motion.button>
                 <Link href="/chatbot">
                   <motion.button
@@ -445,7 +445,7 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
               >
-                Our AI Philosophy
+                How We Use AI
               </motion.h2>
               <motion.p
                 variants={fadeInUp}
@@ -605,13 +605,13 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
               >
-                AI Awareness Agent
+                Meet Zoe - Our AI Companion
               </motion.h2>
               <motion.p
                 variants={fadeInUp}
                 className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
               >
-                Our specialized AI agent will help you understand AI ethics, safety, and responsible usage
+                Experience how our AI companion Zoe enhances healing journeys and supports our community programs
               </motion.p>
             </motion.div>
 
@@ -630,16 +630,16 @@ export default function AIAwarenessPage() {
                     </div>
                     <div className="bg-white dark:bg-gray-700 rounded-lg p-3 flex-1">
                       <p className="text-gray-900 dark:text-white">
-                        Hello! I'm your AI Awareness Agent. I'm here to help you understand AI ethics, 
-                        safety principles, and responsible AI usage. I can guide you through AI awareness 
-                        topics and best practices.
+                        Hello! I'm Zoe, Think Round's AI companion. I'm designed to support healing journeys, 
+                        enhance creative experiences, and assist with our community programs while maintaining 
+                        our trauma-informed, culturally sensitive approach.
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3 justify-end">
                     <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg p-3 max-w-xs">
                       <p className="text-white">
-                        I'd like to learn about AI ethics and how to use AI responsibly in my daily life.
+                        I'm interested in how Think Round uses AI to enhance their healing rooms and arts programs.
                       </p>
                     </div>
                     <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
@@ -652,7 +652,7 @@ export default function AIAwarenessPage() {
                     className="w-full bg-gray-400 text-gray-600 font-semibold py-3 px-6 rounded-lg cursor-not-allowed shadow-lg relative"
                     disabled
                   >
-                    Start AI Awareness Session
+                    Experience Zoe
                     <span className="absolute -top-2 -right-2 text-xs bg-gray-600 text-white px-2 py-1 rounded-full">
                       Coming Soon
                     </span>
@@ -683,7 +683,7 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
               >
-                Explore our initiatives that integrate AI with community building, arts education, and healing
+                See how AI enhances our healing rooms, arts programs, paradise project, and community initiatives
               </motion.p>
             </motion.div>
 
