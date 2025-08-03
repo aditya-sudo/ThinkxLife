@@ -8,10 +8,9 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate || echo 'Prisma generation failed, continuing...' && next build",
     "start": "next start",
-    "generate-auth-secret": "node scripts/generate-auth-secret.js",
-    "postbuild": "npx prisma generate 2>/dev/null || echo 'Prisma generation failed, database features may not work'"
+    "generate-auth-secret": "node scripts/generate-auth-secret.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
