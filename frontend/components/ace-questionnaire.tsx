@@ -85,27 +85,27 @@ export default function AceQuestionnaire({
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-blue-200/50">
+    <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-2xl border border-white/50 max-h-[80vh] overflow-y-auto">
       {/* Header */}
-      <div className="flex flex-col items-center text-center mb-8">
-        <div className="relative mb-6">
-          <div className="p-4 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full shadow-lg">
-            <Brain className="h-12 w-12 text-white" />
+      <div className="flex flex-col items-center text-center mb-4">
+        <div className="relative mb-3">
+          <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full shadow-lg">
+            <Brain className="h-8 w-8 text-white" />
           </div>
-          <Sparkles className="w-6 h-6 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
+          <Sparkles className="w-4 h-4 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
         </div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-blue-700 bg-clip-text text-transparent mb-3">
+        <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-slate-800 to-blue-700 bg-clip-text text-transparent mb-2">
           Hi {userName}, let's complete this questionnaire
         </h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <p className="text-sm md:text-base text-slate-600 max-w-2xl">
           These questions help me understand your experiences better so I can provide more personalized support.
           Your answers are completely confidential and will only be used to tailor our conversations.
         </p>
       </div>
 
       {/* Progress */}
-      <div className="space-y-4 mb-8">
-        <div className="flex justify-between text-sm text-slate-600 font-medium">
+      <div className="space-y-2 mb-4">
+        <div className="flex justify-between text-xs text-slate-600 font-medium">
           <span>
             Question {currentQuestion + 1} of {ACE_QUESTIONS.length}
           </span>
@@ -113,49 +113,49 @@ export default function AceQuestionnaire({
         </div>
         <Progress
           value={progress}
-          className="h-3 bg-slate-200"
+          className="h-2 bg-slate-200"
         />
       </div>
 
       {/* Question Card */}
-      <Card className="bg-gradient-to-r from-slate-50 to-purple-50 border border-purple-200 shadow-lg mb-8">
-        <CardContent className="pt-8 pb-6">
-          <h3 className="text-xl font-semibold text-slate-800 mb-6 leading-relaxed">
+      <Card className="bg-gradient-to-r from-slate-50 to-purple-50 border border-purple-200 shadow-lg mb-4">
+        <CardContent className="pt-4 pb-4">
+          <h3 className="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
             {ACE_QUESTIONS[currentQuestion]}
           </h3>
 
           <RadioGroup
             value={currentAnswer || ""}
             onValueChange={handleAnswerSelect}
-            className="space-y-4"
+            className="space-y-3"
             disabled={isTransitioning}
           >
-            <div className={`flex items-center space-x-4 p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer hover:bg-green-50 ${
+            <div className={`flex items-center space-x-3 p-3 rounded-xl border-2 transition-all duration-300 cursor-pointer hover:bg-green-50 ${
               currentAnswer === "yes" ? "border-green-500 bg-green-50" : "border-slate-200 hover:border-green-300"
             }`}>
               <RadioGroupItem value="yes" id="yes" className="text-green-600" />
-              <Label htmlFor="yes" className="flex items-center gap-3 cursor-pointer flex-1 text-lg">
-                <CheckCircle className="w-5 h-5 text-green-600" />
+              <Label htmlFor="yes" className="flex items-center gap-2 cursor-pointer flex-1 text-sm md:text-base">
+                <CheckCircle className="w-4 h-4 text-green-600" />
                 Yes
               </Label>
             </div>
 
-            <div className={`flex items-center space-x-4 p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer hover:bg-blue-50 ${
+            <div className={`flex items-center space-x-3 p-3 rounded-xl border-2 transition-all duration-300 cursor-pointer hover:bg-blue-50 ${
               currentAnswer === "no" ? "border-blue-500 bg-blue-50" : "border-slate-200 hover:border-blue-300"
             }`}>
               <RadioGroupItem value="no" id="no" className="text-blue-600" />
-              <Label htmlFor="no" className="flex items-center gap-3 cursor-pointer flex-1 text-lg">
-                <XCircle className="w-5 h-5 text-blue-600" />
+              <Label htmlFor="no" className="flex items-center gap-2 cursor-pointer flex-1 text-sm md:text-base">
+                <XCircle className="w-4 h-4 text-blue-600" />
                 No
               </Label>
             </div>
 
-            <div className={`flex items-center space-x-4 p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer hover:bg-amber-50 ${
+            <div className={`flex items-center space-x-3 p-3 rounded-xl border-2 transition-all duration-300 cursor-pointer hover:bg-amber-50 ${
               currentAnswer === "skip" ? "border-amber-500 bg-amber-50" : "border-slate-200 hover:border-amber-300"
             }`}>
               <RadioGroupItem value="skip" id="skip" className="text-amber-600" />
-              <Label htmlFor="skip" className="flex items-center gap-3 cursor-pointer flex-1 text-lg">
-                <SkipForward className="w-5 h-5 text-amber-600" />
+              <Label htmlFor="skip" className="flex items-center gap-2 cursor-pointer flex-1 text-sm md:text-base">
+                <SkipForward className="w-4 h-4 text-amber-600" />
                 Prefer not to answer
               </Label>
             </div>

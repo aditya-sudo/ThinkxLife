@@ -53,7 +53,7 @@ const FullScreenAvatar = ({ expression, isSpeaking, isListening, onStopSpeaking 
   }, [isSpeaking]);
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-gradient-to-br from-pink-50 via-white to-rose-50 p-8 relative">
+    <div className="flex-1 flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-8 relative">
       {/* Fixed Stop Button - Outside animated container */}
       {isSpeaking && (
         <div className="absolute top-6 right-6 z-10">
@@ -61,7 +61,7 @@ const FullScreenAvatar = ({ expression, isSpeaking, isListening, onStopSpeaking 
             variant="outline"
             size="lg"
             onClick={onStopSpeaking}
-            className="bg-white/90 backdrop-blur-sm border-red-200 text-red-600 hover:bg-red-50 shadow-lg"
+            className="bg-white/95 backdrop-blur-sm border-red-200 text-red-600 hover:bg-red-50 shadow-lg rounded-2xl"
           >
             <Pause className="w-4 h-4 mr-2" />
             Stop Speaking
@@ -70,11 +70,11 @@ const FullScreenAvatar = ({ expression, isSpeaking, isListening, onStopSpeaking 
       )}
 
       {/* Status */}
-      <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold text-gray-800 mb-2">Zoe</h3>
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <div className={`w-3 h-3 rounded-full ${isSpeaking ? 'bg-red-500 animate-pulse' : isListening ? 'bg-yellow-500 animate-pulse' : 'bg-green-500'}`} />
-          <p className="text-lg text-gray-600">
+      <div className="text-center mb-8">
+        <h3 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3">Zoe</h3>
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <div className={`w-4 h-4 rounded-full shadow-sm ${isSpeaking ? 'bg-red-500 animate-pulse' : isListening ? 'bg-amber-500 animate-pulse' : 'bg-green-500'}`} />
+          <p className="text-xl text-gray-700 font-medium">
             {isSpeaking ? "Speaking..." : isListening ? "Thinking..." : "Ready to help"}
           </p>
         </div>
@@ -494,78 +494,82 @@ export default function ChatbotPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Hidden audio element for TTS playback */}
       <audio ref={audioRef} style={{ display: 'none' }} />
       
-      <div className="max-w-4xl mx-auto">
-        {step === "disclaimer" && (
-          <Disclaimer onAccept={handleAcceptDisclaimer} />
-        )}
+      {/* Main Content Container - Accounts for fixed navbar */}
+      <div className="pt-20 pb-8 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
+        <div className="w-full max-w-4xl">
+          {step === "disclaimer" && (
+            <Disclaimer onAccept={handleAcceptDisclaimer} />
+          )}
 
-        {step === "userInfo" && (
-          <div className="bg-white rounded-xl p-8 shadow-xl">
-            <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-              Meet Zoe
-            </h1>
-            <p className="text-gray-600 text-center mb-8">
-              Hi, I'm Zoe, your AI companion. I'm here to provide a safe space
-              for you to share and receive support. Let's start with some basic
-              information.
-            </p>
-            <UserInfoForm
-              onSubmit={handleUserInfoSubmit}
-              onAgeRestriction={handleAgeRestriction}
-            />
-          </div>
-        )}
+          {step === "userInfo" && (
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-2xl border border-white/50">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+                  Meet Zoe
+                </h1>
+                <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                  Hi, I'm Zoe, your AI companion. I'm here to provide a safe space
+                  for you to share and receive support. Let's start with some basic
+                  information.
+                </p>
+              </div>
+              <UserInfoForm
+                onSubmit={handleUserInfoSubmit}
+                onAgeRestriction={handleAgeRestriction}
+              />
+            </div>
+          )}
 
-        {step === "ageRestriction" && <AgeRestriction />}
+          {step === "ageRestriction" && <AgeRestriction />}
 
-        {step === "questionnaire" && userInfo && (
-          <div className="bg-white rounded-xl p-8 shadow-xl">
-            <h1 className="text-3xl font-bold text-center mb-4 text-gray-800">
-              Hi {userInfo.name}, please complete this questionnaire
-            </h1>
-            <p className="text-gray-600 text-center mb-8">
-              These questions help me understand your experiences better so I
-              can provide more personalized support. Your answers are
-              confidential.
-            </p>
+          {step === "questionnaire" && userInfo && (
             <AceQuestionnaire 
               onComplete={handleQuestionnaireComplete} 
               userName={userInfo?.name || "User"} 
             />
-          </div>
-        )}
+          )}
 
-        {step === "results" && userInfo && (
-          <AceResults
-            score={aceScore}
-            userName={userInfo.name}
-            onStartChat={handleStartChat}
-          />
-        )}
+          {step === "results" && userInfo && (
+            <AceResults
+              score={aceScore}
+              userName={userInfo.name}
+              onStartChat={handleStartChat}
+            />
+          )}
 
         {step === "chat" && userInfo && (
-          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden h-[85vh] flex flex-col">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-6">
-              <h1 className="text-2xl font-bold">Chat with Zoe</h1>
-              <p className="text-pink-100">Your personalized healing companion</p>
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden min-h-[700px] max-h-[85vh] flex flex-col border border-white/50">
+            {/* Modern Header */}
+            <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-6 flex-shrink-0">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-2xl md:text-3xl font-bold">Chat with Zoe</h1>
+                  <p className="text-indigo-100 text-sm md:text-base">Your personalized healing companion</p>
+                </div>
+              </div>
             </div>
 
-            {/* Settings Panel */}
-            <div className="bg-gray-50 p-4 border-b border-gray-200">
-              <div className="flex items-center gap-6 flex-wrap">
-                <div className="flex items-center gap-3">
+            {/* Compact Settings Panel */}
+            <div className="bg-gradient-to-r from-slate-50 to-indigo-50 p-4 border-b border-indigo-100 flex-shrink-0">
+              <div className="flex items-center gap-3 md:gap-6 flex-wrap">
+                <div className="flex items-center gap-2">
                   <Settings className="w-4 h-4 text-gray-600" />
-                  <span className="font-medium text-gray-700 text-sm">Settings:</span>
+                  <span className="font-medium text-gray-700 text-xs md:text-sm">Settings:</span>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <UserCircle className="w-4 h-4 text-gray-600" />
-                  <span className="text-sm text-gray-600">Avatar Mode:</span>
+                  <span className="text-xs md:text-sm text-gray-600">Avatar Mode:</span>
                   <Switch
                     checked={avatarMode}
                     onCheckedChange={setAvatarMode}
@@ -619,7 +623,7 @@ export default function ChatbotPage() {
               />
             ) : (
               /* Messages Area */
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
                 <AnimatePresence>
                   {messages.map((message) => (
                     <motion.div
@@ -631,9 +635,9 @@ export default function ChatbotPage() {
                     >
                       <div className={`flex items-start gap-3 max-w-[80%] ${message.sender === "user" ? "flex-row-reverse" : ""}`}>
                         {/* User Icon */}
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${
+                        <div className={`w-8 h-8 rounded-2xl flex items-center justify-center text-white flex-shrink-0 shadow-sm ${
                           message.sender === "user" 
-                            ? "bg-gradient-to-r from-blue-500 to-cyan-500" 
+                            ? "bg-gradient-to-r from-indigo-500 to-purple-600" 
                             : "bg-gradient-to-r from-pink-500 to-rose-500"
                         }`}>
                           {message.sender === "user" ? (
@@ -644,13 +648,15 @@ export default function ChatbotPage() {
                         </div>
 
                         {/* Message Bubble */}
-                        <div className={`rounded-2xl px-4 py-3 ${
+                        <div className={`rounded-2xl px-4 py-3 shadow-sm ${
                           message.sender === "user"
-                            ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white"
-                            : "bg-gray-100 text-gray-900"
+                            ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white"
+                            : "bg-white border border-indigo-100 text-gray-800"
                         }`}>
                           <p className="text-sm leading-relaxed">{message.content}</p>
-                          <span className="text-xs opacity-75 mt-1 block">
+                          <span className={`text-xs mt-1 block ${
+                            message.sender === "user" ? "text-indigo-100" : "text-gray-500"
+                          }`}>
                             {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </span>
                         </div>
@@ -684,30 +690,30 @@ export default function ChatbotPage() {
               </div>
             )}
 
-            {/* Input Area - Always Present */}
-            <div className="border-t border-gray-200 p-6">
-              <div className="flex gap-3">
+            {/* Modern Input Area */}
+            <div className="border-t border-indigo-100 bg-gradient-to-r from-slate-50 to-indigo-50 p-6 flex-shrink-0">
+              <div className="flex gap-4">
                 <Textarea
                   ref={textareaRef}
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyDown={handleKeyPress}
                   placeholder={avatarMode ? "Type your message... Zoe will speak her response" : "Share what's on your mind... I'm here to listen."}
-                  className="flex-1 min-h-[60px] resize-none"
+                  className="flex-1 min-h-[50px] max-h-[120px] resize-none border-indigo-200 focus:border-indigo-400 focus:ring-indigo-400 rounded-2xl bg-white/80 backdrop-blur-sm"
                   disabled={isLoading}
                 />
                 <Button
                   onClick={handleSendMessage}
                   disabled={!inputMessage.trim() || isLoading}
-                  className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6"
+                  className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 self-end"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-5 h-5" />
                 </Button>
               </div>
             </div>
 
-            {/* Disclaimer */}
-            <div className="bg-gray-50 p-4 text-center text-xs text-gray-600">
+            {/* Modern Footer */}
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 text-center text-xs text-gray-600 flex-shrink-0 border-t border-indigo-100">
               <p>
                 Zoe is an AI companion designed to provide supportive conversations. 
                 For crisis situations, please contact emergency services or a mental health professional.
@@ -715,6 +721,7 @@ export default function ChatbotPage() {
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
