@@ -7,7 +7,7 @@ import {
   AnimatePresence,
   useScroll,
   useTransform,
-} from "framer-motion";
+} from "motion/react";
 import {
   Shield,
   BookOpen,

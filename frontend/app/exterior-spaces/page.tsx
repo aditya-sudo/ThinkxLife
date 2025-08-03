@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { ArrowLeft, Home, Maximize2, Minimize2 } from 'lucide-react'
 
 export default function ExteriorSpacesPage() {
