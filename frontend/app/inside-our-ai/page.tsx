@@ -81,7 +81,7 @@ const Sidebar = ({
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <Brain className="w-6 h-6 text-green-600" />
+                          <Brain className="w-6 h-6 text-teal-600" />
         </motion.div>
       </motion.button>
 
@@ -109,7 +109,7 @@ const Sidebar = ({
       >
         <div className="p-6 h-full flex flex-col">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-green-600 dark:text-green-400 text-center">
+            <h1 className="text-2xl font-bold text-teal-600 dark:text-teal-400 text-center">
               AI at ThinkRound
             </h1>
             <p className="text-gray-600 dark:text-gray-300 text-center mt-2">
@@ -125,7 +125,7 @@ const Sidebar = ({
               <div className="space-y-1">
                 <Link
                   href="#philosophy"
-                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-1"
+                  className="flex items-center justify-center text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-400 transition-colors py-1"
                   onClick={() => setIsOpen(false)}
                 >
                   <Heart className="w-5 h-5 mr-2" />
@@ -133,7 +133,7 @@ const Sidebar = ({
                 </Link>
                 <Link
                   href="#applications"
-                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-1"
+                  className="flex items-center justify-center text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-400 transition-colors py-1"
                   onClick={() => setIsOpen(false)}
                 >
                   <Code className="w-5 h-5 mr-2" />
@@ -149,7 +149,7 @@ const Sidebar = ({
               <div className="space-y-1">
                 <Link
                   href="#programs"
-                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-1"
+                  className="flex items-center justify-center text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-400 transition-colors py-1"
                   onClick={() => setIsOpen(false)}
                 >
                   <Users className="w-5 h-5 mr-2" />
@@ -157,7 +157,7 @@ const Sidebar = ({
                 </Link>
                 <Link
                   href="/healing-rooms"
-                  className="flex items-center justify-center text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors py-1"
+                  className="flex items-center justify-center text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-400 transition-colors py-1"
                   onClick={() => setIsOpen(false)}
                 >
                   <Heart className="w-5 h-5 mr-2" />
@@ -172,7 +172,7 @@ const Sidebar = ({
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
+                className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-teal-500/25"
               >
                 Chat with Zoe
               </motion.button>
@@ -355,7 +355,7 @@ export default function AIAwarenessPage() {
       >
         {/* Progress Bar */}
         <motion.div
-          className="fixed top-0 right-0 h-1 bg-gradient-to-r from-green-500 to-green-600 z-50"
+          className="fixed top-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-teal-600 z-50"
           style={{ width: progressBarWidth }}
         />
 
@@ -381,7 +381,7 @@ export default function AIAwarenessPage() {
                 variants={fadeInUp}
                 className="inline-flex items-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full px-6 py-3 mb-8 shadow-lg"
               >
-                <Brain className="w-5 h-5 text-green-500 mr-2" />
+                <Brain className="w-5 h-5 text-teal-500 mr-2" />
                 <span className="text-gray-700 dark:text-gray-300 font-medium">
                   Think Round Inc • AI for Humanity
                 </span>
@@ -392,7 +392,7 @@ export default function AIAwarenessPage() {
                 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6"
               >
                 AI that serves{" "}
-                <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                   humanity
                 </span>
               </motion.h1>
@@ -413,7 +413,7 @@ export default function AIAwarenessPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={scrollToPhilosophy}
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-green-500/25"
+                  className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-teal-500/25"
                 >
                   Explore Our AI Applications
                 </motion.button>
@@ -421,7 +421,7 @@ export default function AIAwarenessPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-white hover:bg-gray-100 text-green-600 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg border border-green-200 hover:border-green-300"
+                    className="bg-white hover:bg-gray-100 text-teal-600 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg border border-teal-200 hover:border-teal-300"
                   >
                     Chat with Zoe
                   </motion.button>
@@ -475,11 +475,11 @@ export default function AIAwarenessPage() {
                 >
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="text-green-600 dark:text-green-400 mb-6 inline-block p-3 bg-green-100 dark:bg-green-900/20 rounded-xl"
+                    className="text-teal-600 dark:text-teal-400 mb-6 inline-block p-3 bg-teal-100 dark:bg-teal-900/20 rounded-xl"
                   >
                     {feature.icon}
                   </motion.div>
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 group-hover:text-green-600 transition-colors">
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 group-hover:text-teal-600 transition-colors">
                     {feature.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
@@ -491,7 +491,7 @@ export default function AIAwarenessPage() {
                         key={bulletIndex}
                         className="flex items-start space-x-3"
                       >
-                        <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 flex-shrink-0" />
                         <div>
                           <span className="font-medium text-gray-900 dark:text-white">
                             {bullet.title}
@@ -508,7 +508,7 @@ export default function AIAwarenessPage() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 group-hover:shadow-lg shadow-lg hover:shadow-green-500/25"
+                      className="w-full bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 group-hover:shadow-lg shadow-lg hover:shadow-teal-500/25"
                     >
                       {feature.cta.label}
                     </motion.button>
@@ -566,7 +566,7 @@ export default function AIAwarenessPage() {
                     >
                       <motion.div
                         whileHover={{ scale: 1.1 }}
-                        className="text-6xl font-bold text-green-200 dark:text-green-800 mb-2"
+                        className="text-6xl font-bold text-teal-200 dark:text-teal-800 mb-2"
                       >
                         {step.number}
                       </motion.div>
@@ -580,7 +580,7 @@ export default function AIAwarenessPage() {
                   </div>
                   <motion.div
                     whileHover={{ scale: 1.2, rotate: 10 }}
-                    className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-8 flex-shrink-0 shadow-lg"
+                    className="w-16 h-16 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-8 flex-shrink-0 shadow-lg"
                   >
                     {index + 1}
                   </motion.div>
@@ -625,7 +625,7 @@ export default function AIAwarenessPage() {
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                    <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
                       A
                     </div>
                     <div className="bg-white dark:bg-gray-700 rounded-lg p-3 flex-1">
@@ -637,7 +637,7 @@ export default function AIAwarenessPage() {
                     </div>
                   </div>
                   <div className="flex items-start space-x-3 justify-end">
-                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg p-3 max-w-xs">
+                    <div className="bg-gradient-to-r from-teal-500 to-emerald-600 rounded-lg p-3 max-w-xs">
                       <p className="text-white">
                         I'm interested in how Think Round uses AI to enhance their healing rooms and arts programs.
                       </p>
@@ -706,7 +706,7 @@ export default function AIAwarenessPage() {
                 >
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="text-green-600 dark:text-green-400 mb-4 inline-block"
+                    className="text-teal-600 dark:text-teal-400 mb-4 inline-block"
                   >
                     {program.icon}
                   </motion.div>
@@ -719,7 +719,7 @@ export default function AIAwarenessPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-semibold transition-colors"
+                    className="text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-semibold transition-colors"
                   >
                     Learn More →
                   </motion.button>
@@ -730,7 +730,7 @@ export default function AIAwarenessPage() {
         </section>
 
         {/* Call to Action */}
-        <section className="py-20 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+        <section className="py-20 bg-gradient-to-r from-teal-600 to-emerald-600 text-white">
           <div className="container mx-auto px-6 text-center">
             <motion.div
               initial="hidden"
@@ -759,7 +759,7 @@ export default function AIAwarenessPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-white text-green-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg"
+                    className="bg-white text-teal-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg"
                   >
                     Try ThinkxLife Platform
                   </motion.button>
@@ -768,7 +768,7 @@ export default function AIAwarenessPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-green-600 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300"
+                    className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-teal-600 font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300"
                   >
                     Support Our Mission
                   </motion.button>

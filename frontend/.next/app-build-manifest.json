@@ -1,307 +1,50 @@
 {
   "pages": {
-    "/api/auth/[...nextauth]/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/auth/[...nextauth]/route-08e6d13374d7d304.js"
-    ],
-    "/api/auth/forgot-password/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/auth/forgot-password/route-f5826b4facc81170.js"
-    ],
-    "/api/auth/reset-password/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/auth/reset-password/route-82c1ec5115f4a772.js"
-    ],
-    "/api/auth/signup/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/auth/signup/route-83eaafc6d7f23843.js"
-    ],
-    "/api/chat/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/chat/route-67320677c02dea1e.js"
-    ],
-    "/api/debug-auth/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/debug-auth/route-b3cdb64f6d0d6b66.js"
-    ],
-    "/api/health/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/health/route-c5b58b68c82d6f7b.js"
-    ],
-    "/api/experiences/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/experiences/route-93f66784b237ed55.js"
-    ],
-    "/api/profile/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/profile/route-2e43e858312ffbe4.js"
-    ],
-    "/api/test-db/route": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/api/test-db/route-935e2b123feda853.js"
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/not-found": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/app/not-found-681b9159d2512554.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/_not-found/page-98230738e9b11cb2.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/css/975a109c09385cda.css",
-      "static/css/931b179cff3131dc.css",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/8853-ee399a4e036b5c2e.js",
-      "static/chunks/6454-254383b1730f17fc.js",
-      "static/chunks/9005-2c94d22edaa24347.js",
-      "static/chunks/4844-dfa87413d454fd42.js",
-      "static/chunks/app/layout-f5af2f4111a57d25.js"
-    ],
-    "/articles/ai-ethics-education/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/articles/ai-ethics-education/page-c09ed8ec06e6670b.js"
-    ],
-    "/articles/ai-ethics-arts/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/articles/ai-ethics-arts/page-422980dcbfabf5b7.js"
-    ],
-    "/articles/ai-ethics-global/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/articles/ai-ethics-global/page-de214063bb49998d.js"
-    ],
-    "/articles/ai-ethics-social/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/articles/ai-ethics-social/page-3b76676d3aec139d.js"
-    ],
-    "/auth/forgot-password/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/app/auth/forgot-password/page-979c5c23bf369a79.js"
-    ],
-    "/auth/reset-password/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/6017-1ed7571f8372bd03.js",
-      "static/chunks/app/auth/reset-password/page-44d25b7bfee091d9.js"
-    ],
-    "/articles/ai-ethics-healthcare/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/articles/ai-ethics-healthcare/page-1bc1d799b65e3485.js"
-    ],
-    "/auth/signup/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/6454-254383b1730f17fc.js",
-      "static/chunks/6017-1ed7571f8372bd03.js",
-      "static/chunks/app/auth/signup/page-6d94135992f8724c.js"
-    ],
-    "/auth/signin/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/6454-254383b1730f17fc.js",
-      "static/chunks/6017-1ed7571f8372bd03.js",
-      "static/chunks/app/auth/signin/page-151af00359473830.js"
-    ],
-    "/chatbot/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/2665-eb46e447c628e785.js",
-      "static/chunks/8853-ee399a4e036b5c2e.js",
-      "static/chunks/5813-da56d798b6e35778.js",
-      "static/chunks/340-c54134e3a8b6acfd.js",
-      "static/chunks/app/chatbot/page-aaeed855cea8eeb5.js"
-    ],
-    "/healing-rooms/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/2665-eb46e447c628e785.js",
-      "static/chunks/app/healing-rooms/page-0f6dd41741aff400.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/not-found.js"
     ],
     "/inside-our-ai/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/2665-eb46e447c628e785.js",
-      "static/chunks/5274-c6411d38cf2a1f5a.js",
-      "static/chunks/app/inside-our-ai/page-d456e50e5c289c88.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/inside-our-ai/page.js"
     ],
     "/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/2914-056b748e4cea68b9.js",
-      "static/chunks/app/page-e7cd37c3ec7ddc7f.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
     ],
-    "/compliance/gdpr-ai/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/8853-ee399a4e036b5c2e.js",
-      "static/chunks/app/compliance/gdpr-ai/page-77e489488d6d0caf.js"
+    "/api/auth/[...nextauth]/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/auth/[...nextauth]/route.js"
     ],
-    "/profile/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/8853-ee399a4e036b5c2e.js",
-      "static/chunks/6454-254383b1730f17fc.js",
-      "static/chunks/5813-da56d798b6e35778.js",
-      "static/chunks/660-a1ef6e9688011021.js",
-      "static/chunks/app/profile/page-3d17eefd1e6e0957.js"
+    "/api/experiences/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/experiences/route.js"
     ],
-    "/awareness/layout": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/awareness/layout-8eac40b97994e9d4.js"
+    "/healing-rooms/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/healing-rooms/page.js"
     ],
-    "/awareness/checklists/[id]/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/2665-eb46e447c628e785.js",
-      "static/chunks/8853-ee399a4e036b5c2e.js",
-      "static/chunks/app/awareness/checklists/[id]/page-bfd27701ebf81544.js"
+    "/chatbot/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/chatbot/page.js"
     ],
-    "/awareness/compliance/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/9005-2c94d22edaa24347.js",
-      "static/chunks/9522-c93e2219bc90b95d.js",
-      "static/chunks/app/awareness/compliance/page-905577b247e0f652.js"
-    ],
-    "/awareness/ethics/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/app/awareness/ethics/page-bf89740de9b9463e.js"
-    ],
-    "/awareness/quiz/basic-ai/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/4277-4b9b3d4803ab3a40.js",
-      "static/chunks/2665-eb46e447c628e785.js",
-      "static/chunks/app/awareness/quiz/basic-ai/page-c17b9a889acf5e8e.js"
-    ],
-    "/exterior-spaces/layout": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/app/exterior-spaces/layout-0183817faeeb738f.js"
-    ],
-    "/exterior-spaces/page": [
-      "static/chunks/webpack-dbcf00abde6663b6.js",
-      "static/chunks/4bd1b696-d6d6bff1ad72db68.js",
-      "static/chunks/1684-2eb5de1bbd25bfe6.js",
-      "static/chunks/main-app-dfc8f20c6b010fa9.js",
-      "static/chunks/6874-a154a30acb06ec54.js",
-      "static/chunks/2665-eb46e447c628e785.js",
-      "static/chunks/app/exterior-spaces/page-a06417a580b09915.js"
+    "/api/chat/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/chat/route.js"
     ]
   }
 }

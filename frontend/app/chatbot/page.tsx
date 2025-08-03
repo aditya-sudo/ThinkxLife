@@ -275,15 +275,16 @@ export default function ChatbotPage() {
     }
   };
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  // Auto-scroll removed - users can manually control scroll position
+  // const scrollToBottom = () => {
+  //   messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  // };
 
-  useEffect(() => {
-    if (step === "chat" && !avatarMode) {
-      scrollToBottom();
-    }
-  }, [messages, step, avatarMode]);
+  // useEffect(() => {
+  //   if (step === "chat" && !avatarMode) {
+  //     scrollToBottom();
+  //   }
+  // }, [messages, step, avatarMode]);
 
   // Backend TTS Integration
   const speakMessage = async (audioData: string) => {
@@ -498,20 +499,20 @@ export default function ChatbotPage() {
       {/* Hidden audio element for TTS playback */}
       <audio ref={audioRef} style={{ display: 'none' }} />
       
-      {/* Main Content Container - Accounts for fixed navbar */}
-      <div className="pt-20 pb-8 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
-        <div className="w-full max-w-4xl">
+      {/* Main Content Container - Improved layout */}
+      <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+        <div className="w-full max-w-4xl mx-auto">
           {step === "disclaimer" && (
             <Disclaimer onAccept={handleAcceptDisclaimer} />
           )}
 
           {step === "userInfo" && (
-            <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-2xl border border-white/50">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/50">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Heart className="w-8 h-8 text-white" />
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
                   Meet Zoe
                 </h1>
                 <p className="text-gray-600 text-lg max-w-2xl mx-auto">
@@ -545,7 +546,7 @@ export default function ChatbotPage() {
           )}
 
         {step === "chat" && userInfo && (
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden min-h-[700px] max-h-[85vh] flex flex-col border border-white/50">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/50 flex flex-col" style={{ height: 'calc(100vh - 8rem)' }}>
             {/* Modern Header */}
             <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-6 flex-shrink-0">
               <div className="flex items-center gap-4">

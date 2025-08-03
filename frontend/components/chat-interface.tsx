@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, User, Bot, Brain, Sparkles, BarChart3 } from "lucide-react";
@@ -45,13 +45,7 @@ export default function ChatInterface({
   // Use backend Brain for chatbot functionality
   const { loading, error, sendChatMessage, clearError } = useChatbotBrain();
 
-  // Auto-scroll messages container to bottom
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      container.scrollTop = container.scrollHeight;
-    }
-  }, [messages]);
+  // Auto-scroll removed - no automatic scrolling behavior
 
   const handleSendMessage = async () => {
     if (!input.trim() || loading) return;
@@ -127,7 +121,7 @@ export default function ChatInterface({
 
   return (
     <div className="relative">
-      <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-blue-200/50 h-[80vh] flex flex-col overflow-hidden">
+      <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-blue-200/50 h-[80vh] flex flex-col">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-500 to-cyan-600 p-6
                         border-b border-blue-400/30">

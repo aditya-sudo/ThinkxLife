@@ -85,27 +85,27 @@ export default function AceQuestionnaire({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-2xl border border-white/50 max-h-[80vh] overflow-y-auto">
+    <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-blue-200/50 max-h-[90vh] overflow-y-auto">
       {/* Header */}
-      <div className="flex flex-col items-center text-center mb-4">
-        <div className="relative mb-3">
+      <div className="flex flex-col items-center text-center mb-6">
+        <div className="relative mb-4">
           <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full shadow-lg">
-            <Brain className="h-8 w-8 text-white" />
+            <Brain className="h-10 w-10 text-white" />
           </div>
-          <Sparkles className="w-4 h-4 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
+          <Sparkles className="w-5 h-5 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
         </div>
-        <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-slate-800 to-blue-700 bg-clip-text text-transparent mb-2">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-blue-700 bg-clip-text text-transparent mb-2">
           Hi {userName}, let's complete this questionnaire
         </h1>
-        <p className="text-sm md:text-base text-slate-600 max-w-2xl">
+        <p className="text-sm text-slate-600 max-w-2xl">
           These questions help me understand your experiences better so I can provide more personalized support.
           Your answers are completely confidential and will only be used to tailor our conversations.
         </p>
       </div>
 
       {/* Progress */}
-      <div className="space-y-2 mb-4">
-        <div className="flex justify-between text-xs text-slate-600 font-medium">
+      <div className="space-y-3 mb-6">
+        <div className="flex justify-between text-sm text-slate-600 font-medium">
           <span>
             Question {currentQuestion + 1} of {ACE_QUESTIONS.length}
           </span>
@@ -118,9 +118,9 @@ export default function AceQuestionnaire({
       </div>
 
       {/* Question Card */}
-      <Card className="bg-gradient-to-r from-slate-50 to-purple-50 border border-purple-200 shadow-lg mb-4">
-        <CardContent className="pt-4 pb-4">
-          <h3 className="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+      <Card className="bg-gradient-to-r from-slate-50 to-purple-50 border border-purple-200 shadow-lg mb-6">
+        <CardContent className="pt-6 pb-4">
+          <h3 className="text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
             {ACE_QUESTIONS[currentQuestion]}
           </h3>
 
@@ -134,7 +134,7 @@ export default function AceQuestionnaire({
               currentAnswer === "yes" ? "border-green-500 bg-green-50" : "border-slate-200 hover:border-green-300"
             }`}>
               <RadioGroupItem value="yes" id="yes" className="text-green-600" />
-              <Label htmlFor="yes" className="flex items-center gap-2 cursor-pointer flex-1 text-sm md:text-base">
+              <Label htmlFor="yes" className="flex items-center gap-2 cursor-pointer flex-1">
                 <CheckCircle className="w-4 h-4 text-green-600" />
                 Yes
               </Label>
@@ -144,7 +144,7 @@ export default function AceQuestionnaire({
               currentAnswer === "no" ? "border-blue-500 bg-blue-50" : "border-slate-200 hover:border-blue-300"
             }`}>
               <RadioGroupItem value="no" id="no" className="text-blue-600" />
-              <Label htmlFor="no" className="flex items-center gap-2 cursor-pointer flex-1 text-sm md:text-base">
+              <Label htmlFor="no" className="flex items-center gap-2 cursor-pointer flex-1">
                 <XCircle className="w-4 h-4 text-blue-600" />
                 No
               </Label>
@@ -154,7 +154,7 @@ export default function AceQuestionnaire({
               currentAnswer === "skip" ? "border-amber-500 bg-amber-50" : "border-slate-200 hover:border-amber-300"
             }`}>
               <RadioGroupItem value="skip" id="skip" className="text-amber-600" />
-              <Label htmlFor="skip" className="flex items-center gap-2 cursor-pointer flex-1 text-sm md:text-base">
+              <Label htmlFor="skip" className="flex items-center gap-2 cursor-pointer flex-1">
                 <SkipForward className="w-4 h-4 text-amber-600" />
                 Prefer not to answer
               </Label>
@@ -163,10 +163,10 @@ export default function AceQuestionnaire({
 
           {/* Auto-advance indicator */}
           {currentAnswer && (
-            <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl">
-              <div className="flex items-center gap-3">
+            <div className="mt-4 p-3 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl">
+              <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                <p className="text-blue-700 font-medium">
+                <p className="text-blue-700 font-medium text-sm">
                   {currentQuestion < ACE_QUESTIONS.length - 1
                     ? "Moving to next question..."
                     : "Completing questionnaire..."
@@ -183,7 +183,7 @@ export default function AceQuestionnaire({
         <Button
           onClick={handleNext}
           disabled={currentAnswer === null}
-          className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white py-3 px-6 rounded-xl font-medium shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white py-2.5 px-6 rounded-xl font-medium shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
           {currentQuestion < ACE_QUESTIONS.length - 1
             ? "Next Question"
@@ -192,14 +192,14 @@ export default function AceQuestionnaire({
       )}
 
       {/* Support Message */}
-      <div className="mt-8 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl p-6">
-        <div className="flex items-start gap-4">
-          <div className="p-2 bg-blue-100 rounded-lg">
-            <Brain className="h-5 w-5 text-blue-600" />
+      <div className="mt-6 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl p-4">
+        <div className="flex items-start gap-3">
+          <div className="p-1.5 bg-blue-100 rounded-lg">
+            <Brain className="h-4 w-4 text-blue-600" />
           </div>
           <div>
-            <h3 className="font-semibold text-blue-800 mb-2">You're doing great, {userName}</h3>
-            <p className="text-blue-700">
+            <h3 className="font-semibold text-blue-800 mb-1 text-sm">You're doing great, {userName}</h3>
+            <p className="text-blue-700 text-sm">
               Remember, there are no right or wrong answers. I'm here to provide support regardless of your responses.
             </p>
           </div>
