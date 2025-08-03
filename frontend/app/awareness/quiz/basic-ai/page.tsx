@@ -260,7 +260,7 @@ export default function BasicAIQuiz() {
       case "compliance":
         return "bg-green-100 text-green-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-white text-gray-800";
     }
   };
 
@@ -352,7 +352,7 @@ export default function BasicAIQuiz() {
                   className={`w-full p-4 text-left rounded-lg border-2 transition-all duration-200 ${
                     answers[currentQuestion] === option
                       ? "border-green-500 bg-green-50 dark:bg-green-900/20"
-                      : "border-gray-200 hover:border-green-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                      : "border-gray-200 hover:border-green-300 hover:bg-white dark:hover:bg-gray-800"
                   }`}
                 >
                   <div className="flex items-center">

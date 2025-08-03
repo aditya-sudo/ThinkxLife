@@ -93,7 +93,7 @@ export default function Disclaimer({ onAccept }: DisclaimerProps) {
       </div>
 
       {/* Acknowledgment */}
-      <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-8">
+      <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
         <p className="text-slate-700 font-medium text-center">
           By continuing, you acknowledge that you understand these limitations and agree to use Zoe as a supportive tool alongside, not instead of, professional care when needed.
         </p>
@@ -110,7 +110,7 @@ export default function Disclaimer({ onAccept }: DisclaimerProps) {
         <Link href="/">
           <Button
             variant="outline"
-            className="border-slate-300 text-slate-700 hover:bg-slate-100 px-8 py-3 rounded-xl font-medium transition-all duration-300"
+            className="border-slate-300 text-slate-700 hover:bg-white px-8 py-3 rounded-xl font-medium transition-all duration-300"
           >
             Return to Homepage
           </Button>

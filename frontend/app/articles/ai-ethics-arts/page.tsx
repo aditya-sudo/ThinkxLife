@@ -156,7 +156,7 @@ export default function AIEthicsArtsPage() {
               </div>
             </div>
           </div>
-          <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+          <div className="mt-6 bg-white p-4 rounded-lg">
             <p className="text-gray-700 text-sm">
               <strong>Sources:</strong> World Intellectual Property Organization (2024),
               Artists Rights Society Economic Impact Report (2024), Creative Commons AI Study (2024)
@@ -341,7 +341,7 @@ export default function AIEthicsArtsPage() {
         </div>
 
         {/* Sources and References */}
-        <div className="bg-gray-50 rounded-lg shadow-lg p-8">
+        <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="flex items-center mb-6">
             <ExternalLink className="h-8 w-8 text-gray-600 mr-3" />
             <h2 className="text-3xl font-bold text-gray-800">Sources & References</h2>

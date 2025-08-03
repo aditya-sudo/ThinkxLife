@@ -227,23 +227,23 @@ export default function AIEthicsHealthcarePage() {
             <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Implementation Steps</h3>
               <div className="space-y-3">
-                <div className="flex items-center bg-gray-50 p-3 rounded-lg">
+                <div className="flex items-center bg-white p-3 rounded-lg">
                   <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">1</span>
                   <span className="text-gray-700">Establish diverse AI development teams</span>
                 </div>
-                <div className="flex items-center bg-gray-50 p-3 rounded-lg">
+                <div className="flex items-center bg-white p-3 rounded-lg">
                   <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">2</span>
                   <span className="text-gray-700">Implement bias testing protocols</span>
                 </div>
-                <div className="flex items-center bg-gray-50 p-3 rounded-lg">
+                <div className="flex items-center bg-white p-3 rounded-lg">
                   <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">3</span>
                   <span className="text-gray-700">Require human oversight for critical decisions</span>
                 </div>
-                <div className="flex items-center bg-gray-50 p-3 rounded-lg">
+                <div className="flex items-center bg-white p-3 rounded-lg">
                   <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">4</span>
                   <span className="text-gray-700">Ensure transparent AI decision-making</span>
                 </div>
-                <div className="flex items-center bg-gray-50 p-3 rounded-lg">
+                <div className="flex items-center bg-white p-3 rounded-lg">
                   <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">5</span>
                   <span className="text-gray-700">Conduct regular ethical audits</span>
                 </div>
@@ -253,7 +253,7 @@ export default function AIEthicsHealthcarePage() {
         </div>
 
         {/* Sources and References */}
-        <div className="bg-gray-50 rounded-lg shadow-lg p-8">
+        <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="flex items-center mb-6">
             <ExternalLink className="h-8 w-8 text-gray-600 mr-3" />
             <h2 className="text-3xl font-bold text-gray-800">Sources & References</h2>

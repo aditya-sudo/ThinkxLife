@@ -194,7 +194,7 @@ export default function EthicsModule() {
               {/* Topics Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 {area.topics.map((topic, topicIndex) => (
-                  <div key={topicIndex} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                  <div key={topicIndex} className="bg-white dark:bg-gray-800 p-4 rounded-lg">
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                       {topic.title}
                     </h4>

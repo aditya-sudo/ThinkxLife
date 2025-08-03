@@ -44,8 +44,8 @@ export default function Navbar() {
       {/* Combined Navigation Bar */}
       <nav className={`py-3 px-6 md:px-12 lg:px-24 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#F5F1EB]/90 backdrop-blur-lg border-b border-[#D4C4B8]/50'
-          : 'bg-[#F5F1EB]/70 backdrop-blur-sm border-b border-[#D4C4B8]/30'
+                  ? 'bg-white/90 backdrop-blur-lg border-b border-[#D4C4B8]/50'
+        : 'bg-white/70 backdrop-blur-sm border-b border-[#D4C4B8]/30'
       }`}>
         <div className="flex items-center justify-between">
           {/* Logo - Left */}

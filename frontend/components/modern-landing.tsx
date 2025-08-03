@@ -94,7 +94,7 @@ export default function ModernLanding() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-[#F5F1EB]">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
@@ -126,7 +126,7 @@ export default function ModernLanding() {
 
             {/* Right Image - Meditation Group */}
             <div className="hidden lg:flex justify-end">
-              <div className="relative p-4 bg-[#F5F1EB] rounded-2xl border-2 border-[#C4A47C] shadow-lg">
+              <div className="relative p-4 bg-white rounded-2xl border-2 border-[#C4A47C] shadow-lg">
                 {/* Main Image Container */}
                 <div className="w-80 h-96 overflow-hidden rounded-xl">
                   <img 
@@ -253,7 +253,7 @@ export default function ModernLanding() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#F5F1EB]">
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#5B2655]">

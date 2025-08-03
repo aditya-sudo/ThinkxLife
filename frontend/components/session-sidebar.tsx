@@ -148,7 +148,7 @@ export default function SessionSidebar({ isOpen, onClose, userId }: SessionSideb
             {activeTab === 'overview' && (
               <>
                 {/* Active Users */}
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-white rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Users className="h-4 w-4 text-green-500" />
                     <h3 className="font-semibold text-slate-800">Most Active Users</h3>
@@ -190,7 +190,7 @@ export default function SessionSidebar({ isOpen, onClose, userId }: SessionSideb
                 ) : (
                   <div className="space-y-3">
                     {analytics.user_sessions.map((session) => (
-                      <div key={session.id} className="bg-slate-50 rounded-lg p-3">
+                      <div key={session.id} className="bg-white rounded-lg p-3">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
                             <div className={`w-2 h-2 rounded-full ${

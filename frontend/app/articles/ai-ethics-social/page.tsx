@@ -146,7 +146,7 @@ export default function AIEthicsSocialPage() {
               </div>
             </div>
           </div>
-          <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+          <div className="mt-6 bg-white p-4 rounded-lg">
             <p className="text-gray-700 text-sm">
               <strong>Source:</strong> MIT Computational Law Report (February 2025): "First Come, First Hired?
               ChatGPT's Bias for The First Resume It Sees and the Cost for Candidates to Overcome Bias in AI Hiring Tools"
@@ -353,7 +353,7 @@ export default function AIEthicsSocialPage() {
         </div>
 
         {/* Sources and References */}
-        <div className="bg-gray-50 rounded-lg shadow-lg p-8">
+        <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="flex items-center mb-6">
             <ExternalLink className="h-8 w-8 text-gray-600 mr-3" />
             <h2 className="text-3xl font-bold text-gray-800">Sources & References</h2>

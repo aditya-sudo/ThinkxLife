@@ -277,7 +277,7 @@ export default function ComplianceHub() {
         </div>
 
         {/* Additional Resources */}
-        <div className="bg-gray-100 rounded-lg shadow-lg p-8 mt-12">
+        <div className="bg-white rounded-lg shadow-lg p-8 mt-12">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Additional Compliance Resources</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-md">

@@ -22,7 +22,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-[#F5F1EB] text-[#2C2C2C] border-t border-[#D4C4B8]/30">
+    <footer className="bg-white text-[#2C2C2C] border-t border-[#D4C4B8]/30">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
