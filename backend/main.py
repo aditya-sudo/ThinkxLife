@@ -25,10 +25,12 @@ logger = logging.getLogger(__name__)
 
 # Import Brain system
 from brain import ThinkxLifeBrain
-from brain.types import ApplicationType, BrainRequest as BrainRequestType, BrainResponse as BrainResponseType
 
 # Import Zoe AI Companion
 from zoe import ZoeCore
+
+# Import TTS Service
+from tts_service import tts_service
 
 # Global instances
 brain_instance = None
@@ -46,24 +48,12 @@ async def lifespan(app: FastAPI):
     # Initialize Brain
     brain_config = {
         "providers": {
-            "local": {
-                "enabled": False,
-                "endpoint": "http://localhost:8000",
-                "timeout": 30.0
-            },
             "openai": {
                 "enabled": bool(os.getenv("OPENAI_API_KEY")),
                 "api_key": os.getenv("OPENAI_API_KEY"),
                 "model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
                 "max_tokens": int(os.getenv("OPENAI_MAX_TOKENS", "2000")),
                 "temperature": float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
-            },
-            "anthropic": {
-                "enabled": bool(os.getenv("ANTHROPIC_API_KEY")),
-                "api_key": os.getenv("ANTHROPIC_API_KEY"),
-                "model": os.getenv("ANTHROPIC_MODEL", "claude-3-sonnet-20240229"),
-                "max_tokens": int(os.getenv("ANTHROPIC_MAX_TOKENS", "2000")),
-                "temperature": float(os.getenv("ANTHROPIC_TEMPERATURE", "0.7"))
             }
         }
     }
@@ -271,8 +261,6 @@ async def zoe_chat_endpoint(
         # Process message through Zoe
         response = await zoe.process_message(
             message=message,
-            user_id=user_id,
-            session_id=session_id,
             user_context=user_context,
             application="chatbot"
         )
@@ -427,20 +415,38 @@ async def legacy_chat_endpoint(
         # Process through Zoe
         zoe_response = await zoe.process_message(
             message=message,
-            user_id=user_id,
-            session_id=session_id,
             user_context=user_context,
             application="chatbot"
         )
         
+        # Generate TTS audio if avatar mode is enabled
+        audio_data = None
+        avatar_mode = user_context.get("avatar_mode", False)
+        test_tts = user_context.get("test_tts", False)
+        
+        if (avatar_mode or test_tts) and zoe_response.get("success", False):
+            response_text = zoe_response.get("response", "")
+            if response_text:
+                audio_data = await tts_service.generate_speech(response_text)
+                if audio_data:
+                    logger.info("TTS audio generated successfully")
+                else:
+                    logger.warning("TTS audio generation failed")
+        
         # Transform to legacy response format
-        return {
+        response_data = {
             "response": zoe_response.get("response", ""),
             "success": zoe_response.get("success", False),
             "error": zoe_response.get("error"),
             "session_id": zoe_response.get("session_id"),
             "timestamp": zoe_response.get("timestamp", datetime.now().isoformat())
         }
+        
+        # Add audio data if generated
+        if audio_data:
+            response_data["audio_data"] = audio_data
+            
+        return response_data
         
     except Exception as e:
         logger.error(f"Error in legacy chat endpoint: {str(e)}")

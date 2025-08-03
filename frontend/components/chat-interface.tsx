@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, User, Bot, Brain, Sparkles, BarChart3 } from "lucide-react";
-import SessionSidebar from "./session-sidebar";
+// Session sidebar removed - no session management needed
 import { useChatbotBrain } from "@/hooks/use-backend-brain";
 
 type Message = {
@@ -39,7 +39,7 @@ export default function ChatInterface({
   ]);
   const [input, setInput] = useState<string>("");
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+// Session sidebar removed - no session management needed
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Use backend Brain for chatbot functionality
@@ -127,9 +127,7 @@ export default function ChatInterface({
 
   return (
     <div className="relative">
-      <div className={`bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-blue-200/50 h-[80vh] flex flex-col overflow-hidden transition-all duration-300 ${
-        sidebarOpen ? 'mr-96' : ''
-      }`}>
+      <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-blue-200/50 h-[80vh] flex flex-col overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-500 to-cyan-600 p-6
                         border-b border-blue-400/30">
@@ -150,15 +148,7 @@ export default function ChatInterface({
               </div>
             </div>
 
-            {/* Analytics Toggle Button */}
-            <Button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              variant="ghost"
-              size="sm"
-              className="text-white hover:bg-white/20 p-2"
-            >
-              <BarChart3 className="h-5 w-5" />
-            </Button>
+            {/* Session analytics removed - no session management needed */}
           </div>
         </div>
 
@@ -291,12 +281,7 @@ export default function ChatInterface({
         </div>
       </div>
 
-      {/* Session Sidebar */}
-      <SessionSidebar
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        userId={userId}
-      />
+      {/* Session sidebar removed - no session management needed */}
     </div>
   );
 }

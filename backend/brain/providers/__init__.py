@@ -2,9 +2,9 @@
 Brain Providers - AI provider implementations for ThinkxLife Brain
 """
 
-from .local import LocalProvider
+# Local provider removed
 
-__all__ = ["LocalProvider"]
+__all__ = []  # All providers removed except OpenAI
 
 # Optional providers
 try:

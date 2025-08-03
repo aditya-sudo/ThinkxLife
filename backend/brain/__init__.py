@@ -7,15 +7,12 @@ across the ThinkxLife platform from the backend.
 
 from .brain_core import ThinkxLifeBrain
 from .types import BrainRequest, BrainResponse, BrainConfig
-from .providers import LocalProvider, OpenAIProvider, AnthropicProvider
+# Providers are imported dynamically in brain_core.py
 
 __version__ = "1.0.0"
 __all__ = [
     "ThinkxLifeBrain",
     "BrainRequest", 
     "BrainResponse",
-    "BrainConfig",
-    "LocalProvider",
-    "OpenAIProvider", 
-    "AnthropicProvider"
+    "BrainConfig"
 ] 

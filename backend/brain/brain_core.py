@@ -20,11 +20,9 @@ class ThinkxLifeBrain:
     Central AI Brain that orchestrates all AI operations across ThinkxLife platform.
     
     This class manages:
-    - Multiple AI providers (Local, OpenAI, Anthropic)
+    - OpenAI provider integration
     - Application-specific routing and context
     - Security and rate limiting
-    - Session management
-    - Context management
     - Health monitoring
     """
     
@@ -67,20 +65,9 @@ class ThinkxLifeBrain:
         """Get default Brain configuration"""
         return {
             "providers": {
-                "local": {
-                    "enabled": True,
-                    "endpoint": "http://localhost:8000",
-                    "timeout": 30.0
-                },
                 "openai": {
-                    "enabled": False,
+                    "enabled": True,
                     "model": "gpt-4o-mini",
-                    "max_tokens": 2000,
-                    "temperature": 0.7
-                },
-                "anthropic": {
-                    "enabled": False,
-                    "model": "claude-3-sonnet-20240229",
                     "max_tokens": 2000,
                     "temperature": 0.7
                 }
@@ -114,16 +101,9 @@ class ThinkxLifeBrain:
     
     def _initialize_providers(self):
         """Initialize AI providers based on configuration"""
-        from .providers.local import LocalProvider
-        
         provider_configs = self.config["providers"]
         
-        # Initialize Local Provider (always available)
-        if provider_configs.get("local", {}).get("enabled", True):
-            self.providers["local"] = LocalProvider(provider_configs["local"])
-            logger.info("Local provider initialized")
-        
-        # Initialize other providers if configured
+        # Initialize only OpenAI Provider
         try:
             if provider_configs.get("openai", {}).get("enabled", False):
                 from .providers.openai import OpenAIProvider
@@ -131,14 +111,6 @@ class ThinkxLifeBrain:
                 logger.info("OpenAI provider initialized")
         except ImportError:
             logger.warning("OpenAI provider not available")
-        
-        try:
-            if provider_configs.get("anthropic", {}).get("enabled", False):
-                from .providers.anthropic import AnthropicProvider
-                self.providers["anthropic"] = AnthropicProvider(provider_configs["anthropic"])
-                logger.info("Anthropic provider initialized")
-        except ImportError:
-            logger.warning("Anthropic provider not available")
     
     async def process_request(self, request_data):
         """
@@ -351,14 +323,9 @@ class ThinkxLifeBrain:
     def _select_provider(self, application):
         """Select the best provider for the request"""
         
-        # Default to local provider
-        if "local" in self.providers:
-            return self.providers["local"]
-        
-        # Fallback to other providers
-        for provider_name in ["openai", "anthropic"]:
-            if provider_name in self.providers:
-                return self.providers[provider_name]
+        # Use OpenAI provider
+        if "openai" in self.providers:
+            return self.providers["openai"]
         
         raise RuntimeError("No available providers")
     

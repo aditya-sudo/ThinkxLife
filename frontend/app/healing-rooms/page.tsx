@@ -225,23 +225,7 @@ export default function HealingRoomsPage() {
               </div>
             </motion.div>
 
-            {/* Access Virtual Healing Rooms Button */}
-            <motion.div
-              variants={fadeInUp}
-              className="text-center mt-12"
-            >
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-gray-400 cursor-not-allowed text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg"
-                disabled
-              >
-                Access Virtual Healing Rooms<sup className="text-xs ml-1 text-[#5B2655]">Coming Soon</sup>
-              </motion.button>
-              <p className="text-gray-500 dark:text-gray-400 mt-3 text-sm">
-                Full virtual healing environment launching soon
-              </p>
-            </motion.div>
+
           </motion.div>
         </div>
       </section>

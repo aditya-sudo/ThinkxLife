@@ -2,7 +2,7 @@
 Type definitions for the ThinkxLife Brain system
 """
 
-from typing import Dict, List, Optional, Any, Union, Literal
+from typing import Dict, List, Optional, Any, Literal
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
@@ -20,9 +20,7 @@ class ApplicationType(str, Enum):
 
 class ProviderType(str, Enum):
     """Available AI provider types"""
-    LOCAL = "local"
     OPENAI = "openai"
-    ANTHROPIC = "anthropic"
 
 
 class MessageRole(str, Enum):
