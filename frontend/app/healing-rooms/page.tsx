@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   Heart,
   Users,
@@ -13,8 +14,26 @@ import {
   Brain,
 } from "lucide-react";
 
-// Temporary removal of framer-motion for deployment fix
-// Animation variants removed temporarily
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 },
+  },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
 
 export default function HealingRoomsPage() {
   return (
@@ -22,8 +41,10 @@ export default function HealingRoomsPage() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <div
-            className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]"
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
           >
             <div className="w-20 h-20 bg-gradient-to-r from-rose-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-8">
               <Heart className="w-10 h-10 text-white" />
@@ -42,15 +63,19 @@ export default function HealingRoomsPage() {
               Enter Healing Room
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-rose-50 to-white">
         <div className="max-w-6xl mx-auto">
-          <div
-            className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]"
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Your Healing Journey
@@ -59,9 +84,15 @@ export default function HealingRoomsPage() {
               Every healing room is designed to provide a safe, supportive, and
               transformative experience tailored to your unique needs.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8"
+          >
             {[
               {
                 icon: Shield,
@@ -82,9 +113,10 @@ export default function HealingRoomsPage() {
                   "Tools and insights designed to facilitate meaningful personal transformation.",
               },
             ].map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`bg-white rounded-2xl p-8 shadow-lg border border-rose-100 hover:shadow-xl transition-shadow duration-300 opacity-0 animate-[fadeInUp_0.6s_ease-out_${0.4 + index * 0.1}s_forwards]`}
+                variants={fadeInUp}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-rose-100 hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="w-16 h-16 bg-gradient-to-r from-rose-400 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
                   <feature.icon className="w-8 h-8 text-white" />
@@ -95,17 +127,20 @@ export default function HealingRoomsPage() {
                 <p className="text-gray-600 leading-relaxed">
                   {feature.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Zoe AI Companion Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50">
         <div className="max-w-4xl mx-auto text-center">
-          <div
-            className="opacity-0 animate-[fadeInUp_0.6s_ease-out_0.6s_forwards]"
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
           >
             <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-8">
               <Brain className="w-10 h-10 text-white" />
@@ -119,8 +154,17 @@ export default function HealingRoomsPage() {
               trained in trauma-informed care and offers a non-judgmental space
               for exploration and growth.
             </p>
-            <div className="grid md:grid-cols-2 gap-8 mt-12">
-              <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="grid md:grid-cols-2 gap-8 mt-12"
+            >
+              <motion.div
+                variants={fadeInUp}
+                className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100"
+              >
                 <Eye className="w-8 h-8 text-indigo-600 mb-4" />
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   Trauma-Informed Approach
@@ -129,8 +173,11 @@ export default function HealingRoomsPage() {
                   Zoe understands the complexities of trauma and provides
                   responses grounded in evidence-based therapeutic principles.
                 </p>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100">
+              </motion.div>
+              <motion.div
+                variants={fadeInUp}
+                className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100"
+              >
                 <MessageCircle className="w-8 h-8 text-indigo-600 mb-4" />
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   24/7 Availability
@@ -139,8 +186,8 @@ export default function HealingRoomsPage() {
                   Access supportive guidance whenever you need it, providing
                   consistency and reliability in your healing process.
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
             <div className="mt-8">
               <Link
                 href="/chatbot"
@@ -150,15 +197,18 @@ export default function HealingRoomsPage() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Call to Action */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <div
-            className="opacity-0 animate-[fadeInUp_0.6s_ease-out_0.8s_forwards]"
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Begin Your Healing Journey
@@ -175,7 +225,7 @@ export default function HealingRoomsPage() {
               Enter Now
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
