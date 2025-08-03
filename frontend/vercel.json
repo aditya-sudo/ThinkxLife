@@ -1,13 +1,19 @@
 {
   "framework": "nextjs",
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
+  "installCommand": "npm cache clean --force && npm install",
   "env": {
-    "SKIP_ENV_VALIDATION": "1"
+    "SKIP_ENV_VALIDATION": "1",
+    "PRISMA_GENERATE_SKIP_AUTOINSTALL": "true"
   },
   "functions": {
     "app/api/**/*": {
       "maxDuration": 30
+    }
+  },
+  "build": {
+    "env": {
+      "PRISMA_CLI_BINARY_TARGETS": "rhel-openssl-1.0.x"
     }
   }
 } 
