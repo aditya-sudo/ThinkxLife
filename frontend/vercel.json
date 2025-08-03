@@ -1,10 +1,11 @@
 {
   "framework": "nextjs",
   "buildCommand": "npm run build",
-  "installCommand": "npm cache clean --force && npm install",
+  "installCommand": "rm -rf node_modules package-lock.json && npm install",
   "env": {
     "SKIP_ENV_VALIDATION": "1",
-    "PRISMA_GENERATE_SKIP_AUTOINSTALL": "true"
+    "NPM_CONFIG_AUDIT": "false",
+    "NPM_CONFIG_FUND": "false"
   },
   "functions": {
     "app/api/**/*": {
