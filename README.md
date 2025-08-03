@@ -90,13 +90,6 @@ npm run dev
 
 # Visit http://localhost:3000
 ```
-
-### **Experience the Demo**
-1. **Visit** `/chatbot` to meet Zoe
-2. **Complete** the trauma-informed assessment
-3. **Enable Avatar Mode** for full interactive experience
-4. **Explore** how AI enhances conversation and support
-
 ---
 
 ## **Our AI Philosophy**
