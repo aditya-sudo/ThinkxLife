@@ -21,14 +21,15 @@ export default function Navbar() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
 
-  // Check if user is actively using AI features
-  const isUsingAIAwareness = pathname?.startsWith('/inside-our-ai') || pathname?.startsWith('/awareness');
+  // Check if user is actively using features
+  const isUsingAIAwareness = pathname?.startsWith('/inside-our-ai');
   const isUsingHealingRooms = pathname?.startsWith('/healing-rooms');
+  const isUsingExteriorSpaces = pathname?.startsWith('/exterior-spaces');
   const isHome = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -41,113 +42,131 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      {/* Combined Navigation Bar */}
-      <nav className={`py-3 px-6 md:px-12 lg:px-24 transition-all duration-300 ${
+      {/* Clean White Navigation Bar */}
+      <nav className={`py-2 px-6 md:px-12 lg:px-24 transition-all duration-300 ${
         isScrolled
-                  ? 'bg-white/90 backdrop-blur-lg border-b border-[#D4C4B8]/50'
-        : 'bg-white/70 backdrop-blur-sm border-b border-[#D4C4B8]/30'
+          ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200/60 shadow-sm'
+          : 'bg-white/90 backdrop-blur-md border-b border-gray-100/40'
       }`}>
         <div className="flex items-center justify-between">
           {/* Logo - Left */}
           <Link href="/" className="flex items-center group">
-            <span className="text-2xl font-bold tracking-wider bg-gradient-to-r from-[#5B2655] to-[#5A3A7A] bg-clip-text text-transparent">
-              Think<span className="text-[#5B2655]">x</span>Life
-              <sup className="text-xs font-normal text-[#5B2655] ml-2 tracking-normal flex items-center">
-                from <img src="/tr_logo.png" alt="Think Round" className="w-4 h-4 ml-1" /> Think Round, Inc
+            <span className="text-xl font-bold tracking-wider text-black">
+              Think<span className="text-gray-900">x</span>Life
+              <sup className="text-xs font-normal text-gray-700 ml-2 tracking-normal flex items-center">
+                from <img src="/tr_logo.png" alt="Think Round" className="w-3 h-3 ml-1" /> Think Round, Inc
               </sup>
             </span>
           </Link>
 
           {/* Desktop Navigation - Center */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
+            <Link 
+              href="/inside-our-ai" 
+              className={`relative text-gray-600 hover:text-black text-sm font-medium transition-colors duration-300 py-2 group ${
+                isUsingAIAwareness ? 'text-black' : ''
+              }`}
+            >
+              Inside our AI
+              <div className={`absolute bottom-0 left-0 h-0.5 bg-black transition-all duration-300 ${
+                isUsingAIAwareness ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></div>
+            </Link>
+            <Link 
+              href="/healing-rooms" 
+              className={`relative text-gray-600 hover:text-black text-sm font-medium transition-colors duration-300 py-2 group ${
+                isUsingHealingRooms ? 'text-black' : ''
+              }`}
+            >
+              Healing Rooms
+              <div className={`absolute bottom-0 left-0 h-0.5 bg-black transition-all duration-300 ${
+                isUsingHealingRooms ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></div>
+            </Link>
+            <Link 
+              href="/exterior-spaces" 
+              className={`relative text-gray-600 hover:text-black text-sm font-medium transition-colors duration-300 py-2 group ${
+                isUsingExteriorSpaces ? 'text-black' : ''
+              }`}
+            >
+              Exterior Spaces
+              <div className={`absolute bottom-0 left-0 h-0.5 bg-black transition-all duration-300 ${
+                isUsingExteriorSpaces ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></div>
+            </Link>
             <Link
               href="https://www.thinkround.org/aboutus"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-600 hover:text-[#5B2655] font-medium transition-colors duration-300 text-sm"
+              className="relative text-gray-600 hover:text-black font-medium transition-colors duration-300 text-sm py-2 group"
             >
               About
-            </Link>
-            <Link href="/inside-our-ai" className="text-slate-600 hover:text-[#5B2655] text-sm font-medium transition-colors duration-300 relative">
-              Inside our AI
-              {isUsingAIAwareness && (
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></div>
-              )}
-            </Link>
-            <Link href="/healing-rooms" className="text-slate-600 hover:text-[#5B2655] text-sm font-medium transition-colors duration-300 relative">
-              Healing Rooms
-              {isUsingHealingRooms && (
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></div>
-              )}
-            </Link>
-            <Link href="/exterior-spaces" className="text-slate-600 hover:text-[#5B2655] text-sm font-medium transition-colors duration-300">
-              Exterior Spaces
+              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></div>
             </Link>
             <Link
               href="https://thinkround.shop/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-600 hover:text-[#5B2655] font-medium transition-colors duration-300 text-sm"
+              className="relative text-gray-600 hover:text-black font-medium transition-colors duration-300 text-sm py-2 group"
             >
               Shop
+              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></div>
             </Link>
             <Link
               href="https://www.thinkround.org/donate"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-600 hover:text-[#5B2655] font-medium transition-colors duration-300 text-sm"
+              className="relative text-gray-600 hover:text-black font-medium transition-colors duration-300 text-sm py-2 group"
             >
               Donate
+              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></div>
             </Link>
           </div>
 
           {/* Authentication Section - Right */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             {status === "loading" ? (
-              <div className="w-8 h-8 bg-slate-200 rounded-full animate-pulse"></div>
+              <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
             ) : session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center space-x-3 hover:bg-white/60 rounded-lg p-2 transition-all duration-300">
-                    <Avatar className="w-8 h-8 border-2 border-[#5B2655]/20">
+                  <button className="flex items-center space-x-2 hover:bg-gray-50 rounded-lg p-2 transition-all duration-300">
+                    <Avatar className="w-7 h-7 border-2 border-gray-200">
                       <AvatarImage src={session.user?.image || ""} />
-                      <AvatarFallback className="bg-gradient-to-br from-[#5B2655] to-[#8B5A8F] text-white text-sm">
+                      <AvatarFallback className="bg-black text-white text-xs">
                         {getInitials(session.user?.name)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="hidden md:block text-left">
-                      <div className="text-sm font-medium text-slate-800">
+                      <div className="text-sm font-medium text-gray-800">
                         {session.user?.name?.split(' ')[0] || 'User'}
-                      </div>
-                      <div className="text-xs text-slate-500">
-                        Welcome back
                       </div>
                     </div>
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-sm border-[#D4C4B8]">
+                <DropdownMenuContent align="end" className="w-52 bg-white/95 backdrop-blur-sm border-gray-200 shadow-lg">
                   <div className="px-3 py-2">
-                    <p className="text-sm font-medium text-slate-800">
+                    <p className="text-sm font-medium text-gray-800">
                       {session.user?.name || 'User'}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-gray-500">
                       {session.user?.email}
                     </p>
                   </div>
-                  <DropdownMenuSeparator className="bg-[#D4C4B8]" />
+                  <DropdownMenuSeparator className="bg-gray-200" />
                   <DropdownMenuItem asChild>
-                    <Link href="/profile" className="flex items-center w-full px-3 py-2 text-sm hover:bg-[#5B2655]/10">
+                    <Link href="/profile" className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-50">
                       <User className="w-4 h-4 mr-2" />
                       Profile Settings
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/chatbot" className="flex items-center w-full px-3 py-2 text-sm hover:bg-[#5B2655]/10">
+                                             <Link href="/chat" className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-50">
                       <Activity className="w-4 h-4 mr-2" />
                       AI Assistant
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-[#D4C4B8]" />
+                  <DropdownMenuSeparator className="bg-gray-200" />
                   <DropdownMenuItem
                     onClick={() => signOut({ callbackUrl: '/' })}
                     className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-red-50"
@@ -158,18 +177,11 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2">
+                {/* Combined Sign In / Sign Up Button */}
                 <Link href="/auth/signin">
-                  <Button 
-                    variant="ghost" 
-                    className="text-[#5B2655] hover:bg-[#5B2655]/10 border border-[#5B2655]/20 hover:border-[#5B2655]/40 transition-all duration-300"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href="/auth/signup">
-                  <Button className="bg-[#5B2655] hover:bg-[#5A3A7A] text-white shadow-lg hover:shadow-[#5B2655]/25 transition-all duration-300">
-                    Sign Up
+                  <Button className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg hover:shadow-black/25 transition-all duration-300 transform hover:scale-105">
+                    Get Started
                   </Button>
                 </Link>
               </div>
@@ -178,12 +190,12 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-white/60 transition-colors duration-300"
+              className="md:hidden p-2 rounded-lg hover:bg-gray-50 transition-colors duration-300"
             >
               {isMenuOpen ? (
-                <X className="w-6 h-6 text-slate-600" />
+                <X className="w-5 h-5 text-gray-600" />
               ) : (
-                <Menu className="w-6 h-6 text-slate-600" />
+                <Menu className="w-5 h-5 text-gray-600" />
               )}
             </button>
           </div>
@@ -191,49 +203,58 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 py-4 bg-white/80 backdrop-blur-sm rounded-lg border border-[#D4C4B8]/50">
-            <div className="flex flex-col space-y-3 px-4">
+          <div className="md:hidden mt-3 py-3 bg-white/90 backdrop-blur-sm rounded-lg border border-gray-100 shadow-lg">
+            <div className="flex flex-col space-y-2 px-4">
+              <Link
+                href="/inside-our-ai"
+                className={`py-2 transition-colors duration-300 flex items-center ${
+                  isUsingAIAwareness ? 'text-black font-medium' : 'text-gray-600 hover:text-black'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Inside our AI
+                {isUsingAIAwareness && (
+                  <div className="ml-2 w-1 h-4 bg-black rounded-full"></div>
+                )}
+              </Link>
+              <Link
+                href="/healing-rooms"
+                className={`py-2 transition-colors duration-300 flex items-center ${
+                  isUsingHealingRooms ? 'text-black font-medium' : 'text-gray-600 hover:text-black'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Healing Rooms
+                {isUsingHealingRooms && (
+                  <div className="ml-2 w-1 h-4 bg-black rounded-full"></div>
+                )}
+              </Link>
+              <Link
+                href="/exterior-spaces"
+                className={`py-2 transition-colors duration-300 flex items-center ${
+                  isUsingExteriorSpaces ? 'text-black font-medium' : 'text-gray-600 hover:text-black'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Exterior Spaces
+                {isUsingExteriorSpaces && (
+                  <div className="ml-2 w-1 h-4 bg-black rounded-full"></div>
+                )}
+              </Link>
               <Link
                 href="https://www.thinkround.org/aboutus"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-600 hover:text-[#5B2655] py-2 transition-colors duration-300"
+                className="text-gray-600 hover:text-black py-2 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
               </Link>
               <Link
-                href="/inside-our-ai"
-                className="text-slate-600 hover:text-[#5B2655] py-2 transition-colors duration-300 flex items-center"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                AI Awareness
-                {isUsingAIAwareness && (
-                  <div className="ml-2 w-2 h-2 bg-green-500 rounded-full"></div>
-                )}
-              </Link>
-              <Link
-                href="/healing-rooms"
-                className="text-slate-600 hover:text-[#5B2655] py-2 transition-colors duration-300 flex items-center"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Healing Rooms
-                {isUsingHealingRooms && (
-                  <div className="ml-2 w-2 h-2 bg-rose-500 rounded-full"></div>
-                )}
-              </Link>
-              <Link
-                href="/exterior-spaces"
-                className="text-slate-600 hover:text-[#5B2655] py-2 transition-colors duration-300"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Exterior Spaces
-              </Link>
-              <Link
                 href="https://thinkround.shop/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-600 hover:text-[#5B2655] py-2 transition-colors duration-300"
+                className="text-gray-600 hover:text-black py-2 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Shop
@@ -242,7 +263,7 @@ export default function Navbar() {
                 href="https://www.thinkround.org/donate"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-600 hover:text-[#5B2655] py-2 transition-colors duration-300 flex items-center"
+                className="text-gray-600 hover:text-black py-2 transition-colors duration-300 flex items-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Heart className="w-4 h-4 mr-2" />
@@ -250,15 +271,10 @@ export default function Navbar() {
               </Link>
               
               {!session && (
-                <div className="pt-4 border-t border-[#D4C4B8]/50 space-y-3">
+                <div className="pt-3 border-t border-gray-100 space-y-2">
                   <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full text-[#5B2655] hover:bg-[#5B2655]/10">
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-[#5B2655] hover:bg-[#5A3A7A] text-white">
-                      Sign Up
+                    <Button className="w-full bg-black hover:bg-gray-800 text-white rounded-full">
+                      Get Started
                     </Button>
                   </Link>
                 </div>

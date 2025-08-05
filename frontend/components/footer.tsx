@@ -22,37 +22,37 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-white text-[#2C2C2C] border-t border-[#D4C4B8]/30">
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-4">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+    <footer className="bg-white border-t border-gray-200/60">
+      {/* Main Footer Content - Compact */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-3">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-3">
           
           {/* Brand & Contact Info - Left */}
-          <div className="flex flex-col md:flex-row items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-3">
             {/* Brand - Match Header Logo */}
             <div className="text-center md:text-left">
               <Link href="/" className="inline-block">
-                <span className="text-lg font-bold tracking-wider bg-gradient-to-r from-[#5B2655] to-[#5A3A7A] bg-clip-text text-transparent">
-                  Think<span className="text-[#5B2655]">x</span>Life
-                  <sup className="text-xs font-normal text-[#5B2655] ml-2 tracking-normal flex items-center">
+                <span className="text-lg font-bold tracking-wider text-black">
+                  Think<span className="text-gray-900">x</span>Life
+                  <sup className="text-xs font-normal text-gray-700 ml-2 tracking-normal flex items-center">
                     from <img src="/tr_logo.png" alt="Think Round" className="w-3 h-3 ml-1" /> Think Round, Inc
                   </sup>
                 </span>
               </Link>
             </div>
 
-            {/* Contact Info */}
-            <div className="flex flex-wrap items-center gap-3 text-xs text-[#6B6B6B]">
+            {/* Contact Info - Compact */}
+            <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
               <div className="flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-[#5B2655]" />
-                <span>2140 Bush Street, 1, San Francisco, CA 94115</span>
+                <MapPin className="w-3 h-3 text-black" />
+                <span>San Francisco, CA</span>
               </div>
               <div className="flex items-center gap-1">
-                <Phone className="w-3 h-3 text-[#5B2655]" />
+                <Phone className="w-3 h-3 text-black" />
                 <span>(415) 602-9599</span>
               </div>
               <div className="flex items-center gap-1">
-                <Mail className="w-3 h-3 text-[#5B2655]" />
+                <Mail className="w-3 h-3 text-black" />
                 <span>info@thinkround.org</span>
               </div>
             </div>
@@ -66,7 +66,7 @@ export default function Footer() {
                 <Link
                   key={social.name}
                   href={social.href}
-                  className={`p-1.5 rounded-md bg-white/60 backdrop-blur-sm ${social.color} hover:bg-white/80 transition-all duration-300 hover:scale-110`}
+                  className={`p-1.5 rounded-md bg-gray-50 hover:bg-gray-100 ${social.color} transition-all duration-300 hover:scale-110`}
                   onMouseEnter={() => setHoveredSocial(social.name)}
                   onMouseLeave={() => setHoveredSocial(null)}
                 >
@@ -75,13 +75,13 @@ export default function Footer() {
               ))}
             </div>
 
-            {/* Support Button */}
+            {/* Support Button - Compact */}
             <Link 
               href="https://www.thinkround.org/donate" 
               target="_blank" 
               rel="noopener noreferrer"
             >
-              <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#5B2655] to-[#8B5A8F] hover:from-[#8B5A8F] hover:to-[#5B2655] text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md hover:shadow-[#5B2655]/25 transition-all duration-300 transform hover:scale-105">
+              <div className="inline-flex items-center gap-1.5 bg-black hover:bg-gray-800 text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-sm hover:shadow-black/25 transition-all duration-300 transform hover:scale-105">
                 <Heart className="w-3 h-3" />
                 Support
               </div>
@@ -90,14 +90,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Copyright */}
-      <div className="border-t border-[#D4C4B8]/30 py-2">
+      {/* Bottom Copyright - Very Compact */}
+      <div className="border-t border-gray-100 py-2">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-[#6B6B6B]">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-1 text-xs text-gray-400">
             <div className="flex items-center gap-2">
               <span>&copy; {new Date().getFullYear()} Think Round, Inc.</span>
-              <span>•</span>
-              <span>All rights reserved</span>
               <span>•</span>
               <span className="flex items-center gap-1">
                 Made with <Heart className="w-2.5 h-2.5 text-red-500" /> for humanity
@@ -105,12 +103,12 @@ export default function Footer() {
             </div>
             
             <div className="flex items-center gap-2">
-              <Link href="/privacy" className="hover:text-[#5B2655] transition-colors">
-                Privacy Policy
+              <Link href="/privacy" className="hover:text-black transition-colors">
+                Privacy
               </Link>
               <span>•</span>
-              <Link href="/terms" className="hover:text-[#5B2655] transition-colors">
-                Terms of Service
+              <Link href="/terms" className="hover:text-black transition-colors">
+                Terms
               </Link>
             </div>
           </div>

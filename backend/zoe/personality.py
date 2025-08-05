@@ -6,7 +6,7 @@ Defines Zoe's personality traits, response filtering, and behavioral patterns
 import logging
 import re
 import random
-from typing import Dict, List, Optional, Any
+from typing import Dict, Any
 
 logger = logging.getLogger(__name__)
 
@@ -370,4 +370,158 @@ class ZoePersonality:
             },
             "trauma_informed": True,
             "safety_first": True
-        } 
+        }
+    
+    def post_process_response(self, response: str, context: Dict[str, Any]) -> str:
+        """
+        Post-process AI response through Zoe's personality lens
+        
+        This method applies final personality touches to ensure the response
+        maintains Zoe's empathetic and trauma-informed approach.
+        
+        Args:
+            response: The AI-generated response
+            context: Full conversation context
+            
+        Returns:
+            Personality-enhanced response
+        """
+        if not response or not response.strip():
+            return self.get_error_response()
+        
+        # Apply standard filtering first
+        filtered_response = self.filter_response(response, context, {})
+        
+        # Add personalization based on conversation context
+        conversation_length = context.get("conversation_length", 0)
+        session_duration = context.get("session_duration", 0)
+        
+        # For longer conversations, add more personal touches
+        if conversation_length > 10:
+            if not any(word in filtered_response.lower() for word in ["you", "your", "we", "us"]):
+                # Make it more personal if it's too generic
+                personal_prefixes = [
+                    "From our conversation, I sense that ",
+                    "Based on what you've shared, ",
+                    "I appreciate you opening up about this. ",
+                    "Thank you for trusting me with your thoughts. "
+                ]
+                import random
+                prefix = random.choice(personal_prefixes)
+                filtered_response = prefix + filtered_response.lower()
+        
+        # Ensure trauma-safe language
+        trauma_safe_response = self._ensure_trauma_safe_language(filtered_response, context)
+        
+        return trauma_safe_response
+    
+    def get_context_enhancements(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Get personality-specific context enhancements for the Brain system
+        
+        Args:
+            context: Base context
+            
+        Returns:
+            Additional context enhancements
+        """
+        ace_score = context.get("ace_score", 0)
+        conversation_history = context.get("conversation_history", [])
+        
+        # Analyze conversation patterns
+        user_messages = [msg for msg in conversation_history if msg.get("role") == "user"]
+        recent_topics = []
+        emotional_indicators = []
+        
+        for msg in user_messages[-5:]:  # Last 5 user messages
+            content = msg.get("content", "").lower()
+            
+            # Detect emotional indicators
+            if any(word in content for word in ["sad", "depressed", "anxious", "worried", "scared", "afraid"]):
+                emotional_indicators.append("distress")
+            elif any(word in content for word in ["happy", "excited", "good", "great", "wonderful"]):
+                emotional_indicators.append("positive")
+            elif any(word in content for word in ["angry", "frustrated", "mad", "annoyed"]):
+                emotional_indicators.append("anger")
+        
+        return {
+            "zoe_enhancements": {
+                "emotional_state_detected": emotional_indicators,
+                "trauma_sensitivity_level": "high" if ace_score > 4 else "medium" if ace_score > 0 else "standard",
+                "conversation_depth": "deep" if len(conversation_history) > 10 else "surface",
+                "safety_protocols": {
+                    "active": True,
+                    "crisis_detection": True,
+                    "gentle_guidance": True
+                },
+                "personality_adaptation": {
+                    "empathy_level": "maximum" if "distress" in emotional_indicators else "high",
+                    "validation_focus": True,
+                    "hope_building": True
+                }
+            }
+        }
+    
+    def get_error_response(self) -> str:
+        """
+        Get an empathetic error response when things go wrong
+        
+        Returns:
+            Comforting error message
+        """
+        error_responses = [
+            "I'm having a moment of difficulty processing your message, but I'm here with you. Could you try sharing that again?",
+            "Something seems to have gotten mixed up on my end. I want to make sure I can give you my full attention - could you help me by rephrasing that?",
+            "I'm experiencing a brief pause in my thinking. You deserve my best response, so let's try that again in just a moment.",
+            "I seem to have lost my train of thought there. That's on me - could you share your message once more? I'm listening.",
+            "My processing got a bit tangled just now. I'm still here and want to support you - let's give that another try."
+        ]
+        
+        import random
+        return random.choice(error_responses)
+    
+    def _ensure_trauma_safe_language(self, response: str, context: Dict[str, Any]) -> str:
+        """
+        Ensure response uses trauma-safe language patterns
+        
+        Args:
+            response: Response to check
+            context: Conversation context
+            
+        Returns:
+            Trauma-safe response
+        """
+        # Avoid absolute statements that might feel invalidating
+        trauma_unsafe_patterns = [
+            ("you should", "you might consider"),
+            ("you need to", "it could help to"),
+            ("you have to", "when you're ready, you could"),
+            ("you must", "if it feels right for you, you might"),
+            ("that's wrong", "I understand that feels difficult"),
+            ("don't worry", "I hear your concerns"),
+            ("calm down", "I'm here with you through this"),
+            ("get over it", "healing takes time"),
+            ("move on", "process this at your own pace")
+        ]
+        
+        safe_response = response
+        for unsafe, safe in trauma_unsafe_patterns:
+            safe_response = safe_response.replace(unsafe, safe)
+        
+        # Ensure validating language
+        if context.get("ace_score", 0) > 0:
+            # Add extra validation for trauma survivors
+            validation_phrases = [
+                "Your feelings are completely valid. ",
+                "I want you to know that your experience matters. ",
+                "Thank you for trusting me with this. ",
+                "You're showing real strength by talking about this. "
+            ]
+            
+            # Add validation if response doesn't already include it
+            if not any(phrase.lower() in safe_response.lower() for phrase in ["valid", "understand", "hear you", "with you"]):
+                import random
+                validation = random.choice(validation_phrases)
+                safe_response = validation + safe_response
+        
+        return safe_response 
