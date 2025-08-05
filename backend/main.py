@@ -258,11 +258,13 @@ async def zoe_chat_endpoint(
         if len(message) > 10000:
             raise HTTPException(status_code=400, detail="Message too long (max 10,000 characters)")
         
-        # Process message through Zoe
+        # Process message through Zoe with conversation management
         response = await zoe.process_message(
             message=message,
             user_context=user_context,
-            application="chatbot"
+            application="chatbot",
+            session_id=session_id,
+            user_id=user_id
         )
         
         return response
@@ -386,7 +388,7 @@ async def legacy_chat_endpoint(
     Legacy chat endpoint for backward compatibility
     
     This endpoint maintains compatibility with existing frontend code
-    while routing through Zoe AI Companion.
+    while routing through Zoe AI Companion with full conversation management.
     """
     try:
         # Extract request data
@@ -394,6 +396,8 @@ async def legacy_chat_endpoint(
         user_id = request.get("user_id", "anonymous")
         session_id = request.get("session_id")
         user_context = request.get("user_context", {})
+        
+
         
         # Validate required fields
         if not message or not message.strip():
@@ -412,11 +416,13 @@ async def legacy_chat_endpoint(
                 "timestamp": datetime.now().isoformat()
             }
         
-        # Process through Zoe
+        # Process through Zoe with conversation management
         zoe_response = await zoe.process_message(
             message=message,
             user_context=user_context,
-            application="chatbot"
+            application="chatbot",
+            session_id=session_id,
+            user_id=user_id
         )
         
         # Generate TTS audio if avatar mode is enabled

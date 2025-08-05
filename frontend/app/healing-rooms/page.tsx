@@ -205,7 +205,7 @@ export default function HealingRoomsPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Link href="/chatbot">
+                <Link href="/healing-rooms/chat">
                   <motion.button
                     whileHover={{
                       scale: 1.05,
