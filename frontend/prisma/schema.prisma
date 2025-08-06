@@ -1,97 +1,98 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  // Fallback for build environments
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-// NextAuth.js required models
 model Account {
-  id                String  @id @default(cuid())
+  id                String  @id
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+model Experience {
+  id         String   @id
+  userId     String?
+  name       String
+  email      String?
+  title      String?
+  content    String
+  rating     Int?
+  isPublic   Boolean  @default(true)
+  isApproved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  User       User?    @relation(fields: [userId], references: [id])
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?   // For email/password auth
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
-  // Password reset fields
-  resetToken    String?   @unique
-  resetTokenExpiry DateTime?
-  
-  // Profile fields
-  firstName     String?
-  lastName      String?
-  bio           String?   @db.Text
-  phone         String?
-  dateOfBirth   DateTime?
-  location      String?
-  website       String?
-  
-  // Preferences
-  theme         String?   @default("light")
-  notifications Boolean   @default(true)
-  newsletter    Boolean   @default(false)
-  
-  accounts Account[]
-  sessions Session[]
-  profile  Profile?
-  experiences Experience[]
+  @@index([isPublic, isApproved, createdAt])
+  @@index([userId])
 }
 
 model Profile {
-  id          String   @id @default(cuid())
+  id          String   @id
   userId      String   @unique
   avatar      String?
   coverImage  String?
   occupation  String?
   company     String?
-  interests   String[] // Array of interests
-  skills      String[] // Array of skills
-  socialLinks Json?    // JSON object for social media links
-  privacy     String   @default("public") // public, private, friends
+  interests   String[]
+  skills      String[]
+  socialLinks Json?
+  privacy     String   @default("public")
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt   DateTime
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id               String       @id
+  name             String?
+  email            String       @unique
+  emailVerified    DateTime?
+  image            String?
+  password         String?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime
+  resetToken       String?      @unique
+  resetTokenExpiry DateTime?
+  firstName        String?
+  lastName         String?
+  bio              String?
+  phone            String?
+  dateOfBirth      DateTime?
+  location         String?
+  website          String?
+  theme            String?      @default("light")
+  notifications    Boolean      @default(true)
+  newsletter       Boolean      @default(false)
+  Account          Account[]
+  Experience       Experience[]
+  Profile          Profile?
+  Session          Session[]
 }
 
 model VerificationToken {
@@ -100,25 +101,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-
-// User Experiences/Testimonials
-model Experience {
-  id        String   @id @default(cuid())
-  userId    String?  // Optional - allow anonymous submissions
-  name      String   // Display name for the experience
-  email     String?  // Optional email for verification
-  title     String?  // Optional title for the experience
-  content   String   @db.Text // The experience/testimonial content
-  rating    Int?     // Optional 1-5 star rating
-  isPublic  Boolean  @default(true) // Whether to display publicly
-  isApproved Boolean @default(false) // Admin approval for moderation
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
-  
-  @@index([isPublic, isApproved, createdAt])
-  @@index([userId])
 }
