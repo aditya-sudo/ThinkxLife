@@ -11,7 +11,10 @@ export default function AuthCallback() {
 
   useEffect(() => {
     ;(async () => {
-      const supabase = createClientComponentClient()
+      const supabase = createClientComponentClient({
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      })
       try {
         await supabase.auth.exchangeCodeForSession(window.location.href)
       } catch {}

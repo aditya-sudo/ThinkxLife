@@ -14,7 +14,10 @@ interface Props {
 }
 
 export default function GoogleAuthGate({ open, onClose }: Props) {
-  const supabase = createClientComponentClient()
+  const supabase = createClientComponentClient({
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  })
   const [loading, setLoading] = useState(false)
   const [name, setName] = useState("")
   const [age, setAge] = useState("")
