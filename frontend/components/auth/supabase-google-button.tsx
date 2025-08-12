@@ -26,7 +26,9 @@ export default function SupabaseGoogleButton({
         provider: "google",
         options: {
           scopes: "email profile",
-          redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}${callbackUrl}`,
+          redirectTo:
+            `${typeof window !== "undefined" ? window.location.origin : (process.env.NEXT_PUBLIC_APP_URL || "")}` +
+            `${callbackUrl}`,
         },
       })
     } finally {
