@@ -10,6 +10,15 @@ const profileUpdateSchema = z.object({
   name: z.string().optional(),
   age: z.number().int().min(1).max(120).optional(),
   password: z.string().min(6).optional(),
+  bio: z.string().max(500).optional(),
+  location: z.string().max(100).optional(),
+  website: z.string().url().optional().or(z.literal("")),
+  github: z.string().max(100).optional(),
+  discord: z.string().max(100).optional(),
+  phone: z.string().max(20).optional(),
+  theme: z.enum(["light", "dark"]).optional(),
+  notifications: z.boolean().optional(),
+  newsletter: z.boolean().optional(),
 })
 
 // GET /api/profile - Get current user's profile
@@ -53,26 +62,38 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: guestUser })
     }
 
+    // Check if DATABASE_URL is available
+    if (!process.env.DATABASE_URL) {
+      console.log("No DATABASE_URL found, using Supabase fallback data");
+      const fallbackUser = {
+        id: data.user.id,
+        name: data.user.user_metadata?.name || data.user.user_metadata?.full_name || null,
+        email: data.user.email,
+        firstName: null,
+        lastName: null,
+        bio: null,
+        phone: null,
+        dateOfBirth: null,
+        location: null,
+        website: null,
+        github: null,
+        discord: null,
+        theme: "light",
+        notifications: true,
+        newsletter: false,
+        createdAt: data.user.created_at,
+        updatedAt: data.user.updated_at,
+        rolePrimary: "ADMIN", // Set to ADMIN for testing
+        status: "ACTIVE",
+        TeamMemberships: [],
+        UserRoles: [],
+      };
+      return NextResponse.json({ user: fallbackUser });
+    }
+
     // Query user from database
     let user = await prisma.user.findUnique({
-      where: { email: data.user.email! },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        bio: true,
-        phone: true,
-        dateOfBirth: true,
-        location: true,
-        website: true,
-        theme: true,
-        notifications: true,
-        newsletter: true,
-        createdAt: true,
-        updatedAt: true,
-      }
+      where: { email: data.user.email! }
     })
 
     if (!user) {
@@ -87,23 +108,6 @@ export async function GET(request: NextRequest) {
           email: data.user.email!,
           name: googleName,
           updatedAt: new Date(),
-        },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          firstName: true,
-          lastName: true,
-          bio: true,
-          phone: true,
-          dateOfBirth: true,
-          location: true,
-          website: true,
-          theme: true,
-          notifications: true,
-          newsletter: true,
-          createdAt: true,
-          updatedAt: true,
         }
       })
       user = created
@@ -171,6 +175,15 @@ export async function PUT(request: NextRequest) {
       )
     }
 
+    // Check if DATABASE_URL is available
+    if (!process.env.DATABASE_URL) {
+      console.log("No DATABASE_URL found, profile updates not available in fallback mode");
+      return NextResponse.json(
+        { error: "Profile updates require database connection. Please configure DATABASE_URL." },
+        { status: 503 }
+      )
+    }
+
     // Note: Prisma auto-connects on first query, no need to manually connect
 
     // Update user in database
@@ -185,18 +198,19 @@ export async function PUT(request: NextRequest) {
     if (validatedData.password !== undefined) {
       updates.password = await bcrypt.hash(validatedData.password, 12)
     }
+    if (validatedData.bio !== undefined) updates.bio = validatedData.bio
+    if (validatedData.location !== undefined) updates.location = validatedData.location
+    if (validatedData.website !== undefined) updates.website = validatedData.website
+    if (validatedData.github !== undefined) updates.github = validatedData.github
+    if (validatedData.discord !== undefined) updates.discord = validatedData.discord
+    if (validatedData.phone !== undefined) updates.phone = validatedData.phone
+    if (validatedData.theme !== undefined) updates.theme = validatedData.theme
+    if (validatedData.notifications !== undefined) updates.notifications = validatedData.notifications
+    if (validatedData.newsletter !== undefined) updates.newsletter = validatedData.newsletter
 
     const updatedUser = await prisma.user.update({
       where: { email: data.user.email! },
-      data: updates,
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        dateOfBirth: true,
-        createdAt: true,
-        updatedAt: true,
-      }
+      data: updates
     })
 
     // Attempt to sync Supabase user metadata/password
