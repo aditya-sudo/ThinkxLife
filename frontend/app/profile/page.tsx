@@ -411,7 +411,7 @@ export default function ProfilePage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <Avatar className="w-16 h-16">
-                      <AvatarImage src={""} />
+                      <AvatarImage src={undefined as any} />
                       <AvatarFallback className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-lg">
                         {getInitials(profile?.name)}
                       </AvatarFallback>

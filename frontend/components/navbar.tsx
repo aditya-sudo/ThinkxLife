@@ -172,7 +172,7 @@ export default function Navbar() {
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center space-x-2 hover:bg-gray-50 rounded-lg p-2 transition-all duration-300">
                     <Avatar className="w-7 h-7 border-2 border-gray-200">
-                      <AvatarImage src={currentUser.image || ""} />
+                      <AvatarImage src={currentUser.image || undefined as any} />
                       <AvatarFallback className="bg-black text-white text-xs">
                         {getInitials(currentUser?.name)}
                       </AvatarFallback>

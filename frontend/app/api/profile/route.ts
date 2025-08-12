@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "../../../lib/prisma"
 import { z } from "zod"
 import bcrypt from "bcryptjs"
+import { randomUUID } from "crypto"
 import { cookies } from "next/headers"
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 
@@ -53,7 +54,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Query user from database
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { email: data.user.email! },
       select: {
         id: true,
@@ -75,11 +76,37 @@ export async function GET(request: NextRequest) {
     })
 
     if (!user) {
-      console.error("Profile API: User not found in database for email:", data.user.email)
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      )
+      // First Google login: create a minimal local user seeded with Google name
+      const googleName = ((data.user.user_metadata as any)?.name 
+        || (data.user.user_metadata as any)?.full_name 
+        || null) as string | null
+
+      const created = await prisma.user.create({
+        data: {
+          id: randomUUID(),
+          email: data.user.email!,
+          name: googleName,
+          updatedAt: new Date(),
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          firstName: true,
+          lastName: true,
+          bio: true,
+          phone: true,
+          dateOfBirth: true,
+          location: true,
+          website: true,
+          theme: true,
+          notifications: true,
+          newsletter: true,
+          createdAt: true,
+          updatedAt: true,
+        }
+      })
+      user = created
     }
 
     console.log("Profile API: Successfully found user:", user.id)
