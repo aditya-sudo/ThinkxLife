@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { getAuthUser } from "../../../../lib/auth-middleware";
+import { getAuthUser } from "@/lib/auth-middleware";
 
 const createRequestSchema = z.object({
   type: z.enum(["ROLE_CHANGE", "TEAM_JOIN", "RESOURCE_ACCESS", "PERMISSION_REQUEST"]),
