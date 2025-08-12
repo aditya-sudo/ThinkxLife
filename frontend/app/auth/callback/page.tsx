@@ -26,12 +26,12 @@ export default function AuthCallback() {
           return
         }
       } catch {}
-      router.replace("/profile")
+      router.replace("/dashboard")
     })()
   }, [router])
 
   return showGate ? (
-    <GoogleAuthGate open={true} onClose={() => router.replace("/profile")} />
+    <GoogleAuthGate open={true} onClose={() => router.replace("/dashboard")} />
   ) : (
     <p className="p-6 text-center">Signing you in…</p>
   )
