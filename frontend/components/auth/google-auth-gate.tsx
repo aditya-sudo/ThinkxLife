@@ -64,7 +64,7 @@ export default function GoogleAuthGate({ open, onClose }: Props) {
         throw new Error(j.error || "Failed to complete signup")
       }
       onClose()
-      window.location.href = "/profile"
+      window.location.href = "/dashboard"
     } catch (e: any) {
       setError(e.message || "Failed")
     } finally {

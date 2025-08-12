@@ -113,12 +113,13 @@ export const authOptions: NextAuthOptions = {
   events: {
     async createUser({ user }) {
       try {
-        // Create a minimal Profile on first OAuth signup
-        await prisma.profile.create({
+        // Create a minimal User on first OAuth signup
+        await prisma.user.create({
           data: {
             id: randomUUID(),
-            userId: user.id,
-            privacy: 'public',
+            email: user.email!,
+            name: user.name,
+            image: user.image,
             updatedAt: new Date(),
           },
         })

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, X, User, LogOut, Activity, Heart } from "lucide-react";
+import { Menu, X, User, LogOut, Activity, Heart, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -19,7 +19,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState<{ name?: string | null; email?: string | null; image?: string | null } | null>(null);
+  const [currentUser, setCurrentUser] = useState<{ name?: string | null; email?: string | null; image?: string | null; rolePrimary?: string } | null>(null);
   const supabase = createClientComponentClient();
   const pathname = usePathname();
 
@@ -48,17 +48,35 @@ export default function Navbar() {
           setCurrentUser(null);
           return;
         }
-        // Prefer local username from our API
-        const res = await fetch('/api/profile', { cache: 'no-store' });
-        if (res.ok) {
-          const j = await res.json();
-          setCurrentUser({ name: j.user?.name || null, email: j.user?.email || data.user.email, image: null });
-        } else {
-          setCurrentUser({
-            name: (data.user.user_metadata as any)?.name || (data.user.user_metadata as any)?.full_name || null,
-            email: data.user.email,
-            image: (data.user.user_metadata as any)?.avatar_url || null,
+        // Prefer RBAC profile data
+        const rbacRes = await fetch('/api/rbac/profile', { cache: 'no-store' });
+        if (rbacRes.ok) {
+          const j = await rbacRes.json();
+          setCurrentUser({ 
+            name: j.user?.name || null, 
+            email: j.user?.email || data.user.email, 
+            image: j.user?.image || null,
+            rolePrimary: j.user?.rolePrimary || 'MEMBER'
           });
+        } else {
+          // Fallback to old API
+          const res = await fetch('/api/profile', { cache: 'no-store' });
+          if (res.ok) {
+            const j = await res.json();
+            setCurrentUser({ 
+              name: j.user?.name || null, 
+              email: j.user?.email || data.user.email, 
+              image: null,
+              rolePrimary: 'MEMBER'
+            });
+          } else {
+            setCurrentUser({
+              name: (data.user.user_metadata as any)?.name || (data.user.user_metadata as any)?.full_name || null,
+              email: data.user.email,
+              image: (data.user.user_metadata as any)?.avatar_url || null,
+              rolePrimary: 'MEMBER'
+            });
+          }
         }
       } finally {
         if (mounted) setAuthLoading(false);
@@ -195,17 +213,25 @@ export default function Navbar() {
                   </div>
                   <DropdownMenuSeparator className="bg-gray-200" />
                   <DropdownMenuItem asChild>
-                    <Link href="/profile" className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-50">
+                    <Link href="/dashboard" className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-50">
                       <User className="w-4 h-4 mr-2" />
-                      Profile Settings
+                      Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                                             <Link href="/chat" className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-50">
+                    <Link href="/chat" className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-50">
                       <Activity className="w-4 h-4 mr-2" />
                       AI Assistant
                     </Link>
                   </DropdownMenuItem>
+                  {currentUser?.rolePrimary === "ADMIN" && (
+                    <DropdownMenuItem asChild>
+                      <Link href="/admin" className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-50">
+                        <Shield className="w-4 h-4 mr-2" />
+                        Admin Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuSeparator className="bg-gray-200" />
                   <DropdownMenuItem
                     onClick={async () => { await supabase.auth.signOut(); window.location.href = '/'; }}
