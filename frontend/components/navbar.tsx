@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Menu, X, User, LogOut, Activity, Heart } from "lucide-react";
@@ -14,11 +13,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { data: session, status } = useSession();
+  const [authLoading, setAuthLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState<{ name?: string | null; email?: string | null; image?: string | null } | null>(null);
+  const supabase = createClientComponentClient();
   const pathname = usePathname();
 
   // Check if user is actively using features
@@ -34,6 +36,44 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Supabase auth state
+  useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      try {
+        const { data } = await supabase.auth.getUser();
+        if (!mounted) return;
+        if (!data.user?.email) {
+          setCurrentUser(null);
+          return;
+        }
+        // Prefer local username from our API
+        const res = await fetch('/api/profile', { cache: 'no-store' });
+        if (res.ok) {
+          const j = await res.json();
+          setCurrentUser({ name: j.user?.name || null, email: j.user?.email || data.user.email, image: null });
+        } else {
+          setCurrentUser({
+            name: (data.user.user_metadata as any)?.name || (data.user.user_metadata as any)?.full_name || null,
+            email: data.user.email,
+            image: (data.user.user_metadata as any)?.avatar_url || null,
+          });
+        }
+      } finally {
+        if (mounted) setAuthLoading(false);
+      }
+    };
+    load();
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event) => {
+      load();
+    });
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   const getInitials = (name: string | null | undefined) => {
     if (!name) return "U";
@@ -125,21 +165,21 @@ export default function Navbar() {
 
           {/* Authentication Section - Right */}
           <div className="flex items-center space-x-3">
-            {status === "loading" ? (
+            {authLoading ? (
               <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
-            ) : session ? (
+            ) : currentUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center space-x-2 hover:bg-gray-50 rounded-lg p-2 transition-all duration-300">
                     <Avatar className="w-7 h-7 border-2 border-gray-200">
-                      <AvatarImage src={session.user?.image || ""} />
+                      <AvatarImage src={currentUser.image || ""} />
                       <AvatarFallback className="bg-black text-white text-xs">
-                        {getInitials(session.user?.name)}
+                        {getInitials(currentUser?.name)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="hidden md:block text-left">
                       <div className="text-sm font-medium text-gray-800">
-                        {session.user?.name?.split(' ')[0] || 'User'}
+                        {currentUser?.name?.split(' ')[0] || 'User'}
                       </div>
                     </div>
                   </button>
@@ -147,10 +187,10 @@ export default function Navbar() {
                 <DropdownMenuContent align="end" className="w-52 bg-white/95 backdrop-blur-sm border-gray-200 shadow-lg">
                   <div className="px-3 py-2">
                     <p className="text-sm font-medium text-gray-800">
-                      {session.user?.name || 'User'}
+                      {currentUser?.name || 'User'}
                     </p>
                     <p className="text-xs text-gray-500">
-                      {session.user?.email}
+                      {currentUser?.email}
                     </p>
                   </div>
                   <DropdownMenuSeparator className="bg-gray-200" />
@@ -168,7 +208,7 @@ export default function Navbar() {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-gray-200" />
                   <DropdownMenuItem
-                    onClick={() => signOut({ callbackUrl: '/' })}
+                    onClick={async () => { await supabase.auth.signOut(); window.location.href = '/'; }}
                     className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-red-50"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
@@ -270,7 +310,7 @@ export default function Navbar() {
                 Donate
               </Link>
               
-              {!session && (
+              {!currentUser && (
                 <div className="pt-3 border-t border-gray-100 space-y-2">
                   <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
                     <Button className="w-full bg-black hover:bg-gray-800 text-white rounded-full">
