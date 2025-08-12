@@ -31,11 +31,6 @@ export async function GET(request: NextRequest) {
         content: true,
         rating: true,
         createdAt: true,
-        user: {
-          select: {
-            name: true,
-          }
-        }
       },
       orderBy: {
         createdAt: 'desc'
@@ -96,6 +91,7 @@ export async function POST(request: NextRequest) {
         rating: validatedData.rating || null,
         isPublic: true,
         isApproved: false, // Requires approval for moderation
+        updatedAt: new Date(),
       },
       select: {
         id: true,
