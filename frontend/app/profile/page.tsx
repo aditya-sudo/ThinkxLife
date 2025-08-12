@@ -2,7 +2,6 @@
 
 import React from "react"
 import { useState, useEffect } from "react"
-import { useSession, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -37,22 +36,14 @@ import {
   Brain,
   Lightbulb,
 } from "lucide-react"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
 interface UserProfile {
   id: string
   name: string | null
   email: string
   image: string | null
-  firstName: string | null
-  lastName: string | null
-  bio: string | null
-  phone: string | null
   dateOfBirth: string | null
-  location: string | null
-  website: string | null
-  theme: string | null
-  notifications: boolean
-  newsletter: boolean
   createdAt: string
   updatedAt: string
 }
@@ -114,7 +105,7 @@ const interestCategories = [
 ]
 
 export default function ProfilePage() {
-  const { data: session, status, update } = useSession()
+  const supabase = createClientComponentClient()
   const router = useRouter()
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [isEditing, setIsEditing] = useState(false)
@@ -126,63 +117,44 @@ export default function ProfilePage() {
 
   // Form state
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    bio: "",
-    phone: "",
+    name: "",
+    age: "",
     dateOfBirth: "",
     location: "",
     website: "",
-    theme: "light",
-    notifications: true,
-    newsletter: false,
-  })
-
-  // Debug logging
-  console.log("Profile Page Debug:", {
-    status,
-    session: session ? "exists" : "null",
-    profile: profile ? "exists" : "null",
-    isLoading,
-    error
+    newPassword: "",
+    confirmPassword: "",
   })
 
   useEffect(() => {
-    console.log("useEffect triggered:", { status })
-
-    if (status === "unauthenticated") {
-      console.log("User not authenticated, redirecting to signin")
-      router.push("/auth/signin")
-      return
-    }
-
-    if (status === "authenticated") {
-      console.log("User authenticated, fetching profile")
+    ;(async () => {
+      const { data } = await supabase.auth.getUser()
+      if (!data.user) {
+        router.push("/auth/signin")
+        return
+      }
       fetchProfile()
-    }
-  }, [status, router])
+    })()
+  }, [router])
 
   const fetchProfile = async () => {
     console.log("Fetching profile...")
     try {
-      const response = await fetch("/api/profile")
+      const response = await fetch("/api/profile", { cache: "no-store" })
       console.log("Profile API response:", response.status, response.ok)
 
       if (response.ok) {
         const data = await response.json()
         console.log("Profile data received:", data)
-        setProfile(data.user)
+         setProfile(data.user)
         setFormData({
-          firstName: data.user.firstName || "",
-          lastName: data.user.lastName || "",
-          bio: data.user.bio || "",
-          phone: data.user.phone || "",
+          name: data.user.name || "",
+          age: data.user.dateOfBirth ? String(calculateAge(data.user.dateOfBirth)) : "",
           dateOfBirth: data.user.dateOfBirth ? data.user.dateOfBirth.split('T')[0] : "",
-          location: data.user.location || "",
-          website: data.user.website || "",
-          theme: data.user.theme || "light",
-          notifications: data.user.notifications,
-          newsletter: data.user.newsletter,
+          location: "",
+          website: "",
+          newPassword: "",
+          confirmPassword: "",
         })
         setError("") // Clear any previous errors
       } else {
@@ -220,7 +192,11 @@ export default function ProfilePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name || undefined,
+          age: formData.age ? Number(formData.age) : undefined,
+          password: formData.newPassword && formData.newPassword === formData.confirmPassword ? formData.newPassword : undefined,
+        }),
       })
 
       const data = await response.json()
@@ -229,12 +205,9 @@ export default function ProfilePage() {
         setProfile(data.user)
         setSuccess("Profile updated successfully!")
         setIsEditing(false)
+        setFormData(prev => ({ ...prev, newPassword: "", confirmPassword: "" }))
         // Update session if name changed
-        if (formData.firstName || formData.lastName) {
-          await update({
-            name: `${formData.firstName} ${formData.lastName}`.trim()
-          })
-        }
+        // no session update needed; reads from API
       } else {
         setError(data.error || "Failed to update profile")
       }
@@ -247,26 +220,21 @@ export default function ProfilePage() {
 
   const handleCancel = () => {
     if (profile) {
-      setFormData({
-        firstName: profile.firstName || "",
-        lastName: profile.lastName || "",
-        bio: profile.bio || "",
-        phone: profile.phone || "",
+      setFormData(prev => ({
+        ...prev,
+        name: profile.name || "",
+        age: profile.dateOfBirth ? String(calculateAge(profile.dateOfBirth)) : "",
         dateOfBirth: profile.dateOfBirth ? profile.dateOfBirth.split('T')[0] : "",
-        location: profile.location || "",
-        website: profile.website || "",
-        theme: profile.theme || "light",
-        notifications: profile.notifications,
-        newsletter: profile.newsletter,
-      })
+      }))
     }
     setIsEditing(false)
     setError("")
     setSuccess("")
   }
 
-  const handleSignOut = () => {
-    signOut({ callbackUrl: "/" })
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    router.push("/auth/signin")
   }
 
   const handleInterestToggle = (interest: string) => {
@@ -293,7 +261,7 @@ export default function ProfilePage() {
     window.open('https://www.thinkround.org/subscribe', '_blank')
   }
 
-  if (status === "loading" || isLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-100 via-purple-100 to-blue-50 pt-24 pb-8 flex items-center justify-center">
         <div className="text-center">
@@ -307,18 +275,7 @@ export default function ProfilePage() {
     )
   }
 
-  if (!session) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-purple-100 to-blue-50">
-        <div className="text-center">
-          <p className="text-slate-600 mb-4">Please sign in to view your profile</p>
-          <Button onClick={() => router.push("/auth/signin")}>
-            Sign In
-          </Button>
-        </div>
-      </div>
-    )
-  }
+  // Supabase handles redirect in effect
 
   if (!profile && !isLoading) {
     return (
@@ -390,7 +347,7 @@ export default function ProfilePage() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold mb-2">
-                  Welcome to ThinkxLife, {formData.firstName || profile?.name || "Friend"}! 🎉
+                  Welcome to ThinkxLife, {formData.name || profile?.name || "Friend"}! 🎉
                 </h2>
                 <p className="text-purple-100 text-lg">
                   Thank you for creating your account! By joining ThinkxLife, you're now a valued member of
@@ -454,23 +411,20 @@ export default function ProfilePage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <Avatar className="w-16 h-16">
-                      <AvatarImage src={session.user?.image || ""} />
+                      <AvatarImage src={undefined as any} />
                       <AvatarFallback className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-lg">
-                        {getInitials(session.user?.name)}
+                        {getInitials(profile?.name)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <CardTitle className="text-xl">
-                        {profile?.firstName && profile?.lastName
-                          ? `${profile.firstName} ${profile.lastName}`
-                          : profile?.name || "User"
-                        }
-                        {userAge && (
+             <CardTitle className="text-xl">
+               {profile?.name || "User"}
+               {userAge && (
                           <span className="text-sm font-normal text-slate-500 ml-2">
                             (Age {userAge})
                           </span>
-                        )}
-                      </CardTitle>
+               )}
+             </CardTitle>
                       <CardDescription className="flex items-center gap-2">
                         <Mail className="w-4 h-4" />
                         {profile?.email}
@@ -499,63 +453,24 @@ export default function ProfilePage() {
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
+                    <Label htmlFor="name">Name</Label>
                     <Input
-                      id="firstName"
-                      value={formData.firstName}
-                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                      id="name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       disabled={!isEditing}
                       className="border-purple-200 focus:border-purple-400"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
+                    <Label htmlFor="age">Age</Label>
                     <Input
-                      id="lastName"
-                      value={formData.lastName}
-                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      disabled={!isEditing}
-                      className="border-purple-200 focus:border-purple-400"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="bio">Bio</Label>
-                  <Textarea
-                    id="bio"
-                    value={formData.bio}
-                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                    disabled={!isEditing}
-                    placeholder="Tell us about yourself..."
-                    className="border-purple-200 focus:border-purple-400 min-h-[100px]"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="flex items-center gap-2">
-                      <Phone className="w-4 h-4" />
-                      Phone
-                    </Label>
-                    <Input
-                      id="phone"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      disabled={!isEditing}
-                      className="border-purple-200 focus:border-purple-400"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="dateOfBirth" className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      Date of Birth
-                    </Label>
-                    <Input
-                      id="dateOfBirth"
-                      type="date"
-                      value={formData.dateOfBirth}
-                      onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                      id="age"
+                      type="number"
+                      min={1}
+                      max={120}
+                      value={formData.age}
+                      onChange={(e) => setFormData({ ...formData, age: e.target.value })}
                       disabled={!isEditing}
                       className="border-purple-200 focus:border-purple-400"
                     />
@@ -564,73 +479,36 @@ export default function ProfilePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="location" className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      Location
-                    </Label>
+                    <Label htmlFor="newPassword">New Password</Label>
                     <Input
-                      id="location"
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                      id="newPassword"
+                      type="password"
+                      placeholder="Set a new password (min 6 chars)"
+                      value={formData.newPassword}
+                      onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
                       disabled={!isEditing}
                       className="border-purple-200 focus:border-purple-400"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="website" className="flex items-center gap-2">
-                      <Globe className="w-4 h-4" />
-                      Website
-                    </Label>
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
                     <Input
-                      id="website"
-                      value={formData.website}
-                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Confirm new password"
+                      value={formData.confirmPassword}
+                      onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                       disabled={!isEditing}
-                      placeholder="https://..."
                       className="border-purple-200 focus:border-purple-400"
                     />
                   </div>
                 </div>
 
-                {/* Interests Section */}
-                {isEditing && (
-                  <div className="space-y-4">
-                    <Label className="text-lg font-semibold flex items-center gap-2">
-                      <Lightbulb className="w-5 h-5" />
-                      Your Interests
-                    </Label>
-                    <p className="text-sm text-slate-600">
-                      Select areas that interest you to help us connect you with relevant programs and opportunities.
-                    </p>
+                
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {interestCategories.map((category) => (
-                        <Card key={category.category} className="border-purple-200/50">
-                          <CardHeader className="pb-3">
-                            <CardTitle className="text-sm flex items-center gap-2">
-                              <category.icon className="w-4 h-4 text-purple-600" />
-                              {category.category}
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent className="space-y-2">
-                            {category.interests.map((interest) => (
-                              <div key={interest} className="flex items-center space-x-2">
-                                <Checkbox
-                                  id={interest}
-                                  checked={selectedInterests.includes(interest)}
-                                  onCheckedChange={() => handleInterestToggle(interest)}
-                                />
-                                <Label htmlFor={interest} className="text-sm">
-                                  {interest}
-                                </Label>
-                              </div>
-                            ))}
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                
+
+                
 
                 {isEditing && (
                   <div className="flex gap-4 pt-4">
@@ -672,70 +550,13 @@ export default function ProfilePage() {
                   Account Settings
                 </CardTitle>
                 <CardDescription>
-                  Manage your preferences and account settings
+                  Manage your account settings
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label className="flex items-center gap-2">
-                        <Bell className="w-4 h-4" />
-                        Email Notifications
-                      </Label>
-                      <p className="text-sm text-slate-600">
-                        Receive email notifications about your account activity
-                      </p>
-                    </div>
-                    <Switch
-                      checked={formData.notifications}
-                      onCheckedChange={(checked) => setFormData({ ...formData, notifications: checked })}
-                      disabled={!isEditing}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label className="flex items-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        Newsletter
-                      </Label>
-                      <p className="text-sm text-slate-600">
-                        Subscribe to our newsletter for updates and news
-                      </p>
-                    </div>
-                    <Switch
-                      checked={formData.newsletter}
-                      onCheckedChange={(checked) => setFormData({ ...formData, newsletter: checked })}
-                      disabled={!isEditing}
-                    />
-                  </div>
-                </div>
+                
 
-                {/* Think Round Newsletter Subscription */}
-                <div className="border-t border-purple-200/30 pt-6">
-                  <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200/50">
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between">
-                        <div className="space-y-1">
-                          <Label className="flex items-center gap-2 text-purple-700 font-semibold">
-                            <Heart className="w-4 h-4" />
-                            Think Round, Inc. Newsletter
-                          </Label>
-                          <p className="text-sm text-slate-600">
-                            Stay connected with Think Round's community programs, art exhibitions, and events
-                          </p>
-                        </div>
-                        <Button
-                          onClick={handleNewsletterSubscribe}
-                          className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-                        >
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Subscribe
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+                
 
                 {isEditing && (
                   <div className="flex gap-4 pt-4">

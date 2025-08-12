@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth"
+import { randomUUID } from "crypto"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import GoogleProvider from "next-auth/providers/google"
-import GitHubProvider from "next-auth/providers/github"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { prisma } from "./prisma"
@@ -18,6 +18,7 @@ declare module "next-auth" {
 }
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   providers: [
     // Only include OAuth providers if environment variables are present
@@ -25,12 +26,6 @@ export const authOptions: NextAuthOptions = {
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      })
-    ] : []),
-    ...(process.env.GITHUB_ID && process.env.GITHUB_SECRET ? [
-      GitHubProvider({
-        clientId: process.env.GITHUB_ID,
-        clientSecret: process.env.GITHUB_SECRET,
       })
     ] : []),
     CredentialsProvider({
@@ -113,6 +108,24 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string
       }
       return session
+    },
+  },
+  events: {
+    async createUser({ user }) {
+      try {
+        // Create a minimal Profile on first OAuth signup
+        await prisma.profile.create({
+          data: {
+            id: randomUUID(),
+            userId: user.id,
+            privacy: 'public',
+            updatedAt: new Date(),
+          },
+        })
+      } catch (error) {
+        // Ignore if profile already exists or table is not ready
+        console.warn('[auth] createUser profile creation skipped:', (error as Error)?.message)
+      }
     },
   },
 }

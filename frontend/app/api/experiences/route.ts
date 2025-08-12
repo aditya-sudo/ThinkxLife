@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../../../lib/auth"
+// NextAuth removed
 import { prisma } from "../../../lib/prisma"
 import { z } from "zod"
 
@@ -74,7 +73,7 @@ export async function GET(request: NextRequest) {
 // POST /api/experiences - Submit a new experience
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
+    const session = null
     const body = await request.json()
 
     // Validate the submission
@@ -83,7 +82,7 @@ export async function POST(request: NextRequest) {
     // Create the experience
     const experience = await (prisma as any).experience.create({
       data: {
-        userId: session?.user?.id || null, // Optional user association
+        userId: null,
         name: validatedData.name,
         email: validatedData.email || null,
         title: validatedData.title || null,
