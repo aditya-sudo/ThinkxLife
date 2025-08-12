@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { getAuthUser, hasRole, isTeamLead, logAudit } from "@/lib/auth-middleware";
+import { getAuthUser, hasRole, isTeamLead, logAudit } from "../../../../../../lib/auth-middleware";
 import { prisma } from "@/lib/prisma";
 
 const addMemberSchema = z.object({
