@@ -251,6 +251,14 @@ async def zoe_chat_endpoint(
         session_id = request.get("session_id")
         user_context = request.get("user_context", {})
         
+        # Check ACE score restriction - prevent chat access for scores >= 4
+        ace_score = user_context.get("ace_score", 0)
+        if ace_score >= 4:
+            raise HTTPException(
+                status_code=403, 
+                detail="Chat access is restricted for your safety. Please contact info@thinkround.org to learn more about our Trauma Transformation Training program."
+            )
+        
         # Validate required fields
         if not message or not message.strip():
             raise HTTPException(status_code=400, detail="Message is required and cannot be empty")
@@ -397,6 +405,16 @@ async def legacy_chat_endpoint(
         session_id = request.get("session_id")
         user_context = request.get("user_context", {})
         
+        # Check ACE score restriction - prevent chat access for scores >= 4
+        ace_score = user_context.get("ace_score", 0)
+        if ace_score >= 4:
+            return {
+                "response": "Chat access is restricted for your safety. Please contact info@thinkround.org to learn more about our Trauma Transformation Training program.",
+                "success": False,
+                "error": "ACE score restriction",
+                "restricted": True,
+                "timestamp": datetime.now().isoformat()
+            }
 
         
         # Validate required fields
